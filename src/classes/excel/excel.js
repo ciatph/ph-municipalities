@@ -30,6 +30,12 @@ class ExcelFile {
    */
   #datalist = []
 
+  /** Internal excel file column name read by sheetjs.
+   *  This column contains strings following the pattern
+   *      "municipalityName (provinceName)"
+   */
+  #SHEETJS_COL = process.env.SHEETJS_COLUMN || '__EMPTY'
+
   /**
    * Initialize an ExcelFile object
    * @param {String} url - Remote download URL of an excel file
@@ -62,8 +68,8 @@ class ExcelFile {
    */
   async init () {
     if (this.#url !== null && this.#pathToFile !== null) {
-      // Download from remote URL
       try {
+        // Download from remote URL
         await this.download()
       } catch (errMsg) {
         throw new Error(errMsg)
@@ -71,8 +77,12 @@ class ExcelFile {
     }
 
     if (this.#url === null && this.#pathToFile !== null) {
-      // Download from file
-      this.load()
+      try {
+        // Download from file
+        this.load()
+      } catch (err) {
+        throw new Error(err.message)
+      }
     }
   }
 
@@ -90,9 +100,9 @@ class ExcelFile {
 
       // Extract the municipality and province names
       this.#datalist = this.#data.reduce((acc, row) => {
-        if (row.__EMPTY !== undefined && this.followsStringPattern(row.__EMPTY)) {
-          const municipality = this.getMunicipalityName(row.__EMPTY)
-          const province = this.getProvinceName(row.__EMPTY)
+        if (row[this.#SHEETJS_COL] !== undefined && this.followsStringPattern(row[this.#SHEETJS_COL])) {
+          const municipality = this.getMunicipalityName(row[this.#SHEETJS_COL])
+          const province = this.getProvinceName(row[this.#SHEETJS_COL])
 
           if (province !== null) {
             acc.push({
@@ -106,6 +116,10 @@ class ExcelFile {
       }, [])
 
       console.log(`Loaded ${this.#data.length} rows`)
+
+      if (this.#datalist.length === 0) {
+        throw new Error('Failed to load data. Please check the SHEETJS_COLUMN name.')
+      }
     } catch (err) {
       throw new Error(err.message)
     }

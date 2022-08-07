@@ -5,12 +5,13 @@ const path = require('path')
 const main = async () => {
   const file = new ExcelFile({
     pathToFile: path.resolve(__dirname, '..', 'data', 'day1.xlsx')
+    // url: process.env.EXCEL_FILE_URL
   })
 
   try {
-    file.init()
+    await file.init()
   } catch (err) {
-    console.log(err.message)
+    console.log(`[ERROR]: ${err.message}`)
   }
 }
 
