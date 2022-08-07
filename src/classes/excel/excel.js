@@ -14,14 +14,21 @@ class ExcelFile {
   /** Full file path to excel file on local storage */
   #pathToFile = null
 
-  /** Excel workbook parsed by sheetjs */
+  /** Excel workbook object parsed by sheetjs */
   #workbook = null
 
   /** Excel sheet names parsed by sheetjs */
   #sheets = null
 
-  /** JSON data extracted from an excel sheet by sheetjs */
+  /** Objects[] Array corresponding to excel rows extracted from the excel sheet by sheetjs */
   #data = null
+
+  /** Object[] Array of processed string corresponding to the column in the excel file
+   *  that contains the list of municipalities following the pattern:
+   *  "municipalityName (provinceName)"
+   * Content: [{ municipality, province }, ... ]
+   */
+  #datalist = []
 
   /**
    * Initialize an ExcelFile object
@@ -77,13 +84,37 @@ class ExcelFile {
     try {
       this.#workbook = XLSX.readFile(this.#pathToFile)
       this.#sheets = this.#workbook.SheetNames
+
+      // Set data excel row data as Objects
       this.#data = XLSX.utils.sheet_to_json(this.#workbook.Sheets[this.#sheets[0]])
+
+      // Extract the municipality and province names
+      this.#datalist = this.#data.reduce((acc, row) => {
+        if (row.__EMPTY !== undefined && this.followsStringPattern(row.__EMPTY)) {
+          const municipality = this.getMunicipalityName(row.__EMPTY)
+          const province = this.getProvinceName(row.__EMPTY)
+
+          if (province !== null) {
+            acc.push({
+              municipality: municipality.trim(),
+              province
+            })
+          }
+        }
+
+        return acc
+      }, [])
+
       console.log(`Loaded ${this.#data.length} rows`)
     } catch (err) {
       throw new Error(err.message)
     }
   }
 
+  /**
+   * Downloads a remote excel file to this.#pathToFile
+   * and loads sheetjs parsed-content
+   */
   download () {
     try {
       const file = fs.createWriteStream(this.#pathToFile)
@@ -108,9 +139,43 @@ class ExcelFile {
     }
   }
 
-  // Return the excel data converted to JSON objects
-  get data () {
-    return this.#data
+  /**
+   * Checks if a string follows the pattern:
+   *    "municipalityName (provinceName)"
+   * @param {String} str - String to check
+   * @returns {Bool} true | false
+   */
+  followsStringPattern (str) {
+    return /[a-zA-z] *\([^)]*\) */.test(str)
+  }
+
+  /**
+   * Extract the municipality name from a string following the pattern:
+   *    "municipalityName (provinceName)"
+   * @param {String} str
+   * @returns {String} municipality name
+   */
+  getMunicipalityName (str) {
+    return str.replace(/ *\([^)]*\) */g, '')
+  }
+
+  /**
+   * Extract the province name from a string following the pattern:
+   *    "municipalityName (provinceName)"
+   * @param {String} str
+   * @returns {String} province name
+   * @returns {null} Returns null if "provinceName" is not found
+   */
+  getProvinceName (str) {
+    const match = str.match(/\(([^)]+)\)/)
+    return (match !== null)
+      ? match[1]
+      : match
+  }
+
+  // Return the processed Object array of municipality and province names
+  get datalist () {
+    return this.#datalist
   }
 }
 
