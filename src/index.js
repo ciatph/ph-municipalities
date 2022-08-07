@@ -18,10 +18,13 @@ const main = async () => {
 
   try {
     // List the provinces of a target region
-    const provinces = regions.find(x => x.abbrev === 'Bicol').provinces
+    const provinces = regions.data.find(x => x.abbrev === 'Bicol').provinces
 
-    // Filter the municipalities of selected region-provinces
-    const municipalities = file.listMunicipalities({ provinces })
+    // List the municipalities of selected region-provinces
+    const municipalities = file.writeMunicipalities({
+      provinces,
+      fileName: path.resolve(__dirname, '..', 'municipalities_list.json')
+    })
 
     // Write logs to console
     let count = 0

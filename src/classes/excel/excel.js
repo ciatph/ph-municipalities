@@ -1,5 +1,6 @@
 const https = require('https')
 const fs = require('fs')
+const path = require('path')
 const XLSX = require('xlsx')
 
 /**
@@ -225,6 +226,35 @@ class ExcelFile {
         acc[item.province].push(item.municipality)
         return { ...acc }
       }, {})
+  }
+
+  /**
+   * Writes queried municipalities data to a JSON file.
+   * Lists municipalities by by provinces.
+   * @param {String} provinces - Array of case-sensitive province names. Starts with an upper case.
+   * @param {String} filName - Full file path to a JSON file
+   * @param {Bool} prettify - Write the JSON content with proper spacings and newlines
+   * @returns
+   */
+  writeMunicipalities ({ provinces, fileName, prettify = false }) {
+    if (!fileName) {
+      fileName = path.resolve(__dirname, '..', '..', '..', 'municipalities.json')
+    }
+
+    try {
+      // List the municipalities
+      const municipalities = this.listMunicipalities({ provinces })
+      const json = (prettify)
+        ? JSON.stringify(municipalities, null, 2)
+        : JSON.stringify(municipalities)
+
+      // Write results to a JSON file
+      fs.writeFileSync(fileName, json,'utf-8')
+
+      return municipalities
+    } catch (err) {
+      throw new Error(err.message)
+    }
   }
 }
 
