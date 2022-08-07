@@ -52,7 +52,7 @@ try {
 }
 
 // JSON data of the parsed excel file will be accessible on
-// file.data
+// file.datalist
 ```
 
 ### Download and Parse a Remote Excel File
@@ -76,7 +76,7 @@ const main = async () => {
   }
 
   // JSON data of the parsed excel file will be accessible on
-  // file.data
+  // file.datalist
 }
 
 main()

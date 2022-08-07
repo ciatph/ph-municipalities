@@ -1,6 +1,7 @@
 require('dotenv').config()
-const { ExcelFile } = require('./classes/excel')
 const path = require('path')
+const { ExcelFile } = require('./classes/excel')
+const regions = require('../data/regions.json')
 
 const main = async () => {
   const file = new ExcelFile({
@@ -9,7 +10,30 @@ const main = async () => {
   })
 
   try {
+    // Load formatted data from the excel file
     await file.init()
+  } catch (err) {
+    console.log(`[ERROR]: ${err.message}`)
+  }
+
+  try {
+    // List the provinces of a target region
+    const provinces = regions.find(x => x.abbrev === 'Bicol').provinces
+
+    // Filter the municipalities of selected region-provinces
+    const municipalities = file.listMunicipalities({ provinces })
+
+    // Write logs to console
+    let count = 0
+    let stats = '\nPROVINCES:\n'
+
+    for (const province in municipalities) {
+      count += municipalities[province].length
+      stats += `${province}: ${municipalities[province].length}, ${municipalities[province].toString()}\n\n`
+    }
+
+    console.log(stats)
+    console.log(`total: ${count}`)
   } catch (err) {
     console.log(`[ERROR]: ${err.message}`)
   }

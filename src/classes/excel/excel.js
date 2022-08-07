@@ -53,6 +53,10 @@ class ExcelFile {
       throw new Error('Missing pathToFile.')
     }
 
+    if (!pathToFile.includes('.xlsx')) {
+      throw new Error('pathToFile should contain an excel file name ending in .xlsx')
+    }
+
     // Set the local excel file path
     this.#pathToFile = pathToFile
 
@@ -187,9 +191,40 @@ class ExcelFile {
       : match
   }
 
-  // Return the processed Object array of municipality and province names
+  // Return the processed Object array (masterlist) of municipality and province names
   get datalist () {
     return this.#datalist
+  }
+
+  /**
+   * List the municipalities of given province(s)
+   * @param {String[]} provinces - Array of case-sensitive province names. Starts with an upper case.
+   * @returns {Object} Returns an object with the format:
+   *    [
+   *      { province1: ['municipality1', 'municipality2', .... ] },
+   *      { province2: ['municipality1', 'municipality2', .... ] },
+   *      ...
+   *    ]
+   */
+  listMunicipalities ({ provinces }) {
+    if (this.#datalist.length === 0) {
+      throw new Error('No data to parse.')
+    }
+
+    if (provinces === undefined) {
+      throw new Error('Missing the provinces parameter.')
+    }
+
+    return this.#datalist
+      .filter(item => provinces.includes(item.province))
+      .reduce((acc, item) => {
+        if (acc[item.province] === undefined) {
+          acc[item.province] = []
+        }
+
+        acc[item.province].push(item.municipality)
+        return { ...acc }
+      }, {})
   }
 }
 
