@@ -1,7 +1,6 @@
 const https = require('https')
 const fs = require('fs')
 const EventEmitter = require('events')
-const path = require('path')
 const XLSX = require('xlsx')
 
 /**
@@ -253,7 +252,7 @@ class ExcelFile {
    */
   writeMunicipalities ({ provinces, fileName, prettify = false }) {
     if (!fileName) {
-      fileName = path.resolve(__dirname, '..', '..', '..', 'municipalities.json')
+      throw new Error('Please enter a filename ending in .json')
     }
 
     try {
