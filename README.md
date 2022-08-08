@@ -57,7 +57,7 @@ The following dependencies are used for this project. Feel free to use other dep
 
 - Load and parse the local excel file in `/data/day1.xlsx`.
 - Displays a list of available PH **region** names.
-- Lists all municipalities under the province of a specified region via commandline input.
+- Lists all provinces and municipalities of a specified region via commandline input.
 - Asks for an option to write results to a JSON file.
 
 ### `npm run list:province`
