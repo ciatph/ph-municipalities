@@ -4,6 +4,25 @@
 
 It uses `/data/day1.xlsx` (downloaded and stored as of this 20220808) from PAGASA's [10-day weather forecast excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the data source.
 
+Extracted municipalities are written in JSON files following the format:
+
+```
+{
+    "metadata": {
+        "source": "https://pubfiles.pagasa.dost.gov.ph/pagasaweb/files/climate/tendayweatheroutlook/day1.xlsx",
+        "title": "List of PH Municipalities By Province and Region",
+        "description": "This dataset generated with reference to the excel file contents from the source URL on 20220808.",
+        "date_created": "Mon Aug 08 2022"
+    },
+    "data": {
+        "Albay": ["Bacacay", "Camalig", ... ],
+        "Camarines Norte": ["Basud", "Capalonga", ... ],
+        "Camarines Sur": ["Baao", "Balatan", ... ],
+         ...
+    }
+}
+```
+
 ## Requirements
 
 The following dependencies are used for this project. Feel free to use other dependency versions as needed.
