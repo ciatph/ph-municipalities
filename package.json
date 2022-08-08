@@ -1,0 +1,43 @@
+{
+  "name": "municipalities-by-province",
+  "version": "1.0.0",
+  "description": "Extract the `municipalities` of a given `province` from an excel file and write them in a JSON file.",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run list:region",
+    "list:province": "node src/scripts/by_province.js",
+    "list:region": "node src/scripts/by_region.js",
+    "example": "node src/scripts/sample_usage.js",
+    "build:win:region": "npx pkg ./src/scripts/by_region.js -c package.json --compress GZip -o ./dist/ph-regions",
+    "build:win:province": "npx pkg ./src/scripts/by_province.js -c package.json --compress GZip -o ./dist/ph-provinces",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ciatph/municipalities-by-province.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ciatph/municipalities-by-province/issues"
+  },
+  "homepage": "https://github.com/ciatph/municipalities-by-province#readme",
+  "devDependencies": {
+    "eslint": "^8.21.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "pkg": "^5.8.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.18.10/xlsx-0.18.10.tgz"
+  },
+  "pkg": {
+    "assets": ["data/*"],
+    "targets": ["node16-win-x64"],
+    "outputPath": "./dist"
+  }
+}
