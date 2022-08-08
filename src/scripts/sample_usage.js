@@ -1,12 +1,12 @@
 require('dotenv').config()
 const path = require('path')
-const { ExcelFile } = require('./classes/excel')
-const regions = require('../data/regions.json')
+const { ExcelFile } = require('../classes/excel')
+const regions = require('../../data/regions.json')
 
 const main = async () => {
   const file = new ExcelFile({
-    pathToFile: path.resolve(__dirname, '..', 'data', 'day1.xlsx')
-    // url: process.env.EXCEL_FILE_URL
+    pathToFile: path.resolve(__dirname, '..', '..', 'data', 'temp.xlsx'),
+    url: process.env.EXCEL_FILE_URL
   })
 
   try {
@@ -23,7 +23,7 @@ const main = async () => {
     // List the municipalities of selected region-provinces
     const municipalities = file.writeMunicipalities({
       provinces,
-      fileName: path.resolve(__dirname, '..', 'municipalities_list.json')
+      fileName: path.resolve(__dirname, '..', '..', 'municipalities_list.json')
     })
 
     // Write logs to console

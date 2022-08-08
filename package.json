@@ -4,7 +4,10 @@
   "description": "Extract the `municipalities` of a given `province` from an excel file and write them in a JSON file.",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "npm run list:region",
+    "list:province": "node src/scripts/by_province.js",
+    "list:region": "node src/scripts/by_region.js",
+    "example": "node src/scripts/sample_usage.js",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix"
   },

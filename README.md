@@ -84,9 +84,23 @@ main()
 
 ## Available Scripts
 
-### `npm start`
+### `npm start` / `npm run list:region`
 
-Load and parse a local excel file in the `/data` directory.
+- Load and parse the local excel file in `/data/day1.xlsx`.
+- Displays a list of available PH **region** names.
+- Lists all municipalities under the province of a specified region via commandline input.
+- Asks for an option to write results to a JSON file.
+
+### `npm run list:province`
+
+- Load and parse the local excel file in `/data/day1.xlsx`.
+- Lists all municipalities under specified province(s) via commandline input.
+- Asks for an option to write results to a JSON file.
+
+### `npm run example`
+
+- Downloads and parses a remote excel file.
+- Demonstrates sample usage with `await`
 
 ### `npm run lint`
 
