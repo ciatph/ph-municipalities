@@ -1,0 +1,73 @@
+name: Package Windows Binaries
+
+# This workflow will trigger on any tag/release created on *any* branch
+# Make sure to create tags/releases only from the "master" branch for consistency
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-on-win:
+    name: Lint and Package App
+    runs-on: windows-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Use NodeJS v16.14.2
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.14.2
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+
+      - name: Install Dependencies and lint
+        run: |
+          npm install
+          npm run lint
+
+      - name: Packge and archive the executable files
+        run: |
+          npm run build:win:all
+
+      - name: Archive Development Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: |
+            dist/ph-regions-win.exe
+            dist/ph-provinces-win.exe
+          retention-days: 1
+
+  release:
+    name: Release Built Binary
+    needs: build-on-win
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+
+      - name: Prepare App
+        run: |
+          mv dist/ph-provinces-win.exe dist/ph-provinces-win_${{github.ref_name}}.exe
+          mv dist/ph-regions-win.exe dist/ph-regions-win_${{github.ref_name}}.exe
+          tar cvfz ph-regions-win_${{github.ref_name}}.tar.gz dist/ph-regions-win_${{github.ref_name}}.exe
+          tar cvfz ph-provinces-win_${{github.ref_name}}.tar.gz dist/ph-provinces-win_${{github.ref_name}}.exe
+          ls -l -a
+      - name: Attach Artifact to Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            ph-regions-win_${{github.ref_name}}.tar.gz
+            ph-provinces-win_${{github.ref_name}}.tar.gz
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
