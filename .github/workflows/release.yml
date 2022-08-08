@@ -61,10 +61,10 @@ jobs:
 
       - name: Prepare App
         run: |
-          mv dist/ph-provinces-win.exe dist/ph-provinces-win_${{github.ref_name}}.exe
-          mv dist/ph-regions-win.exe dist/ph-regions-win_${{github.ref_name}}.exe
-          tar cvfz ph-regions-win_${{github.ref_name}}.tar.gz dist/ph-regions-win_${{github.ref_name}}.exe
-          tar cvfz ph-provinces-win_${{github.ref_name}}.tar.gz dist/ph-provinces-win_${{github.ref_name}}.exe
+          mv ph-provinces-win.exe ph-provinces-win_${{github.ref_name}}.exe
+          mv ph-regions-win.exe ph-regions-win_${{github.ref_name}}.exe
+          tar cvfz ph-regions-win_${{github.ref_name}}.tar.gz ph-regions-win_${{github.ref_name}}.exe
+          tar cvfz ph-provinces-win_${{github.ref_name}}.tar.gz ph-provinces-win_${{github.ref_name}}.exe
           ls -l -a
       - name: Attach Artifact to Release
         uses: softprops/action-gh-release@v1
