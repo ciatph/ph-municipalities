@@ -1,5 +1,6 @@
 const https = require('https')
 const fs = require('fs')
+const EventEmitter = require('events')
 const path = require('path')
 const XLSX = require('xlsx')
 
@@ -36,6 +37,14 @@ class ExcelFile {
    *      "municipalityName (provinceName)"
    */
   #SHEETJS_COL = process.env.SHEETJS_COLUMN || '__EMPTY'
+
+  /** Event emitter for listening to custom events */
+  events = new EventEmitter()
+
+  /** List of EventEmitter events */
+  EVENTS = {
+    LOADED: 'loaded'
+  }
 
   /**
    * Initialize an ExcelFile object
@@ -76,6 +85,7 @@ class ExcelFile {
       try {
         // Download from remote URL
         await this.download()
+        this.events.emit(this.EVENTS.LOADED)
       } catch (errMsg) {
         throw new Error(errMsg)
       }
@@ -83,8 +93,13 @@ class ExcelFile {
 
     if (this.#url === null && this.#pathToFile !== null) {
       try {
-        // Download from file
+        // Read from file
         this.load()
+
+        // Add a slight delay before emmiting the loaded event
+        setTimeout(() => {
+          this.events.emit(this.EVENTS.LOADED)
+        }, 300)
       } catch (err) {
         throw new Error(err.message)
       }
@@ -244,12 +259,22 @@ class ExcelFile {
     try {
       // List the municipalities
       const municipalities = this.listMunicipalities({ provinces })
+      const str = {
+        metadata: {
+          source: process.env.EXCEL_FILE_URL,
+          title: 'List of PH Municipalities By Province and Region',
+          description: 'This dataset generated with reference to the excel file contents from the source URL.',
+          date_created: new Date().toDateString()
+        },
+        data: municipalities
+      }
+
       const json = (prettify)
-        ? JSON.stringify(municipalities, null, 2)
-        : JSON.stringify(municipalities)
+        ? JSON.stringify(str, null, 2)
+        : JSON.stringify(str)
 
       // Write results to a JSON file
-      fs.writeFileSync(fileName, json,'utf-8')
+      fs.writeFileSync(fileName, json, 'utf-8')
 
       return municipalities
     } catch (err) {
