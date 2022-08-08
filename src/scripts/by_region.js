@@ -36,7 +36,9 @@ PHExcel.events.on(PHExcel.EVENTS.LOADED, async () => {
 
         if (write === 'Y') {
           const fileName = await prompt('\nEnter the JSON filename: ')
-          const filePath = path.resolve(__dirname, '..', '..', fileName)
+
+          // Use process.cwd() to enable file paths when building with "pkg"
+          const filePath = path.join(process.cwd(), fileName)
 
           PHExcel.writeMunicipalities({
             provinces,

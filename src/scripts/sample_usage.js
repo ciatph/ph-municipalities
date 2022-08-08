@@ -5,7 +5,7 @@ const regions = require('../../data/regions.json')
 
 const main = async () => {
   const file = new ExcelFile({
-    pathToFile: path.resolve(__dirname, '..', '..', 'data', 'temp.xlsx'),
+    pathToFile: path.join(__dirname, '..', '..', 'data', 'temp.xlsx'),
     url: process.env.EXCEL_FILE_URL
   })
 
@@ -23,7 +23,7 @@ const main = async () => {
     // List the municipalities of selected region-provinces
     const municipalities = file.writeMunicipalities({
       provinces,
-      fileName: path.resolve(__dirname, '..', '..', 'municipalities_list.json')
+      fileName: path.join(__dirname, '..', '..', 'municipalities_list.json')
     })
 
     // Write logs to console
