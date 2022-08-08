@@ -8,8 +8,8 @@
     "list:province": "node src/scripts/by_province.js",
     "list:region": "node src/scripts/by_region.js",
     "example": "node src/scripts/sample_usage.js",
-    "build:win:region": "npx pkg ./src/scripts/by_region.js -c package.json --compress GZip -o ./dist/ph-regions",
-    "build:win:province": "npx pkg ./src/scripts/by_province.js -c package.json --compress GZip -o ./dist/ph-provinces",
+    "build:win:region": "npx pkg ./src/scripts/by_region.js -c package.json --compress GZip -o ./dist/ph-regions-win",
+    "build:win:province": "npx pkg ./src/scripts/by_province.js -c package.json --compress GZip -o ./dist/ph-provinces-win",
     "build:win:all": "npm run build:win:region && npm run build:win:province",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix"
