@@ -20,6 +20,7 @@ module.exports = {
     'linebreak-style': ['error', 'unix'],
     'quotes': ['error', 'single'],
     'semi': ['error', 'never'],
+    // 'no-console': ['error', { 'allow': ['error'] }]
     // 'no-unused-vars': 'off',
     // 'no-undef': 'off'
   }
