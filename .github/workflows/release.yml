@@ -29,6 +29,9 @@ jobs:
       - name: Install Dependencies and lint
         run: |
           npm install
+          git rm .eslintrc.js
+          # Quick hack to fix unix to windows linebreak-style lint errors
+          git mv .eslintrc_win.js .eslintrc.js
           npm run lint
 
       - name: Packge and archive the executable files
