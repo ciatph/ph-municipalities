@@ -1,6 +1,8 @@
-## municipalities-by-province
+## ph-municipalities
 
-Extract the `municipalities` of a given `province` from an excel file and write them to a JSON file.
+**ph-municipalities** have **npm scripts** that allow interactive querying of Philippines municipalities included in one or more provinces or from a whole region, with an option of writing them to JSON files from the command line.
+
+It uses `/data/day1.xlsx` (downloaded and stored as of this 20220808) from PAGASA's [10-day weather forecast excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the data source.
 
 ## Requirements
 
@@ -19,7 +21,7 @@ The following dependencies are used for this project. Feel free to use other dep
 
 ## Contents
 
-- [municipalities-by-province](#municipalities-by-province)
+- [ph-municipalities](#ph-municipalities)
 - [Requirements](#requirements)
 - [Contents](#contents)
 - [Installation](#installation)
@@ -29,12 +31,14 @@ The following dependencies are used for this project. Feel free to use other dep
   - [`npm run example`](#npm-run-example)
   - [`build:win:region`](#buildwinregion)
   - [`build:win:province`](#buildwinprovince)
+  - [`build:win:all`](#buildwinall)
   - [`npm run lint`](#npm-run-lint)
   - [`npm run lint:fix`](#npm-run-lintfix)
 - [Class Usage](#class-usage)
   - [Load and Parse a Local Excel File](#load-and-parse-a-local-excel-file)
   - [Download and Parse a Remote Excel File](#download-and-parse-a-remote-excel-file)
   - [Alternate Usage - Events](#alternate-usage---events)
+- [Building Standalone Windows Executables](#building-standalone-windows-executables)
 
 ## Installation
 
@@ -80,6 +84,11 @@ The following dependencies are used for this project. Feel free to use other dep
 
 - Package the Node.js project's `npm list:province` script into a stand-alone windows `node16-win-x64` executable.
 - The windows executable file will be stored in `/dist/ph-provinces-win.exe`. Click the executable file to run.
+
+### `build:win:all`
+
+- Package the Node.js project's `npm start` and `npm list:province` script into a stand-alone windows `node16-win-x64` executables in one go.
+- Each window executable file will be stored in the `/dist` directory.
 
 ### `npm run lint`
 
@@ -164,6 +173,18 @@ PHExcel.events.on(PHExcel.EVENTS.LOADED, async () => {
    console.log('Excel data loaded!')
 })
 ```
+
+## Building Standalone Windows Executables
+
+The main npm scripts can be packaged into standalone windows executables.
+
+1. Run any of the following scripts to build the programs.
+   ```
+   npm run build:win:region
+   npm run build:win:province
+   # npm run build:win:all
+   ```
+2. Click the resulting executable files in the `/dist` directory to execute.
 
 @ciatph<br>
 20220807
