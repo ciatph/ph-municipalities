@@ -1,0 +1,22 @@
+name: Lint Files
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  lint-app:
+    name: Lint App
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+      - name: Use NodeJS v16.14.2
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.14.2
+      - name: Install Dependencies and lint
+        run: |
+          npm install
+          npm run lint

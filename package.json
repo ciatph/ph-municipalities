@@ -37,7 +37,7 @@
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.18.10/xlsx-0.18.10.tgz"
   },
   "pkg": {
-    "assets": ["data/*"],
+    "assets": ["data/*", ".env*"],
     "targets": ["node16-win-x64"],
     "outputPath": "./dist"
   }
