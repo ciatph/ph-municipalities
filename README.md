@@ -92,6 +92,8 @@ The following dependencies are used for this project. Feel free to use other dep
 - Displays a list of available PH **region** names.
 - Lists all provinces and municipalities of a specified region via commandline input.
 - Asks for an option to write results to a JSON file.
+- Run the script as follows if installed using `npm i ph-municipalities`:
+   - `node .\node_modules\ph-municipalities\src\scripts\by_region.js`
 
 ### `npm run list:province`
 
@@ -100,6 +102,8 @@ The following dependencies are used for this project. Feel free to use other dep
   - Loads and parses the downloaded excel file in `/data/datasource.xlsx` if download URL input is provided.
 - Lists all municipalities under specified province(s) via commandline input.
 - Asks for an option to write results to a JSON file.
+- Run the script as follows if installed using `npm i ph-municipalities`:
+   - `node .\node_modules\ph-municipalities\src\scripts\by_province.js`
 
 ### `npm run example`
 

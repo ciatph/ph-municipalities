@@ -8,7 +8,7 @@ const regions = require('../../data/regions.json')
 // Lists all municipalities under the provinces of a region.
 const main = async () => {
   let exit = false
-  let ExcelHandler
+  let ExcelHandler = null
 
   while (!exit) {
     // Prompt to enter the download URL of a remote excel file or use the default local excel file

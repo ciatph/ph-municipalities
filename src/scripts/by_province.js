@@ -7,7 +7,7 @@ const selectDataSource = require('../lib/selector')
 // Lists all municipalities under the specified provinces.
 const main = async () => {
   let exit = false
-  let ExcelHandler
+  let ExcelHandler = null
 
   while (!exit) {
     // Prompt to enter the download URL of a remote excel file or use the default local excel file

@@ -266,9 +266,12 @@ class ExcelFile {
     try {
       // List the municipalities
       const municipalities = this.listMunicipalities({ provinces })
+
+      const url = (this.#url) ? this.#url : `local datasource cache from ${process.env.DEFAULT_EXCEL_FILE_URL}`
+
       const str = {
         metadata: {
-          source: process.env.EXCEL_FILE_URL || '',
+          source: url || '',
           title: 'List of PH Municipalities By Province and Region',
           description: 'This dataset generated with reference to the excel file contents from the source URL.',
           date_created: new Date().toDateString()
