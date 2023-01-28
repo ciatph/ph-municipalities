@@ -1,6 +1,6 @@
 const path = require('path')
 const prompt = require('./prompt')
-const ExcelFactory = require('./excelfactory')
+const ExcelFactory = require('../classes/excelfactory')
 
 /**
  * Prompts user to download a new excel file or use the static local excel file as data source
@@ -23,7 +23,7 @@ const selectDataSource = async () => {
         console.log(`Downloading file from ${url}...`)
 
         try {
-          ExcelHandler = ExcelFactory(url)
+          ExcelHandler = new ExcelFactory(url)
           await ExcelHandler.init()
           exit = true
 
@@ -34,7 +34,7 @@ const selectDataSource = async () => {
           exit = true
         }
       } else {
-        ExcelHandler = ExcelFactory()
+        ExcelHandler = new ExcelFactory()
         exit = true
         url = false
 

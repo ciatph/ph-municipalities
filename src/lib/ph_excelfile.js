@@ -4,7 +4,7 @@ require('dotenv').config({
   path: path.join(__dirname, '..', '..', '.env')
 })
 
-const { ExcelFile } = require('../classes/excel')
+const ExcelFile = require('../classes/excel')
 
 const PHExcel = new ExcelFile({
   // When pkg encounters path.join(__dirname, '../path/to/asset'),

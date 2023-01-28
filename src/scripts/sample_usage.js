@@ -1,6 +1,6 @@
 require('dotenv').config()
 const path = require('path')
-const { ExcelFile } = require('../classes/excel')
+const ExcelFile = require('../classes/excel')
 const regions = require('../../data/regions.json')
 
 const main = async () => {
