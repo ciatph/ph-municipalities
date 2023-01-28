@@ -137,9 +137,10 @@ class ExcelFile {
       }, [])
 
       console.log(`Loaded ${this.#data.length} rows`)
+      console.log(this.#datalist[0])
 
       if (this.#datalist.length === 0) {
-        throw new Error('Failed to load data. Please check the SHEETJS_COLUMN name.')
+        throw new Error('Failed to load data. Please check the SHEETJS_COLUMN name or the excel file contents.')
       }
     } catch (err) {
       throw new Error(err.message)
@@ -181,7 +182,7 @@ class ExcelFile {
    * @returns {Bool} true | false
    */
   followsStringPattern (str) {
-    return /[a-zA-z] *\([^)]*\) */.test(str)
+    return /[a-zA-z] *\([^)]*\) */.test(str) && str.length <= 30
   }
 
   /**

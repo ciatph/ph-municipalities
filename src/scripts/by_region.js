@@ -14,7 +14,7 @@ const main = async () => {
     // Prompt to enter the download URL of a remote excel file or use the default local excel file
     ExcelHandler = await selectDataSource()
 
-    if (ExcelHandler) {
+    if (ExcelHandler !== null) {
       // Display region abbreviations
       const regionNames = regions.data.map(region => region.name)
 
