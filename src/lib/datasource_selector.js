@@ -29,7 +29,7 @@ const selectDataSource = async () => {
 
           console.log(`\nUsing the file downloaded to ${pathToFile}\nas data source`)
         } catch (err) {
-          console.log(err.message)
+          console.log(`[ERROR] ${err.message}`)
           ExcelHandler = null
           exit = true
         }
@@ -37,6 +37,8 @@ const selectDataSource = async () => {
         ExcelHandler = ExcelFactory()
         exit = true
         url = false
+
+        console.log(`\nUsing the default local excel file ${ExcelHandler.pathToFile}\nas data source`)
       }
     }
   }
