@@ -1,7 +1,7 @@
 const path = require('path')
 const prompt = require('../lib/prompt')
 const { formatDisplay } = require('../lib/format_display')
-const selectDataSource = require('../lib/datasource_selector')
+const selectDataSource = require('../lib/selector')
 
 // Asks for a prompt to enter province names.
 // Lists all municipalities under the specified provinces.
