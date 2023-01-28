@@ -2,11 +2,13 @@
 
 **ph-municipalities** have **npm scripts** that allow interactive querying of Philippines municipalities included in one or more provinces or from a whole region, with an option of writing them to JSON files from the command line.
 
-It uses `/data/day1.xlsx` (downloaded and stored as of this 20220808) from PAGASA's [10-day weather forecast excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the data source.
+It uses `/data/day1.xlsx` (downloaded and stored as of this 20220808) from PAGASA's [10-day weather forecast excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the default data source.
+
+It also asks users to key in the download URL of a remote excel file should they want to use another excel file for a new and updated data source.
 
 Extracted municipalities are written in JSON files following the format:
 
-```json
+```
 {
     "metadata": {
         "source": "https://pubfiles.pagasa.dost.gov.ph/pagasaweb/files/climate/tendayweatheroutlook/day1.xlsx",
@@ -33,6 +35,7 @@ The following dependencies are used for this project. Feel free to use other dep
    - node v16.14.2
    - npm v8.5.0
 4. Excel file
+   - ph-municipalities uses Excel files in the `/data` directory as data source.
    - At minimum, the excel file should have a **column** that contains municipality and province names following the pattern `"municipalityName (provinceName)"`
    - Checkout the excel file format on the `/data/day1.xlsx` sample file for more information
 5. (Optional) Download URL for a remote excel file.
@@ -61,6 +64,7 @@ The following dependencies are used for this project. Feel free to use other dep
   - [Download and Parse a Remote Excel File](#download-and-parse-a-remote-excel-file)
   - [Alternate Usage - Events](#alternate-usage---events)
 - [Building Standalone Windows Executables](#building-standalone-windows-executables)
+- [Compiling into Single, Minified Files](#compiling-into-single-minified-files)
 
 ## Installation
 
@@ -70,25 +74,30 @@ The following dependencies are used for this project. Feel free to use other dep
 2. Install dependencies.<br>
 `npm install`
 
-3. Create a `.env` file from the `.env.example` file. Use the default values for `SHEETJS_COLUMN` and `EXCEL_FILE_URL`.
+1. Create a `.env` file from the `.env.example` file. Use the default values for the following environment variables.
 
-   | Variable Name  | Description                                                                                                                                                                                                                                                    |
-   | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-   | EXCEL_FILE_URL | (Optional) Remote excel file's download URL.<br>If provided, the excel file will be downloaded and saved on the specified `pathToFile` local filesystem location during the `ExcelFile` class initialization.<br>Read on [Usage](#usage) for more information. |
-   | SHEETJS_COLUMN | Column name read by [sheetjs](https://sheetjs.com/) in an excel file.<br>This column contains the municipality and province names following the string pattern<br>`"municipalityName (provinceName)"`<br>Default value is `__EMPTY`                            |
+   | Variable Name     | Description                                                                                                                                                                                                                                                    |
+   | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+   | EXCEL_FILE_URL    | (Optional) Remote excel file's download URL.<br>If provided, the excel file will be downloaded and saved on the specified `pathToFile` local filesystem location during the `ExcelFile` class initialization.<br>Read on [Usage](#usage) for more information. |
+   | SHEETJS_COLUMN    | Column name read by [sheetjs](https://sheetjs.com/) in an excel file.<br>This column contains the municipality and province names following the string pattern<br>`"municipalityName (provinceName)"`<br>Default value is `__EMPTY`                            |
+   | SORT_ALPHABETICAL | Arranges the municipality names in alphabetical order.<br>Default value is `1`. Set to `0` to use the ordering as read from the Excel file.                                                                                                                    |
 
 ## Available Scripts
 
 ### `npm start` / `npm run list:region`
 
-- Load and parse the local excel file in `/data/day1.xlsx`.
+- Asks users to enter the download URL of a remote excel file or use the default local excel file
+  - Loads and parses the local excel file in `/data/day1.xlsx` by default.
+  - Loads and parses the downloaded excel file in `/data/datasource.xlsx` if download URL input is provided.
 - Displays a list of available PH **region** names.
 - Lists all provinces and municipalities of a specified region via commandline input.
 - Asks for an option to write results to a JSON file.
 
 ### `npm run list:province`
 
-- Load and parse the local excel file in `/data/day1.xlsx`.
+- Asks users to enter the download URL of a remote excel file or use the default local excel file
+  - Loads and parses the local excel file in `/data/day1.xlsx` by default.
+  - Loads and parses the downloaded excel file in `/data/datasource.xlsx` if download URL input is provided.
 - Lists all municipalities under specified province(s) via commandline input.
 - Asks for an option to write results to a JSON file.
 
@@ -213,7 +222,7 @@ module.exports = PHExcel
 
 Listen to the instance's `EVENTS.LOADED` event.
 
-```
+```javascript
 PHExcel.events.on(PHExcel.EVENTS.LOADED, async () => {
    console.log('Excel data loaded!')
 })
@@ -224,12 +233,28 @@ PHExcel.events.on(PHExcel.EVENTS.LOADED, async () => {
 The main npm scripts can be packaged into standalone windows executables.
 
 1. Run any of the following scripts to build the programs.
-   ```
+   ```bash
    npm run build:win:region
    npm run build:win:province
    # npm run build:win:all
    ```
 2. Click the resulting executable files in the `/dist` directory to execute.
+
+## Compiling into Single, Minified Files
+
+The main npm scripts can be compiled into standalone JavaScript files together with all its dependencies.
+
+1. Run any of the following scripts to compile the source codes.
+   ```bash
+   npm run minify:region
+   npm run minify:province
+   # npm run minify:all
+   ```
+2. Run the compiled source codes in the `/dist` directory to execute.
+   ```bash
+   node dist/region
+   node dist/province
+   ```
 
 @ciatph<br>
 20220807
