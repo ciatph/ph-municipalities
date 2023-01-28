@@ -72,6 +72,8 @@ class ExcelFile {
     if (url) {
       // Set the remote excel file download URL
       this.#url = url
+    } else {
+      this.init()
     }
   }
 
@@ -238,6 +240,12 @@ class ExcelFile {
         }
 
         acc[item.province].push(item.municipality)
+
+        // Sort municipality names alphabetically
+        if (process.env.SORT_ALPHABETICAL === '1') {
+          acc[item.province].sort()
+        }
+
         return { ...acc }
       }, {})
   }

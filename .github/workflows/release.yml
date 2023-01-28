@@ -36,6 +36,7 @@ jobs:
 
       - name: Packge and archive the executable files
         run: |
+          cp .env.example .env
           npm run build:win:all
           cd dist
           dir

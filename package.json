@@ -8,9 +8,12 @@
     "list:province": "node src/scripts/by_province.js",
     "list:region": "node src/scripts/by_region.js",
     "example": "node src/scripts/sample_usage.js",
-    "build:win:region": "npx pkg ./src/scripts/by_region.js -c package.json --compress GZip -o ./dist/ph-regions-win",
-    "build:win:province": "npx pkg ./src/scripts/by_province.js -c package.json --compress GZip -o ./dist/ph-provinces-win",
+    "build:win:region": "pkg ./src/scripts/by_region.js -c package.json --compress GZip -o ./dist/ph-regions-win",
+    "build:win:province": "pkg ./src/scripts/by_province.js -c package.json --compress GZip -o ./dist/ph-provinces-win",
     "build:win:all": "npm run build:win:region && npm run build:win:province",
+    "minify:region": "ncc build src/scripts/by_region.js -m -o dist/region",
+    "minify:province": "ncc build src/scripts/by_province.js -m -o dist/province",
+    "minify:all": "npm run minify:region && npm run minify:province",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix"
   },
@@ -25,6 +28,7 @@
   },
   "homepage": "https://github.com/ciatph/municipalities-by-province#readme",
   "devDependencies": {
+    "@vercel/ncc": "^0.34.0",
     "eslint": "^8.21.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
@@ -37,8 +41,13 @@
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.18.10/xlsx-0.18.10.tgz"
   },
   "pkg": {
-    "assets": ["data/*", ".env*"],
-    "targets": ["node16-win-x64"],
+    "assets": [
+      "data/*",
+      ".env*"
+    ],
+    "targets": [
+      "node16-win-x64"
+    ],
     "outputPath": "./dist"
   }
 }
