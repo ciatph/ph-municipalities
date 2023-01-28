@@ -1,7 +1,7 @@
 {
-  "name": "municipalities-by-province",
-  "version": "1.0.0",
-  "description": "Extract the `municipalities` of a given `province` from an excel file and write them in a JSON file.",
+  "name": "ph-municipalities",
+  "version": "1.0.5",
+  "description": "List and write the `municipalities` of Philippines provinces or regions into JSON files",
   "main": "index.js",
   "scripts": {
     "start": "npm run list:region",
@@ -11,22 +11,22 @@
     "build:win:region": "pkg ./src/scripts/by_region.js -c package.json --compress GZip -o ./dist/ph-regions-win",
     "build:win:province": "pkg ./src/scripts/by_province.js -c package.json --compress GZip -o ./dist/ph-provinces-win",
     "build:win:all": "npm run build:win:region && npm run build:win:province",
-    "minify:region": "ncc build src/scripts/by_region.js -m -o dist/region",
-    "minify:province": "ncc build src/scripts/by_province.js -m -o dist/province",
+    "minify:region": "ncc dist src/scripts/by_region.js -m -o dist/region",
+    "minify:province": "ncc dist src/scripts/by_province.js -m -o dist/province",
     "minify:all": "npm run minify:region && npm run minify:province",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ciatph/municipalities-by-province.git"
+    "url": "git+https://github.com/ciatph/ph-municipalities.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ciatph/municipalities-by-province/issues"
+    "url": "https://github.com/ciatph/ph-municipalities/issues"
   },
-  "homepage": "https://github.com/ciatph/municipalities-by-province#readme",
+  "homepage": "https://github.com/ciatph/ph-municipalities#readme",
   "devDependencies": {
     "@vercel/ncc": "^0.34.0",
     "eslint": "^8.21.0",

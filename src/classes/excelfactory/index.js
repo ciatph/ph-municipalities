@@ -4,7 +4,7 @@ require('dotenv').config({
   path: path.join(__dirname, '..', '..', '..', '.env')
 })
 
-const { ExcelFile } = require('../excel')
+const ExcelFile = require('../excel')
 
 class ExcelFactory extends ExcelFile {
   constructor (url) {
