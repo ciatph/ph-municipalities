@@ -6,7 +6,7 @@ It uses `/data/day1.xlsx` (downloaded and stored as of this 20220808) from PAGAS
 
 Extracted municipalities are written in JSON files following the format:
 
-```
+```json
 {
     "metadata": {
         "source": "https://pubfiles.pagasa.dost.gov.ph/pagasaweb/files/climate/tendayweatheroutlook/day1.xlsx",
@@ -51,6 +51,9 @@ The following dependencies are used for this project. Feel free to use other dep
   - [`build:win:region`](#buildwinregion)
   - [`build:win:province`](#buildwinprovince)
   - [`build:win:all`](#buildwinall)
+  - [`npm run minify:region`](#npm-run-minifyregion)
+  - [`npm run minify:province`](#npm-run-minifyprovince)
+  - [`npm run minify:all`](#npm-run-minifyall)
   - [`npm run lint`](#npm-run-lint)
   - [`npm run lint:fix`](#npm-run-lintfix)
 - [Class Usage](#class-usage)
@@ -94,6 +97,8 @@ The following dependencies are used for this project. Feel free to use other dep
 - Downloads and parses a remote excel file.
 - Demonstrates sample usage with `await`
 
+---
+
 ### `build:win:region`
 
 - Package the Node.js project's `npm start` script into a stand-alone windows `node16-win-x64` executable.
@@ -109,6 +114,27 @@ The following dependencies are used for this project. Feel free to use other dep
 - Package the Node.js project's `npm start` and `npm list:province` script into a stand-alone windows `node16-win-x64` executables in one go.
 - Each window executable file will be stored in the `/dist` directory.
 
+---
+
+### `npm run minify:region`
+
+- Compiles the Node.js project's `npm list:region` script and dependencies into a single script using [**ncc**](https://www.npmjs.com/package/@vercel/ncc).
+- The compiled/minified file will be stored in `/dist/region`. Run the command to use the compiled script:<br>
+`node dist/region`
+
+### `npm run minify:province`
+
+- Compiles the Node.js project's `npm list:province` script and dependencies into a single script using [**ncc**](https://www.npmjs.com/package/@vercel/ncc).
+- The compiled/minified file will be stored in `/dist/province`. Run the command to use the compiled script:<br>
+`node dist/province`
+
+### `npm run minify:all`
+
+- Run the `npm list:region` and `npm list:province` scripts in one go.
+- Each compiled/minified files will be stored in the `/dist` directory.
+
+---
+
 ### `npm run lint`
 
 Lint JavaScript source codes.
@@ -121,7 +147,7 @@ Fix JavaScript lint errors.
 
 ### Load and Parse a Local Excel File
 
-```
+```javascript
 const path = require('path')
 const { ExcelFile } = require('./classes/excel')
 
@@ -142,7 +168,7 @@ try {
 
 ### Download and Parse a Remote Excel File
 
-```
+```javascript
 require('dotenv').config()
 const path = require('path')
 const { ExcelFile } = require('./classes/excel')
@@ -171,7 +197,7 @@ main()
 
 Initialize an `ExcelFile` class instance.
 
-```
+```javascript
 require('dotenv').config()
 const path = require('path')
 const { ExcelFile } = require('./classes/excel')
