@@ -11,7 +11,9 @@ const main = async () => {
 
   while (!exit) {
     // Prompt to enter the download URL of a remote excel file or use the default local excel file
-    ExcelHandler = await selectDataSource()
+    if (ExcelHandler === null) {
+      ExcelHandler = await selectDataSource()
+    }
 
     if (ExcelHandler !== null) {
       // Prompt to ask for province name(s)
