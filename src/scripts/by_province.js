@@ -13,7 +13,7 @@ const main = async () => {
     // Prompt to enter the download URL of a remote excel file or use the default local excel file
     ExcelHandler = await selectDataSource()
 
-    if (ExcelHandler) {
+    if (ExcelHandler !== null) {
       // Prompt to ask for province name(s)
       const provinces = await prompt('\nEnter province names separated by comma: ')
 
