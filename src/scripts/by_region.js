@@ -1,6 +1,7 @@
 const path = require('path')
 const prompt = require('../lib/prompt')
 const PHExcel = require('../lib/ph_excelfile')
+const { formatDisplay } = require('../lib/format_display')
 const regions = require('../../data/regions.json')
 
 // Asks for a prompt to enter a region name.
@@ -11,8 +12,9 @@ PHExcel.events.on(PHExcel.EVENTS.LOADED, async () => {
   while (!exit) {
     // Display region abbreviations
     const regionNames = regions.data.map(region => region.name)
+
     console.log('REGION NAMES')
-    console.log(regionNames.toString().split(',').join(', '))
+    console.log(regionNames.toString().split(',').join('\n'))
 
     // Prompt to ask for province name(s)
     const region = await prompt('\nEnter a region name: ')
@@ -28,8 +30,9 @@ PHExcel.events.on(PHExcel.EVENTS.LOADED, async () => {
         const provinces = regions.data.find(x => x.name === region).provinces
 
         // List the municipalities of all provinces under a region
-        const municipalities = PHExcel.listMunicipalities({ provinces })
-        console.log(municipalities)
+        const { total, data } = formatDisplay(PHExcel.listMunicipalities({ provinces }))
+        console.log(data)
+        console.log(`\nTotal: ${total}`)
 
         // Prompt to write results to a JSON file
         const write = await prompt('\nWrite results to a JSON file? [n/Y]: ')

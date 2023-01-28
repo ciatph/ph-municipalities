@@ -1,6 +1,7 @@
 const path = require('path')
 const prompt = require('../lib/prompt')
 const PHExcel = require('../lib/ph_excelfile')
+const { formatDisplay } = require('../lib/format_display')
 
 // Asks for a prompt to enter province names.
 // Lists all municipalities under the specified provinces.
@@ -13,8 +14,9 @@ PHExcel.events.on(PHExcel.EVENTS.LOADED, async () => {
 
     if (provinces) {
       // List the municipalities of a targets province(s)
-      const municipalities = PHExcel.listMunicipalities({ provinces })
-      console.log(municipalities)
+      const { total, data } = formatDisplay(PHExcel.listMunicipalities({ provinces }))
+      console.log(data)
+      console.log(`\nTotal: ${total}`)
     }
 
     // Prompt to write results to a JSON file
