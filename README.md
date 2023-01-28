@@ -156,47 +156,62 @@ Fix JavaScript lint errors.
 
 ### Load and Parse a Local Excel File
 
+Below is a simple usage example of the `ExcelFile` class. Check out `/src/scripts/sample_usage.js` for more examples.
+
 ```javascript
 const path = require('path')
-const { ExcelFile } = require('./classes/excel')
+const ExcelFile = require('./classes/excel')
+
+// Use the the following if installed via npm
+// const ExcelFile = require('ph-municipalities')
 
 // Reads an existing excel file on /data/day1.xlsx
 file = new ExcelFile({
-   pathToFile: path.join(__dirname, '..', 'data', 'day1.xlsx')
+   pathToFile: path.join(__dirname, 'data', 'day1.xlsx')
 })
 
-try {
-   file.init()
-} catch (err) {
-   console.log(`[ERROR]: ${err.message}`)
-}
+// listMunicipalities() lists all municipalities
+// for each province
+const municipalitiesFromProvince =
+   file.listMunicipalities(['Albay','Masbate','Sorsogon'])
+
+// writeMunicipalities() writes municipalities data in a JSON file
+file.writeMunicipalities({
+   provinces: municipalitiesFromProvince,
+   fileName: path.join(__dirname, 'municipalities.json'),
+   prettify: true
+})
 
 // JSON data of the parsed excel file will be accessible on
 // file.datalist
+console.log(file.datalist)
 ```
 
 ### Download and Parse a Remote Excel File
 
+Adding a `url` field in the constructor parameter will download a remote excel file for data source.
+
 ```javascript
 require('dotenv').config()
 const path = require('path')
-const { ExcelFile } = require('./classes/excel')
+const ExcelFile = require('./classes/excel')
+
+// Use the the following if installed via npm
+// const ExcelFile = require('ph-municipalities')
 
 const main = async () => {
   // Excel file will be downloaded to /data/day1.xlsx
   file = new ExcelFile({
-    pathToFile: path.join(__dirname, '..', 'data', 'day1.xlsx'),
+    pathToFile: path.join(__dirname, 'data', 'day1.xlsx'),
     url: process.env.EXCEL_FILE_URL
   })
 
   try {
     await file.init()
+    console.log(file.datalist)
   } catch (err) {
     console.log(err.message)
   }
-
-  // JSON data of the parsed excel file will be accessible on
-  // file.datalist
 }
 
 main()

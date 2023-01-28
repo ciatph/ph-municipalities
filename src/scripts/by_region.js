@@ -1,7 +1,7 @@
 const path = require('path')
 const prompt = require('../lib/prompt')
 const { formatDisplay } = require('../lib/format_display')
-const selectDataSource = require('../lib/datasource_selector')
+const selectDataSource = require('../lib/selector')
 const regions = require('../../data/regions.json')
 
 // Asks for a prompt to enter a region name.

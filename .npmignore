@@ -1,0 +1,23 @@
+node_modules/
+dist/
+.github/
+.env
+.vscode
+*.xlsx
+*.json
+*.zip
+
+.env.example
+.eslintrc.js
+.eslintrc_win.js
+.gitignore
+.npmignore
+
+# Ignore all JSON files except:
+!package.json
+!package-lock.json
+!data/regions.json
+
+# Ignore all Excel files except:
+!data/regions.json
+!data/day1.xlsx
