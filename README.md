@@ -73,10 +73,11 @@ The following dependencies are used for this project. Feel free to use other dep
 
 3. Create a `.env` file from the `.env.example` file. Use the default values for `SHEETJS_COLUMN` and `EXCEL_FILE_URL`.
 
-   | Variable Name  | Description                                                                                                                                                                                                                                                    |
-   | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-   | EXCEL_FILE_URL | (Optional) Remote excel file's download URL.<br>If provided, the excel file will be downloaded and saved on the specified `pathToFile` local filesystem location during the `ExcelFile` class initialization.<br>Read on [Usage](#usage) for more information. |
-   | SHEETJS_COLUMN | Column name read by [sheetjs](https://sheetjs.com/) in an excel file.<br>This column contains the municipality and province names following the string pattern<br>`"municipalityName (provinceName)"`<br>Default value is `__EMPTY`                            |
+   | Variable Name       | Description                                                                                                                                                                                                                                                    |
+   | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+   | EXCEL_FILE_URL      | (Optional) Remote excel file's download URL.<br>If provided, the excel file will be downloaded and saved on the specified `pathToFile` local filesystem location during the `ExcelFile` class initialization.<br>Read on [Usage](#usage) for more information. |
+   | SHEETJS_COLUMN      | Column name read by [sheetjs](https://sheetjs.com/) in an excel file.<br>This column contains the municipality and province names following the string pattern<br>`"municipalityName (provinceName)"`<br>Default value is `__EMPTY`                            |
+   | SORT_MUNICIPALITIES | Arranges the municipality names in alphabetical order.<br>Default value is `1`. Set to `0` to use the ordering as read from the Excel file.                                                                                                                    |
 
 ## Available Scripts
 
@@ -214,7 +215,7 @@ module.exports = PHExcel
 
 Listen to the instance's `EVENTS.LOADED` event.
 
-```
+```javascript
 PHExcel.events.on(PHExcel.EVENTS.LOADED, async () => {
    console.log('Excel data loaded!')
 })
