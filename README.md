@@ -2,7 +2,9 @@
 
 **ph-municipalities** have **npm scripts** that allow interactive querying of Philippines municipalities included in one or more provinces or from a whole region, with an option of writing them to JSON files from the command line.
 
-It uses `/data/day1.xlsx` (downloaded and stored as of this 20220808) from PAGASA's [10-day weather forecast excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the data source.
+It uses `/data/day1.xlsx` (downloaded and stored as of this 20220808) from PAGASA's [10-day weather forecast excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the default data source.
+
+It also asks users to key-in the download URL of a remote excel file, should they want to use another excel file for a new and updated data source.
 
 Extracted municipalities are written in JSON files following the format:
 
@@ -84,14 +86,18 @@ The following dependencies are used for this project. Feel free to use other dep
 
 ### `npm start` / `npm run list:region`
 
-- Load and parse the local excel file in `/data/day1.xlsx`.
+- Asks users to enter the download URL of a remote excel file or use the default local excel file
+  - Loads and parses the local excel file in `/data/day1.xlsx` by default.
+  - Loads and parses the downloaded excel file in `/data/datasource.xlsx` if download URL input is provided.
 - Displays a list of available PH **region** names.
 - Lists all provinces and municipalities of a specified region via commandline input.
 - Asks for an option to write results to a JSON file.
 
 ### `npm run list:province`
 
-- Load and parse the local excel file in `/data/day1.xlsx`.
+- Asks users to enter the download URL of a remote excel file or use the default local excel file
+  - Loads and parses the local excel file in `/data/day1.xlsx` by default.
+  - Loads and parses the downloaded excel file in `/data/datasource.xlsx` if download URL input is provided.
 - Lists all municipalities under specified province(s) via commandline input.
 - Asks for an option to write results to a JSON file.
 

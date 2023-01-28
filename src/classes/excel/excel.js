@@ -72,6 +72,8 @@ class ExcelFile {
     if (url) {
       // Set the remote excel file download URL
       this.#url = url
+    } else {
+      this.init()
     }
   }
 
