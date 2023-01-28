@@ -9,7 +9,7 @@ const ExcelFactory = require('./excelfactory')
 const selectDataSource = async () => {
   let exit = false
   let url
-  let ExcelHandler
+  let ExcelHandler = null
 
   while (!exit) {
     // Prompt to enter the download URL of a remote excel file
@@ -22,11 +22,17 @@ const selectDataSource = async () => {
         url = await prompt('\nEnter the download URL of a remote Excel file: ')
         console.log(`Downloading file from ${url}...`)
 
-        ExcelHandler = ExcelFactory(url)
-        await ExcelHandler.init()
-        exit = true
+        try {
+          ExcelHandler = ExcelFactory(url)
+          await ExcelHandler.init()
+          exit = true
 
-        console.log(`\nUsing the file downloaded to ${pathToFile}\nas data source`)
+          console.log(`\nUsing the file downloaded to ${pathToFile}\nas data source`)
+        } catch (err) {
+          console.log(err.message)
+          ExcelHandler = null
+          exit = true
+        }
       } else {
         ExcelHandler = ExcelFactory()
         exit = true
