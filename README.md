@@ -88,7 +88,7 @@ The following dependencies are used for this project. Feel free to use other dep
 
 - Asks users to enter the download URL of a remote excel file or use the default local excel file
   - Loads and parses the local excel file in `/data/day1.xlsx` by default.
-  - Loads and parses the downloaded excel file in `/data/datasource.xlsx` if download URL input is provided.
+  - Loads and parses the downloaded excel file in `/data/datasource.xlsx` if download URL in the class constructor is provided.
 - Displays a list of available PH **region** names.
 - Lists all provinces and municipalities of a specified region via commandline input.
 - Asks for an option to write results to a JSON file.
@@ -99,7 +99,7 @@ The following dependencies are used for this project. Feel free to use other dep
 
 - Asks users to enter the download URL of a remote excel file or use the default local excel file
   - Loads and parses the local excel file in `/data/day1.xlsx` by default.
-  - Loads and parses the downloaded excel file in `/data/datasource.xlsx` if download URL input is provided.
+  - Loads and parses the downloaded excel file in `/data/datasource.xlsx` if download URL in the class constructor is provided.
 - Lists all municipalities under specified province(s) via commandline input.
 - Asks for an option to write results to a JSON file.
 - Run the script as follows if installed using `npm i ph-municipalities`:
@@ -186,7 +186,7 @@ file.writeMunicipalities({
    prettify: true
 })
 
-// JSON data of the parsed excel file will be accessible on
+// JSON data of the parsed excel file will is accessible on
 // file.datalist
 console.log(file.datalist)
 ```
