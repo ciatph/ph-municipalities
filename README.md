@@ -4,7 +4,7 @@
 
 It uses `/data/day1.xlsx` (downloaded and stored as of this 20220808) from PAGASA's [10-day weather forecast excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the default data source.
 
-It also asks users to key-in the download URL of a remote excel file, should they want to use another excel file for a new and updated data source.
+It also asks users to key in the download URL of a remote excel file should they want to use another excel file for a new and updated data source.
 
 Extracted municipalities are written in JSON files following the format:
 
@@ -74,13 +74,13 @@ The following dependencies are used for this project. Feel free to use other dep
 2. Install dependencies.<br>
 `npm install`
 
-3. Create a `.env` file from the `.env.example` file. Use the default values for `SHEETJS_COLUMN` and `EXCEL_FILE_URL`.
+1. Create a `.env` file from the `.env.example` file. Use the default values for the following environment variables.
 
-   | Variable Name       | Description                                                                                                                                                                                                                                                    |
-   | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-   | EXCEL_FILE_URL      | (Optional) Remote excel file's download URL.<br>If provided, the excel file will be downloaded and saved on the specified `pathToFile` local filesystem location during the `ExcelFile` class initialization.<br>Read on [Usage](#usage) for more information. |
-   | SHEETJS_COLUMN      | Column name read by [sheetjs](https://sheetjs.com/) in an excel file.<br>This column contains the municipality and province names following the string pattern<br>`"municipalityName (provinceName)"`<br>Default value is `__EMPTY`                            |
-   | SORT_MUNICIPALITIES | Arranges the municipality names in alphabetical order.<br>Default value is `1`. Set to `0` to use the ordering as read from the Excel file.                                                                                                                    |
+   | Variable Name     | Description                                                                                                                                                                                                                                                    |
+   | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+   | EXCEL_FILE_URL    | (Optional) Remote excel file's download URL.<br>If provided, the excel file will be downloaded and saved on the specified `pathToFile` local filesystem location during the `ExcelFile` class initialization.<br>Read on [Usage](#usage) for more information. |
+   | SHEETJS_COLUMN    | Column name read by [sheetjs](https://sheetjs.com/) in an excel file.<br>This column contains the municipality and province names following the string pattern<br>`"municipalityName (provinceName)"`<br>Default value is `__EMPTY`                            |
+   | SORT_ALPHABETICAL | Arranges the municipality names in alphabetical order.<br>Default value is `1`. Set to `0` to use the ordering as read from the Excel file.                                                                                                                    |
 
 ## Available Scripts
 

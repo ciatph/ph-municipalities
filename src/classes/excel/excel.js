@@ -242,7 +242,7 @@ class ExcelFile {
         acc[item.province].push(item.municipality)
 
         // Sort municipality names alphabetically
-        if (process.env.SORT_MUNICIPALITIES === '1') {
+        if (process.env.SORT_ALPHABETICAL === '1') {
           acc[item.province].sort()
         }
 
