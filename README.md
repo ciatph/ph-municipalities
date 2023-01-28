@@ -6,7 +6,7 @@ It uses `/data/day1.xlsx` (downloaded and stored as of this 20220808) from PAGAS
 
 Extracted municipalities are written in JSON files following the format:
 
-```json
+```
 {
     "metadata": {
         "source": "https://pubfiles.pagasa.dost.gov.ph/pagasaweb/files/climate/tendayweatheroutlook/day1.xlsx",
@@ -61,6 +61,7 @@ The following dependencies are used for this project. Feel free to use other dep
   - [Download and Parse a Remote Excel File](#download-and-parse-a-remote-excel-file)
   - [Alternate Usage - Events](#alternate-usage---events)
 - [Building Standalone Windows Executables](#building-standalone-windows-executables)
+- [Compiling into Single, Minified Files](#compiling-into-single-minified-files)
 
 ## Installation
 
@@ -224,12 +225,28 @@ PHExcel.events.on(PHExcel.EVENTS.LOADED, async () => {
 The main npm scripts can be packaged into standalone windows executables.
 
 1. Run any of the following scripts to build the programs.
-   ```
+   ```bash
    npm run build:win:region
    npm run build:win:province
    # npm run build:win:all
    ```
 2. Click the resulting executable files in the `/dist` directory to execute.
+
+## Compiling into Single, Minified Files
+
+The main npm scripts can be compiled into standalone JavaScript files together with all its dependencies.
+
+1. Run any of the following scripts to compile the source codes.
+   ```bash
+   npm run minify:region
+   npm run minify:province
+   # npm run minify:all
+   ```
+2. Run the compiled source codes in the `/dist` directory to execute.
+   ```bash
+   node dist/region
+   node dist/province
+   ```
 
 @ciatph<br>
 20220807
