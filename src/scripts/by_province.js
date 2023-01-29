@@ -48,12 +48,12 @@ const main = async () => {
             } catch (err) {
               console.log(err.message)
             }
+
+            const ex = await prompt('Exit? (Enter X to exit): ')
+            exit = (ex === 'X')
           }
         }
       }
-
-      const ex = await prompt('Exit? (Enter X to exit): ')
-      exit = (ex === 'X')
     }
   }
 

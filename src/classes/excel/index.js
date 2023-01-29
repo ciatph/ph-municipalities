@@ -263,6 +263,10 @@ class ExcelFile {
       throw new Error('Please enter a filename ending in .json')
     }
 
+    if (!/\.(json)$/i.test(fileName)) {
+      throw new Error('Please enter a filename ending in .json')
+    }
+
     try {
       // List the municipalities
       const municipalities = this.listMunicipalities({ provinces })
