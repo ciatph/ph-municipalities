@@ -8,11 +8,14 @@ const regions = require('../../data/regions.json')
 // Lists all municipalities under the provinces of a region.
 const main = async () => {
   let exit = false
-  let ExcelHandler
+  let ExcelHandler = null
+  let idx
 
   while (!exit) {
     // Prompt to enter the download URL of a remote excel file or use the default local excel file
-    ExcelHandler = await selectDataSource()
+    if (ExcelHandler === null) {
+      ExcelHandler = await selectDataSource()
+    }
 
     if (ExcelHandler !== null) {
       // Display region abbreviations
@@ -26,10 +29,10 @@ const main = async () => {
 
       if (region) {
         // Check if the region name exists in the masterlist
-        const idx = regions.data.findIndex(item => item.name === region)
+        idx = regions.data.findIndex(item => item.name === region)
 
         if (idx === -1) {
-          console.log('Region name not found.')
+          await prompt('Region name not found.\n')
         } else {
           // List the provinces of a target region
           const provinces = regions.data.find(x => x.name === region).provinces
@@ -48,18 +51,24 @@ const main = async () => {
             // Use process.cwd() to enable file paths when building with "pkg"
             const filePath = path.join(process.cwd(), fileName)
 
-            ExcelHandler.writeMunicipalities({
-              provinces,
-              fileName: filePath
-            })
+            try {
+              ExcelHandler.writeMunicipalities({
+                provinces,
+                fileName: filePath
+              })
 
-            console.log(`JSON file created in ${filePath}`)
+              console.log(`JSON file created in ${filePath}`)
+            } catch (err) {
+              console.log(err.message)
+            }
           }
         }
       }
 
-      const ex = await prompt('\nExit? (Enter X to exit): ')
-      exit = (ex === 'X')
+      if (idx >= 0) {
+        const ex = await prompt('\nExit? (Enter X to exit): ')
+        exit = (ex === 'X')
+      }
     }
   }
 
