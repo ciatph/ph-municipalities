@@ -176,12 +176,12 @@ file = new ExcelFile({
 
 // listMunicipalities() lists all municipalities
 // for each province
-const municipalitiesFromProvince =
-   file.listMunicipalities(['Albay','Masbate','Sorsogon'])
+const provinces = ['Albay','Masbate','Sorsogon']
+const municipalitiesFromProvince = file.listMunicipalities(provinces)
 
-// writeMunicipalities() writes municipalities data in a JSON file
+// writeMunicipalities() writes municipalities data to a JSON file
 file.writeMunicipalities({
-   provinces: municipalitiesFromProvince,
+   provinces,
    fileName: path.join(__dirname, 'municipalities.json'),
    prettify: true
 })

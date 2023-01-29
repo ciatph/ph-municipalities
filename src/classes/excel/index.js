@@ -253,8 +253,8 @@ class ExcelFile {
   /**
    * Writes queried municipalities data to a JSON file.
    * Lists municipalities by by provinces.
-   * @param {String} provinces - Array of case-sensitive province names. Starts with an upper case.
-   * @param {String} filName - Full file path to a JSON file
+   * @param {String[]} provinces - Array of case-sensitive province names. Starts with an upper case.
+   * @param {String} fielName - Full file path to a JSON file
    * @param {Bool} prettify - Write the JSON content with proper spacings and newlines
    * @returns
    */
