@@ -79,6 +79,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   publish-npm:
+    name: Publish to NPM registry
     runs-on: ubuntu-latest
     needs: build-on-win
     steps:

@@ -253,8 +253,8 @@ class ExcelFile {
   /**
    * Writes queried municipalities data to a JSON file.
    * Lists municipalities by by provinces.
-   * @param {String} provinces - Array of case-sensitive province names. Starts with an upper case.
-   * @param {String} filName - Full file path to a JSON file
+   * @param {String[]} provinces - Array of case-sensitive province names. Starts with an upper case.
+   * @param {String} fielName - Full file path to a JSON file
    * @param {Bool} prettify - Write the JSON content with proper spacings and newlines
    * @returns
    */
@@ -263,12 +263,19 @@ class ExcelFile {
       throw new Error('Please enter a filename ending in .json')
     }
 
+    if (!/\.(json)$/i.test(fileName)) {
+      throw new Error('Please enter a filename ending in .json')
+    }
+
     try {
       // List the municipalities
       const municipalities = this.listMunicipalities({ provinces })
+
+      const url = (this.#url) ? this.#url : `local datasource cache from ${process.env.DEFAULT_EXCEL_FILE_URL}`
+
       const str = {
         metadata: {
-          source: process.env.EXCEL_FILE_URL || '',
+          source: url || '',
           title: 'List of PH Municipalities By Province and Region',
           description: 'This dataset generated with reference to the excel file contents from the source URL.',
           date_created: new Date().toDateString()

@@ -7,11 +7,13 @@ const selectDataSource = require('../lib/selector')
 // Lists all municipalities under the specified provinces.
 const main = async () => {
   let exit = false
-  let ExcelHandler
+  let ExcelHandler = null
 
   while (!exit) {
     // Prompt to enter the download URL of a remote excel file or use the default local excel file
-    ExcelHandler = await selectDataSource()
+    if (ExcelHandler === null) {
+      ExcelHandler = await selectDataSource()
+    }
 
     if (ExcelHandler !== null) {
       // Prompt to ask for province name(s)
@@ -20,29 +22,38 @@ const main = async () => {
       if (provinces) {
         // List the municipalities of a targets province(s)
         const { total, data } = formatDisplay(ExcelHandler.listMunicipalities({ provinces }))
-        console.log(data)
-        console.log(`\nTotal: ${total}`)
+
+        if (total === 0) {
+          await prompt('No municipalities to show.\n')
+        } else {
+          console.log(data)
+          console.log(`\nTotal: ${total}`)
+
+          // Prompt to write results to a JSON file
+          const write = await prompt('\nWrite results to a JSON file?\nPress enter to ignore. Press Y and enter to proceed. [n/Y]: ')
+
+          if (write === 'Y') {
+            const fileName = await prompt('\nEnter the JSON filename: ')
+
+            // Use process.cwd() to enable file paths when building with "pkg"
+            const filePath = path.join(process.cwd(), fileName)
+
+            try {
+              ExcelHandler.writeMunicipalities({
+                provinces,
+                fileName: filePath
+              })
+
+              console.log(`JSON file created in ${filePath}\n`)
+            } catch (err) {
+              console.log(err.message)
+            }
+
+            const ex = await prompt('Exit? (Enter X to exit): ')
+            exit = (ex === 'X')
+          }
+        }
       }
-
-      // Prompt to write results to a JSON file
-      const write = await prompt('\nWrite results to a JSON file? [n/Y]: ')
-
-      if (write === 'Y') {
-        const fileName = await prompt('\nEnter the JSON filename: ')
-
-        // Use process.cwd() to enable file paths when building with "pkg"
-        const filePath = path.join(process.cwd(), fileName)
-
-        ExcelHandler.writeMunicipalities({
-          provinces,
-          fileName: filePath
-        })
-
-        console.log(`JSON file created in ${filePath}`)
-      }
-
-      const ex = await prompt('\nExit? (Enter X to exit): ')
-      exit = (ex === 'X')
     }
   }
 
