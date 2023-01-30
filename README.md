@@ -25,6 +25,8 @@ Extracted municipalities are written in JSON files following the format:
 }
 ```
 
+Pre-compiled windows binaries are available for download in the latest [Releases](https://github.com/ciatph/ph-municipalities/releases) download page.
+
 ## Requirements
 
 The following dependencies are used for this project. Feel free to use other dependency versions as needed.
@@ -167,7 +169,7 @@ const path = require('path')
 const ExcelFile = require('./classes/excel')
 
 // Use the the following if installed via npm
-// const ExcelFile = require('ph-municipalities')
+// const { ExcelFile } = require('ph-municipalities')
 
 // Reads an existing excel file on /data/day1.xlsx
 file = new ExcelFile({
@@ -180,11 +182,16 @@ const provinces = ['Albay','Masbate','Sorsogon']
 const municipalitiesFromProvince = file.listMunicipalities(provinces)
 
 // writeMunicipalities() writes municipalities data to a JSON file
-file.writeMunicipalities({
+// and returns the JSON object
+const json = file.writeMunicipalities({
    provinces,
    fileName: path.join(__dirname, 'municipalities.json'),
    prettify: true
 })
+
+// shapeJsonData() returns the output of writeMunicipalities()
+// without writing to a JSON file
+const json2 = file.shapeJsonData(provinces)
 
 // JSON data of the parsed excel file will is accessible on
 // file.datalist
@@ -201,7 +208,7 @@ const path = require('path')
 const ExcelFile = require('./classes/excel')
 
 // Use the the following if installed via npm
-// const ExcelFile = require('ph-municipalities')
+// const { ExcelFile } = require('ph-municipalities')
 
 const main = async () => {
   // Excel file will be downloaded to /data/day1.xlsx
@@ -249,7 +256,7 @@ PHExcel.events.on(PHExcel.EVENTS.LOADED, async () => {
 
 ## Building Standalone Windows Executables
 
-The main npm scripts can be packaged into standalone windows executables.
+The main npm scripts can be packaged into standalone windows executables. Pre-compiled windows binaries are available for download in the latest [Releases](https://github.com/ciatph/ph-municipalities/releases) download page.
 
 1. Run any of the following scripts to build the programs.
    ```bash
