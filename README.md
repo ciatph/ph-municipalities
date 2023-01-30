@@ -180,11 +180,16 @@ const provinces = ['Albay','Masbate','Sorsogon']
 const municipalitiesFromProvince = file.listMunicipalities(provinces)
 
 // writeMunicipalities() writes municipalities data to a JSON file
-file.writeMunicipalities({
+// and returns the JSON object
+const json = file.writeMunicipalities({
    provinces,
    fileName: path.join(__dirname, 'municipalities.json'),
    prettify: true
 })
+
+// shapeJsonData() returns the output of writeMunicipalities()
+// without writing to a JSON file
+const json2 = file.shapeJsonData(provinces)
 
 // JSON data of the parsed excel file will is accessible on
 // file.datalist
