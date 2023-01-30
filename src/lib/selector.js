@@ -19,7 +19,10 @@ const selectDataSource = async () => {
       if (askDownload === 'Y') {
         const pathToFile = path.join(process.cwd(), 'datasource.xlsx')
 
-        url = await prompt('\nEnter the download URL of a remote Excel file: ')
+        while (!url) {
+          url = await prompt('\nEnter the download URL of a remote Excel file: ')
+        }
+
         console.log(`Downloading file from ${url}...`)
 
         try {

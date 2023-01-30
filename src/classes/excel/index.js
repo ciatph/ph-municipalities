@@ -214,6 +214,25 @@ class ExcelFile {
   }
 
   /**
+   * Get the requested data with other misc data
+   * @param {String[]} provinces - List of provinces
+   * @returns {Object} Formatted raw data with misc. metadata
+   */
+  shapeJsonData (provinces) {
+    const url = (this.#url) ? this.#url : `local datasource cache from ${process.env.DEFAULT_EXCEL_FILE_URL}`
+
+    return {
+      metadata: {
+        source: url || '',
+        title: 'List of PH Municipalities By Province and Region',
+        description: 'This dataset generated with reference to the excel file contents from the source URL.',
+        date_created: new Date().toDateString()
+      },
+      data: this.listMunicipalities({ provinces })
+    }
+  }
+
+  /**
    * List the municipalities of given province(s)
    * @param {String[]} provinces - Array of case-sensitive province names. Starts with an upper case.
    * @returns {Object} Returns an object with the format:
@@ -256,7 +275,7 @@ class ExcelFile {
    * @param {String[]} provinces - Array of case-sensitive province names. Starts with an upper case.
    * @param {String} fielName - Full file path to a JSON file
    * @param {Bool} prettify - Write the JSON content with proper spacings and newlines
-   * @returns
+   * @returns {Object} Formatted raw data with misc. metadata
    */
   writeMunicipalities ({ provinces, fileName, prettify = false }) {
     if (!fileName) {
@@ -268,20 +287,7 @@ class ExcelFile {
     }
 
     try {
-      // List the municipalities
-      const municipalities = this.listMunicipalities({ provinces })
-
-      const url = (this.#url) ? this.#url : `local datasource cache from ${process.env.DEFAULT_EXCEL_FILE_URL}`
-
-      const str = {
-        metadata: {
-          source: url || '',
-          title: 'List of PH Municipalities By Province and Region',
-          description: 'This dataset generated with reference to the excel file contents from the source URL.',
-          date_created: new Date().toDateString()
-        },
-        data: municipalities
-      }
+      const str = this.shapeJsonData(provinces)
 
       const json = (prettify)
         ? JSON.stringify(str, null, 2)
@@ -289,8 +295,7 @@ class ExcelFile {
 
       // Write results to a JSON file
       fs.writeFileSync(fileName, json, 'utf-8')
-
-      return municipalities
+      return str
     } catch (err) {
       throw new Error(err.message)
     }

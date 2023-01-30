@@ -10,6 +10,7 @@ const main = async () => {
   let exit = false
   let ExcelHandler = null
   let idx
+  console.log('\nWelcome! Press Ctrl+C to stop anytime.')
 
   while (!exit) {
     // Prompt to enter the download URL of a remote excel file or use the default local excel file
