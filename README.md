@@ -173,8 +173,12 @@ const ExcelFile = require('./classes/excel')
 
 // Reads an existing excel file on /data/day1.xlsx
 file = new ExcelFile({
-   pathToFile: path.join(__dirname, 'data', 'day1.xlsx')
+   pathToFile: path.join(__dirname, 'data', 'day1.xlsx'),
+   // fastload: false
 })
+
+// Call init() if fastload=false
+// file.init()
 
 // listMunicipalities() lists all municipalities
 // for each province
@@ -196,6 +200,11 @@ const json2 = file.shapeJsonData(provinces)
 // JSON data of the parsed excel file will is accessible on
 // file.datalist
 console.log(file.datalist)
+
+// Set the contents of file.datalist
+file.datalist = [
+   { municipality: 'Tayum', province: 'Abra' },
+   { municipality: 'Bucay', province: 'Abra' }]
 ```
 
 ### Download and Parse a Remote Excel File

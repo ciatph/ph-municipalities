@@ -52,8 +52,10 @@ class ExcelFile {
    *    - Full local file path of an existing excel file, if "url" is not provided
    *    - Full local file path of an excel on where to download the remote excel file from "url",
    *      if the "url" parameter is provided
+   * @param {Bool} fastload - Start loading and parsing the local excel file on class initialization if the "url" param is not provided.
+   *    - If "false", call init() later on a more convenient time
    */
-  constructor ({ url, pathToFile }) {
+  constructor ({ url, pathToFile, fastload = true }) {
     if (url === '' || pathToFile === '') {
       throw new Error('Missing remote file url or local file path.')
     }
@@ -73,7 +75,9 @@ class ExcelFile {
       // Set the remote excel file download URL
       this.#url = url
     } else {
-      this.init()
+      if (fastload) {
+        this.init()
+      }
     }
   }
 
@@ -211,6 +215,11 @@ class ExcelFile {
   // Return the processed Object array (masterlist) of municipality and province names
   get datalist () {
     return this.#datalist
+  }
+
+  // Set the private data list contents
+  set datalist (data) {
+    this.#datalist = data
   }
 
   /**
