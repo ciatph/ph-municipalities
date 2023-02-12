@@ -7,6 +7,7 @@ const main = async () => {
   const file = new ExcelFile({
     pathToFile: path.join(__dirname, '..', '..', 'data', 'temp.xlsx'),
     url: process.env.EXCEL_FILE_URL
+    // fastload: false
   })
 
   try {
@@ -30,9 +31,9 @@ const main = async () => {
     let count = 0
     let stats = '\nPROVINCES:\n'
 
-    for (const province in municipalities) {
-      count += municipalities[province].length
-      stats += `${province}: ${municipalities[province].length}, ${municipalities[province].toString()}\n\n`
+    for (const province in municipalities.data) {
+      count += municipalities.data[province].length
+      stats += `${province}: ${municipalities.data[province].length}, ${municipalities.data[province].toString()}\n\n`
     }
 
     console.log(stats)
