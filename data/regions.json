@@ -10,7 +10,7 @@
       "name": "Cordillera Administrative Region",
       "abbrev": "CAR",
       "region_num": "",
-      "provinces": ["Abra","Benguet","Ifugao","Apayao","Mountain Province"]
+      "provinces": ["Abra","Benguet","Ifugao","Apayao","Mountain Province","Kalinga"]
     },
     {
       "name": "Region I",
@@ -76,7 +76,7 @@
       "name": "Region IX",
       "abbrev": "Zamboanga Peninsula",
       "region_num": "9",
-      "provinces": ["Zamboanga del Norte","Zamboanga del Sur","Zamboanga Sabugay"]
+      "provinces": ["Zamboanga del Norte","Zamboanga del Sur","Zamboanga Sibugay"]
     },
     {
       "name": "Region X",
@@ -88,7 +88,7 @@
       "name": "Region XI",
       "abbrev": "Davao",
       "region_num": "11",
-      "provinces": ["Dabao de Oro","Davao City","Davao del Norte","Davao del Sur","Davao Occidental","Davao Oriental"]
+      "provinces": ["Compostela Valley","Davao City","Davao del Norte","Davao del Sur","Davao Occidental","Davao Oriental"]
     },
     {
       "name": "Region XII",
