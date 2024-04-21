@@ -1,6 +1,6 @@
 {
   "name": "ph-municipalities",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "List and write the `municipalities` of Philippines provinces or regions into JSON files",
   "main": "index.js",
   "scripts": {
