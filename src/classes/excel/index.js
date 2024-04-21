@@ -241,7 +241,13 @@ class ExcelFile {
    * @returns {String} municipality name
    */
   getMunicipalityName (str) {
-    return str.replace(/ *\([^)]*\) */g, '')
+    const municipalityName = str.replace(/ *\([^)]*\) */g, '')
+
+    const cleanText = ExcelFile.hasSpecialChars(municipalityName)
+      ? ExcelFile.removeGarbledText(municipalityName)
+      : municipalityName
+
+    return cleanText
   }
 
   /**
