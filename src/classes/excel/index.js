@@ -189,6 +189,52 @@ class ExcelFile {
   }
 
   /**
+   * Checks if a string contains special characters
+   * @param {String} str - String to check
+   * @returns {Bool}
+   */
+  static hasSpecialChars (str) {
+    /* eslint-disable no-control-regex */
+    const regex = /[^\x00-\x7F]/g
+    return regex.test(str)
+  }
+
+  /**
+   * Cleans/removes default-known special characters and garbled text defined in config from string.
+   * @param {String} str - String to clean
+   * @returns {String} - Clean string
+   */
+  static removeGarbledText (str) {
+    // Known garbled special text
+    let charMap = {
+      '├â┬▒': 'ñ', // Replace "├â┬▒" with "ñ"
+      â: '' // Remove "â"
+    }
+
+    // Other special characters from config
+    const specialChars = (process.env.SPECIAL_CHARACTERS?.split(',') ?? [])
+      .reduce((list, item) => {
+        const [key, value] = item.split(':')
+
+        return {
+          ...list,
+          ...((key || value) && { [key]: value ?? '' })
+        }
+      }, {})
+
+    charMap = {
+      ...charMap,
+      ...specialChars
+    }
+
+    for (const [key, value] of Object.entries(charMap)) {
+      str = str.replace(new RegExp(key, 'g'), value)
+    }
+
+    return str
+  }
+
+  /**
    * Extract the municipality name from a string following the pattern:
    *    "municipalityName (provinceName)"
    * @param {String} str
@@ -267,7 +313,11 @@ class ExcelFile {
           acc[item.province] = []
         }
 
-        acc[item.province].push(item.municipality)
+        const cleanText = ExcelFile.hasSpecialChars(item.municipality)
+          ? ExcelFile.removeGarbledText(item.municipality)
+          : item.municipality
+
+        acc[item.province].push(cleanText)
 
         // Sort municipality names alphabetically
         if (process.env.SORT_ALPHABETICAL === '1') {
