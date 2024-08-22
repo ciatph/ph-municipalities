@@ -185,7 +185,7 @@ class ExcelFile {
    * @returns {Bool} true | false
    */
   followsStringPattern (str) {
-    return /[a-zA-z] *\([^)]*\) */.test(str)
+    return /[a-zA-Z,.] *\([^)]*\) */.test(str)
   }
 
   /**
