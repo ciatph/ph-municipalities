@@ -3,6 +3,10 @@
   "version": "1.0.11",
   "description": "List and write the `municipalities` of Philippines provinces or regions into JSON files",
   "main": "index.js",
+  "engines": {
+    "node": "16.14.2",
+    "npm": "8.5.0"
+  },
   "scripts": {
     "start": "npm run list:region",
     "list:province": "node src/scripts/by_province.js",
