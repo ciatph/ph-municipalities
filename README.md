@@ -88,11 +88,55 @@ The following dependencies are used for this project. Feel free to use other dep
    | SORT_ALPHABETICAL | Arranges the municipality names in alphabetical order.<br>Default value is `1`. Set to `0` to use the ordering as read from the Excel file. |
    | SPECIAL_CHARACTERS | Key-value pairs of special characters or garbled text and their normalized text conversions, delimited by the `":"` character.<br>Multiple key-value pairs are delimited by the `","` character.<br>If a special character key's value is a an empty string, write it as i.e.,: `"some-garbled-text:"` |
 
+## Installation Using Docker
+
+We can use Docker to run dockerized Node app for local development mode. The following methods require Docker and Docker compose correctly installed and set up on your development machine.
+
+### Docker Dependencies
+
+The following dependencies are used to build and run the image. Please feel feel free to use other OS and versions as needed.
+
+1. Ubuntu 22.04.1
+   - Docker version 23.0.1, build a5eeb1
+   - Docker Compose v2.16.0
+2. Microsoft Windows 10 Pro
+   - version 22H2 Build 19045.4651
+   - Docker Desktop
+      - Docker Compose version v2.27.1-desktop.1
+      - Docker Engine version 26.1.4, build 5650f9b
+
+### Docker for Localhost Development
+
+1. Set up the environment variables for the `/app` directory.
+   - Visit the `app/README.md` for more information.
+
+2. Stop and delete all docker instances for a fresh start.
+   - > **NOTE:** Running this script will delete all docker images, containers, volumes, and networks. Run this script if you feel like everything is piling but do not proceed if you have important work on other running Docker containers.
+   - ```
+      sudo chmod u+x scripts/docker-cleanup.sh
+      ./scripts/docker-cleanup.sh
+      # Answer all proceeding prompts
+     ```
+
+3. Build and run the app using Docker.
+   - Build<br>
+     `docker compose -f docker-compose.dev.yml build`
+   - Run<br>
+     `docker compose -f docker-compose.dev.yml up`
+   - Stop<br>
+     `docker compose -f docker-compose.dev.yml down`
+
+4. Edit and execute scripts within the running docker container from **step #3**.
+   - For running NPM scripts (see the [Available Scripts](#available-scripts) section for more information):<br>
+   `docker exec -it ph-municipalities <NPM_SCRIPT>`
+   - For new scripts (example only):<br>
+   `docker exec -it ph-municipalities node ./src/new.js`
+
 ## Available Scripts
 
 > _**Note:** These NPM scripts run relative within the `/app` directory._<br>
 
-To run, navigate first to the `/app` directory and execute a target script, for example:
+To run using only NodeJS, navigate first to the `/app` directory and execute a target script, for example:
 ```
 cd app
 npm run list:region
