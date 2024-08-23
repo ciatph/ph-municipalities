@@ -1,27 +1,29 @@
 ## ph-municipalities
 
-**ph-municipalities** have **NPM scripts** that allow interactive querying of Philippines municipalities included in one or more provinces or from a whole region, with an option of writing them to JSON files from the command line.
+The **ph-municipalities** NPM package has **NPM scripts** that allow interactive querying of Philippines municipalities included in one or more provinces or from a whole region, with an option of writing them to JSON files from the command line.
 
-It uses `/app/data/day1.xlsx` (downloaded and stored as of this 20220808) from PAGASA's [10-day weather forecast excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the default data source.
+It uses `/app/data/day1.xlsx` (downloaded and stored as of this 20220808) from PAGASA's [10-day weather forecast Excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the default data source.
 
-It also asks users to key in the download URL of a remote PAGASA 10-Day weather forecast excel file should they want to use another excel file for a new and updated data source.
+It also asks users to key in the file download URL of a remote PAGASA 10-Day weather forecast Excel file should they want to use another Excel file for a new and updated data source.
+
+> _**INFO:** When installing the package using `npm i ph-municipalities`, the default data source is inside `/data/day1.xlsx`. All source codes and files are also inside the **ph-municipalities** root directory._
 
 Extracted municipalities are written in JSON files following the format:
 
 ```
 {
-    "metadata": {
-        "source": "https://pubfiles.pagasa.dost.gov.ph/pagasaweb/files/climate/tendayweatheroutlook/day1.xlsx",
-        "title": "List of PH Municipalities By Province and Region",
-        "description": "This dataset generated with reference to the excel file contents from the source URL on 20220808.",
-        "date_created": "Mon Aug 08 2022"
-    },
-    "data": {
-        "Albay": ["Bacacay", "Camalig", ... ],
-        "Camarines Norte": ["Basud", "Capalonga", ... ],
-        "Camarines Sur": ["Baao", "Balatan", ... ],
-         ...
-    }
+  "metadata": {
+    "source": "https://pubfiles.pagasa.dost.gov.ph/pagasaweb/files/climate/tendayweatheroutlook/day1.xlsx",
+    "title": "List of PH Municipalities By Province and Region",
+    "description": "This dataset generated with reference to the excel file contents from the source URL on 20220808.",
+    "date_created": "Mon Aug 08 2022"
+  },
+  "data": {
+    "Albay": ["Bacacay", "Camalig", ... ],
+    "Camarines Norte": ["Basud", "Capalonga", ... ],
+    "Camarines Sur": ["Baao", "Balatan", ... ],
+    ...
+  }
 }
 ```
 
@@ -82,6 +84,8 @@ The following dependencies are used for this project. Feel free to use other dep
 
 3. Create a `.env` file from the `.env.example` file inside the `/app` directory. Use the default values for the following environment variables.
 
+   > **INFO:** If installed as an NPM package with `npm i ph-municipalities`, create the `.env` file inside the NPM project's root directory.
+
    | Variable Name | Description |
    | --- | --- |
    | EXCEL_FILE_URL    | (Optional) Remote excel file's download URL.<br>If provided, the excel file will be downloaded and saved on the specified `pathToFile` local filesystem location during the `ExcelFile` class initialization.<br>Read on [Usage](#usage) for more information. |
@@ -134,9 +138,9 @@ The following dependencies are used to build and run the image. Please feel feel
 
 ## Available Scripts
 
-> _**Note:** These NPM scripts run relative within the `/app` directory._<br>
+> _**Note:** These NPM scripts run relative within the `/app` directory, when working on a git-cloned repository of the app.<br>
+> To run using only NodeJS, navigate first to the `/app` directory and execute a target script, for example:_
 
-To run using only NodeJS, navigate first to the `/app` directory and execute a target script, for example:
 ```
 cd app
 npm run list:region
