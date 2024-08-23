@@ -138,8 +138,7 @@ The following dependencies are used to build and run the image. Please feel feel
 
 ## Available Scripts
 
-> _**Note:** These NPM scripts run relative within the `/app` directory, when working on a git-cloned repository of the app.<br>
-> To run using only NodeJS, navigate first to the `/app` directory and execute a target script, for example:_
+> _**Note:** These NPM scripts run relative within the `/app` directory, when working on a git-cloned repository of the app. To run using only NodeJS, navigate first to the `/app` directory and execute a target script, for example:_
 
 ```
 cd app
@@ -220,20 +219,22 @@ Fix JavaScript lint errors.
 
 ## Class Usage
 
+Below are example usages of the `ExcelFile` class, run from the **/app/src/scripts** directory. Check out the `/app/src/scripts/sample_usage.js` file for more examples.
+
 ### Load and Parse a Local Excel File
 
-Below is a simple usage example of the `ExcelFile` class. Check out `/app/src/scripts/sample_usage.js` for more examples.
+This is a simple usage example of the `ExcelFile` class.
 
 ```javascript
 const path = require('path')
-const ExcelFile = require('./classes/excel')
+const ExcelFile = require('../classes/excel')
 
 // Use the the following if installed via npm
 // const { ExcelFile } = require('ph-municipalities')
 
 // Reads an existing excel file on /app/data/day1.xlsx
 file = new ExcelFile({
-   pathToFile: path.join(__dirname, 'data', 'day1.xlsx'),
+   pathToFile: path.join(__dirname, '..', '..', 'data', 'day1.xlsx'),
    // fastload: false
 })
 
@@ -243,7 +244,7 @@ file = new ExcelFile({
 // listMunicipalities() lists all municipalities
 // for each province
 const provinces = ['Albay','Masbate','Sorsogon']
-const municipalitiesFromProvince = file.listMunicipalities(provinces)
+const municipalitiesFromProvince = file.listMunicipalities({ provinces })
 
 // writeMunicipalities() writes municipalities data to a JSON file
 // and returns the JSON object
@@ -269,24 +270,27 @@ file.datalist = [
 
 ### Download and Parse a Remote Excel File
 
-Adding a `url` field in the constructor parameter will download a remote excel file for data source.
+Adding a `url` field in the constructor parameter prepares the class to download a remote Excel file for the data source.
+
+> **INFO:** Run the `.init()` method after initializing a class with a `url` parameter to start the async file download.
 
 ```javascript
 require('dotenv').config()
 const path = require('path')
-const ExcelFile = require('./classes/excel')
+const ExcelFile = require('../classes/excel')
 
 // Use the the following if installed via npm
 // const { ExcelFile } = require('ph-municipalities')
 
 const main = async () => {
-  // Excel file will be downloaded to /app/data/day1.xlsx
+  // Excel file will be downloaded to /app/src/scripts/excelfile.xlsx
   file = new ExcelFile({
-    pathToFile: path.join(__dirname, 'data', 'day1.xlsx'),
+    pathToFile: path.join(__dirname, 'excelfile.xlsx'),
     url: process.env.EXCEL_FILE_URL
   })
 
   try {
+    // Download file
     await file.init()
     console.log(file.datalist)
   } catch (err) {
@@ -304,23 +308,33 @@ Initialize an `ExcelFile` class instance.
 ```javascript
 require('dotenv').config()
 const path = require('path')
-const { ExcelFile } = require('./classes/excel')
 
-const PHExcel = new ExcelFile({
-  pathToFile: path.join(path.join(__dirname, '..', '..', 'data', 'day1.xlsx')),
-  url: process.env.EXCEL_FILE_URL
-})
+const ExcelFile = require('../classes/excel')
 
-PHExcel.init()
-module.exports = PHExcel
-```
+// Use the the following if installed via npm
+// const { ExcelFile } = require('ph-municipalities')
 
-Listen to the instance's `EVENTS.LOADED` event.
+const main = () => {
+  try {
+    // Initialize an ExcelFile class instance.
+    const PHExcel = new ExcelFile({
+      pathToFile: path.join(__dirname, 'excelfile.xlsx'),
+      url: process.env.EXCEL_FILE_URL
+    })
 
-```javascript
-PHExcel.events.on(PHExcel.EVENTS.LOADED, async () => {
-   console.log('Excel data loaded!')
-})
+    // Download file
+    PHExcel.init()
+
+    // Listen to the instance's EVENTS.LOADED event.
+    PHExcel.events.on(PHExcel.EVENTS.LOADED, () => {
+      console.log('--Excel data loaded!', PHExcel.datalist)
+    })
+  } catch (err) {
+    console.log(`[ERROR]: ${err.message}`)
+  }
+}
+
+main()
 ```
 
 ## Building Standalone Windows Executables
