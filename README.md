@@ -70,6 +70,7 @@ The following dependencies are used for this project. Feel free to use other dep
   - [Alternate Usage - Events](#alternate-usage---events)
 - [Building Standalone Windows Executables](#building-standalone-windows-executables)
 - [Compiling into Single, Minified Files](#compiling-into-single-minified-files)
+- [Troubleshooting](#troubleshooting)
 
 ## Installation
 
@@ -364,6 +365,28 @@ The main npm scripts can be compiled into standalone JavaScript files together w
    node dist/region
    node dist/province
    ```
+
+## Troubleshooting
+
+This section describes several common errors and related fixes.
+
+### EACCESS: permission denied
+
+#### Information
+
+- This error usually happens when writing to files inside Docker-mounted volumes on an Ubuntu host during run time.
+- A full sample error log is:<br>
+   > EACCESS: permission denied, open '/opt/app/region1.json'
+
+#### Fix
+
+1. Find the host UID of the ph-municipalities Docker user. Its name is `"app,"` defined in the Dockerfile.<br>
+   `docker run --rm -it ciatph/ph-municipalities:dev sh -c "id -u app"`
+2. Change the ownership of the `./app` directory using the ph-municipalities user host UID from **step #1**.<br>
+   `sudo chown -R <APP_UID>:<APP_UID> ./app`
+3. Re-run the NPM script.
+
+
 
 @ciatph<br>
 20220807
