@@ -6,7 +6,7 @@
       "https://en.wikipedia.org/wiki/Regions_of_the_Philippines"
     ],
     "title": "List of Philippine Provinces by Regions",
-    "description": "This dataset is a list of provinces in the Philippines grouped by regions. Data is manually encoded with main reference from the 1st source URL, and secondary references from the PAGASA 10-Day Weather Forecast Excel files and Wikipedia (2nd and 3rd source URLs).",
+    "description": "This dataset is a list of provinces in the Philippines grouped by regions. Region data was manually encoded using the PAGASA source URLs as the primary source of information and Wikipedia as a secondary source. The final region data are adjusted to sync with the PAGASA 10-Day Weather Forecast Excel files (2nd source).",
     "date_created": "20220809",
     "date_updated": "20240824"
   },
