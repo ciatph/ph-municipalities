@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.release.tag_name }}
 
       - name: Use NodeJS v16.14.2
         uses: actions/setup-node@v3
@@ -85,12 +87,19 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-on-win
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Use NodeJS v16.14.2
+        uses: actions/setup-node@v2
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
-      - run: |
+
+      - name: Publish package
+        run: |
           cp README.md app/
           cd app
           npm publish
