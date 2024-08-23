@@ -68,6 +68,7 @@ The following dependencies are used for this project. Feel free to use other dep
   - [Load and Parse a Local Excel File](#load-and-parse-a-local-excel-file)
   - [Download and Parse a Remote Excel File](#download-and-parse-a-remote-excel-file)
   - [Alternate Usage - Events](#alternate-usage---events)
+  - [Using a Custom Configuration File](#using-a-custom-configuration-file)
 - [Building Standalone Windows Executables](#building-standalone-windows-executables)
 - [Compiling into Single, Minified Files](#compiling-into-single-minified-files)
 - [Troubleshooting](#troubleshooting)
@@ -220,7 +221,7 @@ Fix JavaScript lint errors.
 
 ## Class Usage
 
-Below are example usages of the `ExcelFile` class, run from the **/app/src/scripts** directory. Check out the `/app/src/scripts/sample_usage.js` file for more examples.
+Below are example usages of the `ExcelFile` class, run from the **/app/src/examples** directory. Check out the `/app/src/examples/sample_usage.js` file for more examples.
 
 ### Load and Parse a Local Excel File
 
@@ -284,8 +285,8 @@ const ExcelFile = require('../classes/excel')
 // const { ExcelFile } = require('ph-municipalities')
 
 const main = async () => {
-  // Excel file will be downloaded to /app/src/scripts/excelfile.xlsx
-  file = new ExcelFile({
+  // Excel file will be downloaded to /app/src/examples/excelfile.xlsx
+  const file = new ExcelFile({
     pathToFile: path.join(__dirname, 'excelfile.xlsx'),
     url: process.env.EXCEL_FILE_URL
   })
@@ -336,6 +337,81 @@ const main = () => {
 }
 
 main()
+```
+
+### Using a Custom Configuration File
+
+The **ph-municipalities** `ExcelFile` and `ExcelFactory` classes use a default configuration file to define their provinces and municipalities in the `/app/config/regions.json` file. The regions and provinces data in this file syncs with the PAGASA Seasonal and 10-Day Weather Forecast Excel files provinces and municipalities naming convention, encoded by hand as of August 24, 2024.
+
+Follow the codes to define a custom regions config file, following the format of the `/app/config/regions.json` file to use other regions' definitions.
+
+> _**Note:** The custom config file's province/municipality names should match those in the 10-day Excel file._
+
+**config.json**
+```json
+{
+  "metadata": {
+    "sources": [
+      "http://localhost:3000"
+    ],
+    "title": "List of Random Provinces by Regions",
+    "description": "Sample regions config file",
+    "date_created": "20240824"
+  },
+  "data": [
+    {
+      "name": "Mondstat",
+      "abbrev": "MON",
+      "region_num": "1",
+      "region_name": "The City of Freedom",
+      "provinces": ["Brightcrown Mountains","Galesong Hill","Starfell Valley","Windwail Highland","Dragonspine"]
+    },
+    {
+      "name": "Inazuma",
+      "abbrev": "INZ",
+      "region_num": "3",
+      "region_name": "The Realm of Eternity",
+      "provinces": ["Narukami","Kannazuka","Yashiori","Watatsumi","Seirai","Tsurumi","Enkanomiya"]
+    },
+    ...
+  ]
+}
+```
+
+**Custom config usage**
+```javascript
+require('dotenv').config()
+const path = require('path')
+
+const ExcelFile = require('../classes/excel')
+
+// Use the the following if installed via npm
+// const { ExcelFile } = require('ph-municipalities')
+
+const config = require('./config.json')
+
+// Load the local Excel file
+const file = new ExcelFile({
+  pathToFile: path.join(__dirname, '..', '..', 'data', 'day1.xlsx'),
+  fastload: true,
+  // Use a custom settings file to define region info
+  settings: config
+})
+
+// Load provinces from the custom config file
+const provinces = file
+  .settings
+  .data
+  .find(item => item.abbrev === 'INZ')?.provinces ?? []
+
+// List the municipalities of defined provinces in the config file
+// Note: Province/municipality names should match with those in the 10-day Excel file
+const municipalities = file.listMunicipalities({ provinces })
+
+console.log('---provinces', provinces)
+
+console.log('\nProvince/municipality names should match with those in the 10-day Excel file')
+console.log('---municipalities', municipalities)
 ```
 
 ## Building Standalone Windows Executables
