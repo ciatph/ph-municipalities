@@ -7,17 +7,19 @@ require('dotenv').config({
 const ExcelFile = require('../excel')
 
 class ExcelFactory extends ExcelFile {
-  constructor (url) {
+  constructor ({ url, settings } = {}) {
     if (url) {
       super({
         pathToFile: path.join(process.cwd(), 'datasource.xlsx'),
-        url
+        url,
+        settings
       })
     } else {
       super({
         // When pkg encounters path.join(__dirname, '../path/to/asset'),
         // it automatically packages the file specified as an asset.
-        pathToFile: path.join(__dirname, '..', '..', '..', 'data', 'day1.xlsx')
+        pathToFile: path.join(__dirname, '..', '..', '..', 'data', 'day1.xlsx'),
+        settings
         // url: process.env.EXCEL_FILE_URL
       })
     }

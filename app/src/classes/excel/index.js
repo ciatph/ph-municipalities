@@ -3,6 +3,9 @@ const fs = require('fs')
 const EventEmitter = require('events')
 const XLSX = require('xlsx')
 
+// Default region settings
+const defaultRegionsConfig = require('../../../config/regions.json')
+
 /**
  * Load, process and parse an Excel File containing a list of PH municipalities.
  * The Excel File should contain a column with string pattern:
@@ -14,6 +17,9 @@ class ExcelFile {
 
   /** Full file path to excel file on local storage */
   #pathToFile = null
+
+  /** Region information from the /config/regions.json or other config file */
+  #settings = null
 
   /** Excel workbook object parsed by sheetjs */
   #workbook = null
@@ -55,7 +61,7 @@ class ExcelFile {
    * @param {Bool} fastload - Start loading and parsing the local excel file on class initialization if the "url" param is not provided.
    *    - If "false", call init() later on a more convenient time
    */
-  constructor ({ url, pathToFile, fastload = true }) {
+  constructor ({ url, pathToFile, fastload = true, settings = null } = {}) {
     if (url === '' || pathToFile === '') {
       throw new Error('Missing remote file url or local file path.')
     }
@@ -68,8 +74,11 @@ class ExcelFile {
       throw new Error('pathToFile should contain an excel file name ending in .xlsx')
     }
 
-    // Set the local excel file path
+    // Set the local Excel file path
     this.#pathToFile = pathToFile
+
+    // Set the regions settings
+    this.#settings = settings ?? defaultRegionsConfig
 
     if (url) {
       // Set the remote excel file download URL
@@ -272,6 +281,11 @@ class ExcelFile {
   // Set the private data list contents
   set datalist (data) {
     this.#datalist = data
+  }
+
+  // Return the region data settings object
+  get settings () {
+    return this.#settings
   }
 
   /**

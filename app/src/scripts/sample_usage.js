@@ -1,7 +1,6 @@
 require('dotenv').config()
 const path = require('path')
 const ExcelFile = require('../classes/excel')
-const regions = require('../../config/regions.json')
 
 const main = async () => {
   const file = new ExcelFile({
@@ -19,7 +18,7 @@ const main = async () => {
 
   try {
     // List the provinces of a target region
-    const provinces = regions.data.find(x => x.region_name === 'Bicol').provinces
+    const provinces = file.settings.data.find(x => x.region_name === 'Bicol').provinces
 
     // List the municipalities of selected region-provinces
     const municipalities = file.writeMunicipalities({
