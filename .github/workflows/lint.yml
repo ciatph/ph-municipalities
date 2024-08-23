@@ -18,5 +18,6 @@ jobs:
           node-version: 16.14.2
       - name: Install Dependencies and lint
         run: |
+          cd app
           npm install
           npm run lint
