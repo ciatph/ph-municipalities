@@ -19,7 +19,7 @@ const main = async () => {
 
   try {
     // List the provinces of a target region
-    const provinces = regions.data.find(x => x.abbrev === 'Bicol').provinces
+    const provinces = regions.data.find(x => x.region_name === 'Bicol').provinces
 
     // List the municipalities of selected region-provinces
     const municipalities = file.writeMunicipalities({
