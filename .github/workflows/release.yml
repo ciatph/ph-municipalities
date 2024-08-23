@@ -23,11 +23,12 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
+          key: npm-${{ hashFiles('app/package-lock.json') }}
           restore-keys: npm-
 
       - name: Install Dependencies and lint
         run: |
+          cd app
           npm install
           git rm .eslintrc.js
           # Quick hack to fix unix to windows linebreak-style lint errors
@@ -36,6 +37,7 @@ jobs:
 
       - name: Packge and archive the executable files
         run: |
+          cd app
           cp .env.example .env
           npm run build:win:all
           cd dist
@@ -46,8 +48,8 @@ jobs:
         with:
           name: dist
           path: |
-            dist/ph-regions-win.exe
-            dist/ph-provinces-win.exe
+            app/dist/ph-regions-win.exe
+            app/dist/ph-provinces-win.exe
           retention-days: 1
 
   release:
@@ -88,6 +90,8 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
-      - run: npm publish
+      - run: |
+          cd app
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

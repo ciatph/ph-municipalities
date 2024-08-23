@@ -2,7 +2,7 @@
 
 **ph-municipalities** have **NPM scripts** that allow interactive querying of Philippines municipalities included in one or more provinces or from a whole region, with an option of writing them to JSON files from the command line.
 
-It uses `/data/day1.xlsx` (downloaded and stored as of this 20220808) from PAGASA's [10-day weather forecast excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the default data source.
+It uses `/app/data/day1.xlsx` (downloaded and stored as of this 20220808) from PAGASA's [10-day weather forecast excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the default data source.
 
 It also asks users to key in the download URL of a remote PAGASA 10-Day weather forecast excel file should they want to use another excel file for a new and updated data source.
 
@@ -37,9 +37,9 @@ The following dependencies are used for this project. Feel free to use other dep
    - node v16.14.2
    - npm v8.5.0
 4. Excel file
-   - ph-municipalities uses Excel files in the `/data` directory as data source.
+   - ph-municipalities uses Excel files in the `/app/data` directory as data source.
    - At minimum, the excel file should have a **column** that contains municipality and province names following the pattern `"municipalityName (provinceName)"`
-   - Checkout the excel file format on the `/data/day1.xlsx` sample file for more information
+   - Checkout the excel file format on the `/app/data/day1.xlsx` sample file for more information
 5. (Optional) Download URL for a remote excel file.
    - See the `EXCEL_FILE_URL` variable on the [Installation](#installation) section.
 
@@ -74,12 +74,15 @@ The following dependencies are used for this project. Feel free to use other dep
 `git clone https://github.com/ciatph/municipalities-by-province.git`
 
 2. Install dependencies.<br>
-`npm install`
+   ```bash
+   cd app
+   npm install
+   ```
 
-1. Create a `.env` file from the `.env.example` file. Use the default values for the following environment variables.
+1. Create a `.env` file from the `.env.example` file inside the `/app` directory. Use the default values for the following environment variables.
 
-   | Variable Name     | Description                                                                                                                                                                                                                                                    |
-   | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+   | Variable Name | Description |
+   | --- | --- |
    | EXCEL_FILE_URL    | (Optional) Remote excel file's download URL.<br>If provided, the excel file will be downloaded and saved on the specified `pathToFile` local filesystem location during the `ExcelFile` class initialization.<br>Read on [Usage](#usage) for more information. |
    | SHEETJS_COLUMN    | Column name read by [sheetjs](https://sheetjs.com/) in an excel file.<br>This column contains the municipality and province names following the string pattern<br>`"municipalityName (provinceName)"`<br>Default value is `__EMPTY`|
    | SORT_ALPHABETICAL | Arranges the municipality names in alphabetical order.<br>Default value is `1`. Set to `0` to use the ordering as read from the Excel file. |
@@ -87,11 +90,19 @@ The following dependencies are used for this project. Feel free to use other dep
 
 ## Available Scripts
 
+> _**Note:** These NPM scripts run relative within the `/app` directory._<br>
+
+To run, navigate first to the `/app` directory and execute a target script, for example:
+```
+cd app
+npm run list:region
+```
+
 ### `npm start` / `npm run list:region`
 
 - Asks users to enter the download URL of a remote excel file or use the default local excel file
-  - Loads and parses the local excel file in `/data/day1.xlsx` by default.
-  - Loads and parses the downloaded excel file in `/data/datasource.xlsx` if download URL in the class constructor is provided.
+  - Loads and parses the local excel file in `/app/data/day1.xlsx` by default.
+  - Loads and parses the downloaded excel file in `/app/data/datasource.xlsx` if download URL in the class constructor is provided.
 - Displays a list of available PH **region** names.
 - Lists all provinces and municipalities of a specified region via commandline input.
 - Asks for an option to write results to a JSON file.
@@ -101,8 +112,8 @@ The following dependencies are used for this project. Feel free to use other dep
 ### `npm run list:province`
 
 - Asks users to enter the download URL of a remote excel file or use the default local excel file
-  - Loads and parses the local excel file in `/data/day1.xlsx` by default.
-  - Loads and parses the downloaded excel file in `/data/datasource.xlsx` if download URL in the class constructor is provided.
+  - Loads and parses the local excel file in `/app/data/day1.xlsx` by default.
+  - Loads and parses the downloaded excel file in `/app/data/datasource.xlsx` if download URL in the class constructor is provided.
 - Lists all municipalities under specified province(s) via commandline input.
 - Asks for an option to write results to a JSON file.
 - Run the script as follows if installed using `npm i ph-municipalities`:
@@ -163,7 +174,7 @@ Fix JavaScript lint errors.
 
 ### Load and Parse a Local Excel File
 
-Below is a simple usage example of the `ExcelFile` class. Check out `/src/scripts/sample_usage.js` for more examples.
+Below is a simple usage example of the `ExcelFile` class. Check out `/app/src/scripts/sample_usage.js` for more examples.
 
 ```javascript
 const path = require('path')
@@ -172,7 +183,7 @@ const ExcelFile = require('./classes/excel')
 // Use the the following if installed via npm
 // const { ExcelFile } = require('ph-municipalities')
 
-// Reads an existing excel file on /data/day1.xlsx
+// Reads an existing excel file on /app/data/day1.xlsx
 file = new ExcelFile({
    pathToFile: path.join(__dirname, 'data', 'day1.xlsx'),
    // fastload: false
@@ -221,7 +232,7 @@ const ExcelFile = require('./classes/excel')
 // const { ExcelFile } = require('ph-municipalities')
 
 const main = async () => {
-  // Excel file will be downloaded to /data/day1.xlsx
+  // Excel file will be downloaded to /app/data/day1.xlsx
   file = new ExcelFile({
     pathToFile: path.join(__dirname, 'data', 'day1.xlsx'),
     url: process.env.EXCEL_FILE_URL
