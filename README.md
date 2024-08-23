@@ -49,6 +49,7 @@ The following dependencies are used for this project. Feel free to use other dep
 - [Requirements](#requirements)
 - [Contents](#contents)
 - [Installation](#installation)
+- [Installation Using Docker](#installation-using-docker)
 - [Available Scripts](#available-scripts)
   - [`npm start` / `npm run list:region`](#npm-start--npm-run-listregion)
   - [`npm run list:province`](#npm-run-listprovince)
@@ -79,7 +80,7 @@ The following dependencies are used for this project. Feel free to use other dep
    npm install
    ```
 
-1. Create a `.env` file from the `.env.example` file inside the `/app` directory. Use the default values for the following environment variables.
+3. Create a `.env` file from the `.env.example` file inside the `/app` directory. Use the default values for the following environment variables.
 
    | Variable Name | Description |
    | --- | --- |
@@ -107,8 +108,7 @@ The following dependencies are used to build and run the image. Please feel feel
 
 ### Docker for Localhost Development
 
-1. Set up the environment variables for the `/app` directory.
-   - Visit the `app/README.md` for more information.
+1. Set up the environment variables for the `/app` directory. Visit the [Installation](#installation) section, **step #3** for more information.
 
 2. Stop and delete all docker instances for a fresh start.
    - > **NOTE:** Running this script will delete all docker images, containers, volumes, and networks. Run this script if you feel like everything is piling but do not proceed if you have important work on other running Docker containers.
