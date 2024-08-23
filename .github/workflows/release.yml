@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.release.tag_name }}
 
       - name: Use NodeJS v16.14.2
         uses: actions/setup-node@v3
@@ -23,11 +25,12 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
+          key: npm-${{ hashFiles('app/package-lock.json') }}
           restore-keys: npm-
 
       - name: Install Dependencies and lint
         run: |
+          cd app
           npm install
           git rm .eslintrc.js
           # Quick hack to fix unix to windows linebreak-style lint errors
@@ -36,6 +39,7 @@ jobs:
 
       - name: Packge and archive the executable files
         run: |
+          cd app
           cp .env.example .env
           npm run build:win:all
           cd dist
@@ -46,8 +50,8 @@ jobs:
         with:
           name: dist
           path: |
-            dist/ph-regions-win.exe
-            dist/ph-provinces-win.exe
+            app/dist/ph-regions-win.exe
+            app/dist/ph-provinces-win.exe
           retention-days: 1
 
   release:
@@ -83,11 +87,21 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-on-win
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Use NodeJS v16.14.2
+        uses: actions/setup-node@v2
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
-      - run: npm publish
+
+      - name: Publish package
+        run: |
+          cp README.md app/
+          cd app
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

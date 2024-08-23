@@ -1,27 +1,29 @@
 ## ph-municipalities
 
-**ph-municipalities** have **NPM scripts** that allow interactive querying of Philippines municipalities included in one or more provinces or from a whole region, with an option of writing them to JSON files from the command line.
+The **ph-municipalities** NPM package has **NPM scripts** that allow interactive querying of Philippines municipalities included in one or more provinces or from a whole region, with an option of writing them to JSON files from the command line.
 
-It uses `/data/day1.xlsx` (downloaded and stored as of this 20220808) from PAGASA's [10-day weather forecast excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the default data source.
+It uses `/app/data/day1.xlsx` (downloaded and stored as of this 20220808) from PAGASA's [10-day weather forecast Excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the default data source.
 
-It also asks users to key in the download URL of a remote PAGASA 10-Day weather forecast excel file should they want to use another excel file for a new and updated data source.
+It also asks users to key in the file download URL of a remote PAGASA 10-Day weather forecast Excel file should they want to use another Excel file for a new and updated data source.
+
+> _**INFO:** When installing the package using `npm i ph-municipalities`, the default data source is inside `/data/day1.xlsx`. All source codes and files are also inside the **ph-municipalities** root directory._
 
 Extracted municipalities are written in JSON files following the format:
 
 ```
 {
-    "metadata": {
-        "source": "https://pubfiles.pagasa.dost.gov.ph/pagasaweb/files/climate/tendayweatheroutlook/day1.xlsx",
-        "title": "List of PH Municipalities By Province and Region",
-        "description": "This dataset generated with reference to the excel file contents from the source URL on 20220808.",
-        "date_created": "Mon Aug 08 2022"
-    },
-    "data": {
-        "Albay": ["Bacacay", "Camalig", ... ],
-        "Camarines Norte": ["Basud", "Capalonga", ... ],
-        "Camarines Sur": ["Baao", "Balatan", ... ],
-         ...
-    }
+  "metadata": {
+    "source": "https://pubfiles.pagasa.dost.gov.ph/pagasaweb/files/climate/tendayweatheroutlook/day1.xlsx",
+    "title": "List of PH Municipalities By Province and Region",
+    "description": "This dataset generated with reference to the excel file contents from the source URL on 20220808.",
+    "date_created": "Mon Aug 08 2022"
+  },
+  "data": {
+    "Albay": ["Bacacay", "Camalig", ... ],
+    "Camarines Norte": ["Basud", "Capalonga", ... ],
+    "Camarines Sur": ["Baao", "Balatan", ... ],
+    ...
+  }
 }
 ```
 
@@ -37,9 +39,9 @@ The following dependencies are used for this project. Feel free to use other dep
    - node v16.14.2
    - npm v8.5.0
 4. Excel file
-   - ph-municipalities uses Excel files in the `/data` directory as data source.
+   - ph-municipalities uses Excel files in the `/app/data` directory as data source.
    - At minimum, the excel file should have a **column** that contains municipality and province names following the pattern `"municipalityName (provinceName)"`
-   - Checkout the excel file format on the `/data/day1.xlsx` sample file for more information
+   - Checkout the excel file format on the `/app/data/day1.xlsx` sample file for more information
 5. (Optional) Download URL for a remote excel file.
    - See the `EXCEL_FILE_URL` variable on the [Installation](#installation) section.
 
@@ -49,6 +51,7 @@ The following dependencies are used for this project. Feel free to use other dep
 - [Requirements](#requirements)
 - [Contents](#contents)
 - [Installation](#installation)
+- [Installation Using Docker](#installation-using-docker)
 - [Available Scripts](#available-scripts)
   - [`npm start` / `npm run list:region`](#npm-start--npm-run-listregion)
   - [`npm run list:province`](#npm-run-listprovince)
@@ -67,6 +70,7 @@ The following dependencies are used for this project. Feel free to use other dep
   - [Alternate Usage - Events](#alternate-usage---events)
 - [Building Standalone Windows Executables](#building-standalone-windows-executables)
 - [Compiling into Single, Minified Files](#compiling-into-single-minified-files)
+- [Troubleshooting](#troubleshooting)
 
 ## Installation
 
@@ -74,24 +78,79 @@ The following dependencies are used for this project. Feel free to use other dep
 `git clone https://github.com/ciatph/municipalities-by-province.git`
 
 2. Install dependencies.<br>
-`npm install`
+   ```bash
+   cd app
+   npm install
+   ```
 
-1. Create a `.env` file from the `.env.example` file. Use the default values for the following environment variables.
+3. Create a `.env` file from the `.env.example` file inside the `/app` directory. Use the default values for the following environment variables.
 
-   | Variable Name     | Description                                                                                                                                                                                                                                                    |
-   | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+   > **INFO:** If installed as an NPM package with `npm i ph-municipalities`, create the `.env` file inside the NPM project's root directory.
+
+   | Variable Name | Description |
+   | --- | --- |
    | EXCEL_FILE_URL    | (Optional) Remote excel file's download URL.<br>If provided, the excel file will be downloaded and saved on the specified `pathToFile` local filesystem location during the `ExcelFile` class initialization.<br>Read on [Usage](#usage) for more information. |
    | SHEETJS_COLUMN    | Column name read by [sheetjs](https://sheetjs.com/) in an excel file.<br>This column contains the municipality and province names following the string pattern<br>`"municipalityName (provinceName)"`<br>Default value is `__EMPTY`|
    | SORT_ALPHABETICAL | Arranges the municipality names in alphabetical order.<br>Default value is `1`. Set to `0` to use the ordering as read from the Excel file. |
    | SPECIAL_CHARACTERS | Key-value pairs of special characters or garbled text and their normalized text conversions, delimited by the `":"` character.<br>Multiple key-value pairs are delimited by the `","` character.<br>If a special character key's value is a an empty string, write it as i.e.,: `"some-garbled-text:"` |
 
+## Installation Using Docker
+
+We can use Docker to run dockerized Node app for local development mode. The following methods require Docker and Docker compose correctly installed and set up on your development machine.
+
+### Docker Dependencies
+
+The following dependencies are used to build and run the image. Please feel feel free to use other OS and versions as needed.
+
+1. Ubuntu 22.04.1
+   - Docker version 23.0.1, build a5eeb1
+   - Docker Compose v2.16.0
+2. Microsoft Windows 10 Pro
+   - version 22H2 Build 19045.4651
+   - Docker Desktop
+      - Docker Compose version v2.27.1-desktop.1
+      - Docker Engine version 26.1.4, build 5650f9b
+
+### Docker for Localhost Development
+
+1. Set up the environment variables for the `/app` directory. Visit the [Installation](#installation) section, **step #3** for more information.
+
+2. Stop and delete all docker instances for a fresh start.
+   - > **NOTE:** Running this script will delete all docker images, containers, volumes, and networks. Run this script if you feel like everything is piling but do not proceed if you have important work on other running Docker containers.
+   - ```
+      sudo chmod u+x scripts/docker-cleanup.sh
+      ./scripts/docker-cleanup.sh
+      # Answer all proceeding prompts
+     ```
+
+3. Build and run the app using Docker.
+   - Build<br>
+     `docker compose -f docker-compose.dev.yml build`
+   - Run<br>
+     `docker compose -f docker-compose.dev.yml up`
+   - Stop<br>
+     `docker compose -f docker-compose.dev.yml down`
+
+4. Edit and execute scripts within the running docker container from **step #3**.
+   - For running NPM scripts (see the [Available Scripts](#available-scripts) section for more information):<br>
+   `docker exec -it ph-municipalities <NPM_SCRIPT>`
+   - For new scripts (example only):<br>
+   `docker exec -it ph-municipalities node ./src/new.js`
+
 ## Available Scripts
+
+> _**Note:** These NPM scripts run relative within the `/app` directory, when working on a git-cloned repository of the app. To run using only NodeJS, navigate first to the `/app` directory and execute a target script, for example:_
+
+```
+cd app
+npm run list:region
+```
 
 ### `npm start` / `npm run list:region`
 
 - Asks users to enter the download URL of a remote excel file or use the default local excel file
-  - Loads and parses the local excel file in `/data/day1.xlsx` by default.
-  - Loads and parses the downloaded excel file in `/data/datasource.xlsx` if download URL in the class constructor is provided.
+  - Loads and parses the local excel file in `/app/data/day1.xlsx` by default.
+  - Loads and parses the downloaded excel file in `/app/data/datasource.xlsx` if download URL in the class constructor is provided.
 - Displays a list of available PH **region** names.
 - Lists all provinces and municipalities of a specified region via commandline input.
 - Asks for an option to write results to a JSON file.
@@ -101,8 +160,8 @@ The following dependencies are used for this project. Feel free to use other dep
 ### `npm run list:province`
 
 - Asks users to enter the download URL of a remote excel file or use the default local excel file
-  - Loads and parses the local excel file in `/data/day1.xlsx` by default.
-  - Loads and parses the downloaded excel file in `/data/datasource.xlsx` if download URL in the class constructor is provided.
+  - Loads and parses the local excel file in `/app/data/day1.xlsx` by default.
+  - Loads and parses the downloaded excel file in `/app/data/datasource.xlsx` if download URL in the class constructor is provided.
 - Lists all municipalities under specified province(s) via commandline input.
 - Asks for an option to write results to a JSON file.
 - Run the script as follows if installed using `npm i ph-municipalities`:
@@ -161,20 +220,22 @@ Fix JavaScript lint errors.
 
 ## Class Usage
 
+Below are example usages of the `ExcelFile` class, run from the **/app/src/scripts** directory. Check out the `/app/src/scripts/sample_usage.js` file for more examples.
+
 ### Load and Parse a Local Excel File
 
-Below is a simple usage example of the `ExcelFile` class. Check out `/src/scripts/sample_usage.js` for more examples.
+This is a simple usage example of the `ExcelFile` class.
 
 ```javascript
 const path = require('path')
-const ExcelFile = require('./classes/excel')
+const ExcelFile = require('../classes/excel')
 
 // Use the the following if installed via npm
 // const { ExcelFile } = require('ph-municipalities')
 
-// Reads an existing excel file on /data/day1.xlsx
+// Reads an existing excel file on /app/data/day1.xlsx
 file = new ExcelFile({
-   pathToFile: path.join(__dirname, 'data', 'day1.xlsx'),
+   pathToFile: path.join(__dirname, '..', '..', 'data', 'day1.xlsx'),
    // fastload: false
 })
 
@@ -184,7 +245,7 @@ file = new ExcelFile({
 // listMunicipalities() lists all municipalities
 // for each province
 const provinces = ['Albay','Masbate','Sorsogon']
-const municipalitiesFromProvince = file.listMunicipalities(provinces)
+const municipalitiesFromProvince = file.listMunicipalities({ provinces })
 
 // writeMunicipalities() writes municipalities data to a JSON file
 // and returns the JSON object
@@ -210,24 +271,27 @@ file.datalist = [
 
 ### Download and Parse a Remote Excel File
 
-Adding a `url` field in the constructor parameter will download a remote excel file for data source.
+Adding a `url` field in the constructor parameter prepares the class to download a remote Excel file for the data source.
+
+> **INFO:** Run the `.init()` method after initializing a class with a `url` parameter to start the async file download.
 
 ```javascript
 require('dotenv').config()
 const path = require('path')
-const ExcelFile = require('./classes/excel')
+const ExcelFile = require('../classes/excel')
 
 // Use the the following if installed via npm
 // const { ExcelFile } = require('ph-municipalities')
 
 const main = async () => {
-  // Excel file will be downloaded to /data/day1.xlsx
+  // Excel file will be downloaded to /app/src/scripts/excelfile.xlsx
   file = new ExcelFile({
-    pathToFile: path.join(__dirname, 'data', 'day1.xlsx'),
+    pathToFile: path.join(__dirname, 'excelfile.xlsx'),
     url: process.env.EXCEL_FILE_URL
   })
 
   try {
+    // Download file
     await file.init()
     console.log(file.datalist)
   } catch (err) {
@@ -245,23 +309,33 @@ Initialize an `ExcelFile` class instance.
 ```javascript
 require('dotenv').config()
 const path = require('path')
-const { ExcelFile } = require('./classes/excel')
 
-const PHExcel = new ExcelFile({
-  pathToFile: path.join(path.join(__dirname, '..', '..', 'data', 'day1.xlsx')),
-  url: process.env.EXCEL_FILE_URL
-})
+const ExcelFile = require('../classes/excel')
 
-PHExcel.init()
-module.exports = PHExcel
-```
+// Use the the following if installed via npm
+// const { ExcelFile } = require('ph-municipalities')
 
-Listen to the instance's `EVENTS.LOADED` event.
+const main = () => {
+  try {
+    // Initialize an ExcelFile class instance.
+    const PHExcel = new ExcelFile({
+      pathToFile: path.join(__dirname, 'excelfile.xlsx'),
+      url: process.env.EXCEL_FILE_URL
+    })
 
-```javascript
-PHExcel.events.on(PHExcel.EVENTS.LOADED, async () => {
-   console.log('Excel data loaded!')
-})
+    // Download file
+    PHExcel.init()
+
+    // Listen to the instance's EVENTS.LOADED event.
+    PHExcel.events.on(PHExcel.EVENTS.LOADED, () => {
+      console.log('--Excel data loaded!', PHExcel.datalist)
+    })
+  } catch (err) {
+    console.log(`[ERROR]: ${err.message}`)
+  }
+}
+
+main()
 ```
 
 ## Building Standalone Windows Executables
@@ -291,6 +365,28 @@ The main npm scripts can be compiled into standalone JavaScript files together w
    node dist/region
    node dist/province
    ```
+
+## Troubleshooting
+
+This section describes several common errors and related fixes.
+
+### EACCESS: permission denied
+
+#### Information
+
+- This error usually happens when writing to files inside Docker-mounted volumes on an Ubuntu host during run time.
+- A full sample error log is:<br>
+   > EACCESS: permission denied, open '/opt/app/region1.json'
+
+#### Fix
+
+1. Find the host UID of the ph-municipalities Docker user. Its name is `"app,"` defined in the Dockerfile.<br>
+   `docker run --rm -it ciatph/ph-municipalities:dev sh -c "id -u app"`
+2. Change the ownership of the `./app` directory using the ph-municipalities user host UID from **step #1**.<br>
+   `sudo chown -R <APP_UID>:<APP_UID> ./app`
+3. Re-run the NPM script.
+
+
 
 @ciatph<br>
 20220807

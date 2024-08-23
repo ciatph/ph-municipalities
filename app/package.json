@@ -1,8 +1,12 @@
 {
   "name": "ph-municipalities",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "List and write the `municipalities` of Philippines provinces or regions into JSON files",
   "main": "index.js",
+  "engines": {
+    "node": "16.14.2",
+    "npm": "8.5.0"
+  },
   "scripts": {
     "start": "npm run list:region",
     "list:province": "node src/scripts/by_province.js",
@@ -11,8 +15,8 @@
     "build:win:region": "pkg ./src/scripts/by_region.js -c package.json --compress GZip -o ./dist/ph-regions-win",
     "build:win:province": "pkg ./src/scripts/by_province.js -c package.json --compress GZip -o ./dist/ph-provinces-win",
     "build:win:all": "npm run build:win:region && npm run build:win:province",
-    "minify:region": "ncc dist src/scripts/by_region.js -m -o dist/region",
-    "minify:province": "ncc dist src/scripts/by_province.js -m -o dist/province",
+    "minify:region": "ncc build src/scripts/by_region.js -m -o dist/region",
+    "minify:province": "ncc build src/scripts/by_province.js -m -o dist/province",
     "minify:all": "npm run minify:region && npm run minify:province",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix"

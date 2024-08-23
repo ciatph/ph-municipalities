@@ -1,0 +1,22 @@
+services:
+  ph-municipalities:
+    container_name: ph-municipalities
+    image: ciatph/ph-municipalities:dev
+    env_file:
+      - ./app/.env
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+      target: development
+    networks:
+      - ph-municipalities
+    volumes:
+      - ./app:/opt/app
+      - /opt/app/node_modules
+    stdin_open: true
+    tty: true
+
+networks:
+  ph-municipalities:
+    name: ph-municipalities
+    external: false

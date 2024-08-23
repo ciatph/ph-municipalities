@@ -1,0 +1,17 @@
+.git
+.gitignore
+.dockerignore
+node_modules
+npm-debug.log
+Dockerfile
+.env
+.npmrc
+.vscode
+*.xlsx
+*.json
+*.zip
+dist/
+
+# Ignore all JSON files except:
+!package.json
+!package-lock.json
