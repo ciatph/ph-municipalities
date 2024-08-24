@@ -1,0 +1,11 @@
+node_modules/
+.env
+.vscode
+*.xlsx
+*.json
+*.zip
+dist/
+
+# Ignore all JSON files except:
+!package.json
+!package-lock.json

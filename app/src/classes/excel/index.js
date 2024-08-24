@@ -1,9 +1,12 @@
 const https = require('https')
 const fs = require('fs')
 const EventEmitter = require('events')
-const XLSX = require('xlsx')
 
-// Default region settings
+const XLSX = require('xlsx')
+const Schema = require('../schema')
+
+// Configuration settings
+const regionSchema = require('../../lib/schemas/regionSchema')
 const defaultRegionsConfig = require('../../../config/regions.json')
 
 /**
@@ -53,13 +56,15 @@ class ExcelFile {
 
   /**
    * Initialize an ExcelFile object
-   * @param {String} url - Remote download URL of an excel file
-   * @param {String} pathToFile
-   *    - Full local file path of an existing excel file, if "url" is not provided
-   *    - Full local file path of an excel on where to download the remote excel file from "url",
-   *      if the "url" parameter is provided
-   * @param {Bool} fastload - Start loading and parsing the local excel file on class initialization if the "url" param is not provided.
-   *    - If "false", call init() later on a more convenient time
+   * @typedef {Object} params - Constructor parameter Object
+   * @param {String} [params.url] - (Optional) Remote download URL of an excel file
+   * @param {String} params.pathToFile
+   *    - Full local file path of an existing Excel file, **required** if `params.url` is not provided
+   *    - Full local file path to an existing or non-existent Excel file on which to download/save the remote Excel file from `params.url`,
+   *      if the `params.url` parameter is provided
+   * @param {Object} [params.settings] - (Optional) Region settings configuration object following the format of the `/app/config/regions.json` file. Defaults to the mentioned file if not provided.
+   * @param {Bool} [params.fastload] - (Optional) Start loading and parsing the local excel file on class initialization if the "url" param is not provided.
+   *    - If `false` or not provided, call the `.init()` method later on a more convenient time.
    */
   constructor ({ url, pathToFile, fastload = true, settings = null } = {}) {
     if (url === '' || pathToFile === '') {
@@ -78,7 +83,10 @@ class ExcelFile {
     this.#pathToFile = pathToFile
 
     // Set the regions settings
-    this.#settings = settings ?? defaultRegionsConfig
+    this.#settings = new Schema(
+      settings || defaultRegionsConfig,
+      regionSchema
+    ).get()
 
     if (url) {
       // Set the remote excel file download URL
@@ -121,7 +129,7 @@ class ExcelFile {
   }
 
   /**
-   * Load an excel file from a local directory using sheetjs.
+   * Loads an excel file from a local directory using sheetjs.
    * Store excel file data as JSON in this.#data
    */
   load () {
@@ -244,7 +252,7 @@ class ExcelFile {
   }
 
   /**
-   * Extract the municipality name from a string following the pattern:
+   * Extracts the municipality name from a string following the pattern:
    *    "municipalityName (provinceName)"
    * @param {String} str
    * @returns {String} municipality name
@@ -260,7 +268,7 @@ class ExcelFile {
   }
 
   /**
-   * Extract the province name from a string following the pattern:
+   * Extracts the province name from a string following the pattern:
    *    "municipalityName (provinceName)"
    * @param {String} str
    * @returns {String} province name
@@ -273,19 +281,24 @@ class ExcelFile {
       : match
   }
 
-  // Return the processed Object array (masterlist) of municipality and province names
+  // Returns the processed Object array (masterlist) of municipality and province names
   get datalist () {
     return this.#datalist
   }
 
-  // Set the private data list contents
+  // Sets the private data list contents
   set datalist (data) {
     this.#datalist = data
   }
 
-  // Return the region data settings object
+  // Returns the region data settings object
   get settings () {
     return this.#settings
+  }
+
+  // Returns the full path to the 10-day weather forecast Excel file
+  get pathToFile () {
+    return this.#pathToFile
   }
 
   /**
@@ -378,10 +391,6 @@ class ExcelFile {
     } catch (err) {
       throw new Error(err.message)
     }
-  }
-
-  get pathToFile () {
-    return this.#pathToFile
   }
 }
 

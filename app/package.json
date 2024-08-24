@@ -42,7 +42,8 @@
   },
   "dependencies": {
     "dotenv": "^16.0.1",
-    "xlsx": "https://cdn.sheetjs.com/xlsx-0.18.10/xlsx-0.18.10.tgz"
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.18.10/xlsx-0.18.10.tgz",
+    "zod": "^3.23.8"
   },
   "pkg": {
     "assets": [
