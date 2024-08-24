@@ -373,7 +373,7 @@ main()
 
 ### Using a Custom Configuration File
 
-The **ph-municipalities** `ExcelFile` and `ExcelFactory` classes use a default configuration file to define their provinces and municipalities in the `/app/config/regions.json` file. The regions and provinces data in this file syncs with the PAGASA Seasonal and 10-Day Weather Forecast Excel files provinces and municipalities naming convention, encoded by hand as of August 24, 2024.
+The **ph-municipalities** `ExcelFile` and `ExcelFactory` classes use a default configuration file to define their regions and provinces in the `/app/config/regions.json` file. The regions and provinces data in this file syncs with the PAGASA Seasonal and 10-Day Weather Forecast Excel files provinces and municipalities naming convention, encoded by hand as of August 24, 2024.
 
 Follow the codes to define a custom regions config file, following the format of the `/app/config/regions.json` file to customize region definitions.
 
