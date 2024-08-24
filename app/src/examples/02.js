@@ -16,7 +16,7 @@ console.log('---regions', regions)
 
 // List region data from query
 const regionQuery = file.listRegions('region_name')
-console.log(`---region full name`, regionQuery)
+console.log('---region full name', regionQuery)
 
 // listProvinces() lists all provinces of a region
 // for each given province
@@ -24,4 +24,4 @@ const provinces = file.listProvinces('Region IX')
 console.log(`---provinces of ${regions[0]}`, provinces)
 
 const municipalitiesFromProvince = file.listMunicipalities({ provinces })
-console.log(`---municipalities`, municipalitiesFromProvince)
+console.log('---municipalities', municipalitiesFromProvince)
