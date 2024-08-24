@@ -2,7 +2,6 @@ const path = require('path')
 const prompt = require('../lib/prompt')
 const { formatDisplay } = require('../lib/format_display')
 const selectDataSource = require('../lib/selector')
-const regions = require('../../data/regions.json')
 
 // Asks for a prompt to enter a region name.
 // Lists all municipalities under the provinces of a region.
@@ -20,7 +19,7 @@ const main = async () => {
 
     if (ExcelHandler !== null) {
       // Display region abbreviations
-      const regionNames = regions.data.map(region => region.name)
+      const regionNames = ExcelHandler.listRegions()
 
       console.log('\nREGION NAMES')
       console.log(regionNames.toString().split(',').join('\n'))
@@ -30,13 +29,19 @@ const main = async () => {
 
       if (region) {
         // Check if the region name exists in the masterlist
-        idx = regions.data.findIndex(item => item.name === region)
+        idx = ExcelHandler
+          .settings
+          .data
+          .findIndex(item => item.name === region)
 
         if (idx === -1) {
           await prompt('Region name not found.\n')
         } else {
           // List the provinces of a target region
-          const provinces = regions.data.find(x => x.name === region).provinces
+          const provinces = ExcelHandler
+            .settings
+            .data
+            .find(x => x.name === region).provinces
 
           // List the municipalities of all provinces under a region
           const { total, data } = formatDisplay(ExcelHandler.listMunicipalities({ provinces }))

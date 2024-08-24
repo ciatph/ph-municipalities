@@ -1,7 +1,13 @@
 const https = require('https')
 const fs = require('fs')
 const EventEmitter = require('events')
+
 const XLSX = require('xlsx')
+const Schema = require('../schema')
+
+// Configuration settings
+const regionSchema = require('../../lib/schemas/regionSchema')
+const defaultRegionsConfig = require('../../../config/regions.json')
 
 /**
  * Load, process and parse an Excel File containing a list of PH municipalities.
@@ -14,6 +20,9 @@ class ExcelFile {
 
   /** Full file path to excel file on local storage */
   #pathToFile = null
+
+  /** Region information from the /config/regions.json or other config file */
+  #settings = null
 
   /** Excel workbook object parsed by sheetjs */
   #workbook = null
@@ -47,15 +56,17 @@ class ExcelFile {
 
   /**
    * Initialize an ExcelFile object
-   * @param {String} url - Remote download URL of an excel file
-   * @param {String} pathToFile
-   *    - Full local file path of an existing excel file, if "url" is not provided
-   *    - Full local file path of an excel on where to download the remote excel file from "url",
-   *      if the "url" parameter is provided
-   * @param {Bool} fastload - Start loading and parsing the local excel file on class initialization if the "url" param is not provided.
-   *    - If "false", call init() later on a more convenient time
+   * @typedef {Object} params - Constructor parameter Object
+   * @param {String} [params.url] - (Optional) Remote download URL of an excel file
+   * @param {String} params.pathToFile
+   *    - Full local file path of an existing Excel file, **required** if `params.url` is not provided
+   *    - Full local file path to an existing or non-existent Excel file on which to download/save the remote Excel file from `params.url`,
+   *      if the `params.url` parameter is provided
+   * @param {Object} [params.settings] - (Optional) Region settings configuration object following the format of the `/app/config/regions.json` file. Defaults to the mentioned file if not provided.
+   * @param {Bool} [params.fastload] - (Optional) Start loading and parsing the local excel file on class initialization if the "url" param is not provided.
+   *    - If `false` or not provided, call the `.init()` method later on a more convenient time.
    */
-  constructor ({ url, pathToFile, fastload = true }) {
+  constructor ({ url, pathToFile, fastload = true, settings = null } = {}) {
     if (url === '' || pathToFile === '') {
       throw new Error('Missing remote file url or local file path.')
     }
@@ -68,8 +79,14 @@ class ExcelFile {
       throw new Error('pathToFile should contain an excel file name ending in .xlsx')
     }
 
-    // Set the local excel file path
+    // Set the local Excel file path
     this.#pathToFile = pathToFile
+
+    // Set the regions settings
+    this.#settings = new Schema(
+      settings || defaultRegionsConfig,
+      regionSchema
+    ).get()
 
     if (url) {
       // Set the remote excel file download URL
@@ -112,7 +129,7 @@ class ExcelFile {
   }
 
   /**
-   * Load an excel file from a local directory using sheetjs.
+   * Loads an excel file from a local directory using sheetjs.
    * Store excel file data as JSON in this.#data
    */
   load () {
@@ -235,7 +252,7 @@ class ExcelFile {
   }
 
   /**
-   * Extract the municipality name from a string following the pattern:
+   * Extracts the municipality name from a string following the pattern:
    *    "municipalityName (provinceName)"
    * @param {String} str
    * @returns {String} municipality name
@@ -251,7 +268,7 @@ class ExcelFile {
   }
 
   /**
-   * Extract the province name from a string following the pattern:
+   * Extracts the province name from a string following the pattern:
    *    "municipalityName (provinceName)"
    * @param {String} str
    * @returns {String} province name
@@ -264,14 +281,24 @@ class ExcelFile {
       : match
   }
 
-  // Return the processed Object array (masterlist) of municipality and province names
+  // Returns the processed Object array (masterlist) of municipality and province names
   get datalist () {
     return this.#datalist
   }
 
-  // Set the private data list contents
+  // Sets the private data list contents
   set datalist (data) {
     this.#datalist = data
+  }
+
+  // Returns the region data settings object
+  get settings () {
+    return this.#settings
+  }
+
+  // Returns the full path to the 10-day weather forecast Excel file
+  get pathToFile () {
+    return this.#pathToFile
   }
 
   /**
@@ -366,8 +393,38 @@ class ExcelFile {
     }
   }
 
-  get pathToFile () {
-    return this.#pathToFile
+  /**
+   * Lists the province names of a region defined in the settings file
+   * @param {String} regionName - Region name that matches with the `/app/config/regions.json` file's `data[N].name`
+   * @returns {String[]}  A list provinces under the `regionName`.
+   */
+  listProvinces (regionName) {
+    return this.#settings.data
+      .find(region => region.name === regionName)?.provinces ?? []
+  }
+
+  /**
+   * Lists the region names defined in the settings file
+   * @param {Object} key - Key name of the region data definition key.
+   *    - Valid values are: `name`, `abbrev`, `region_num`, and `region_name`
+   *    - See the `/app/config/regions.json` file -> `data[]` item keys for more information.
+   * @returns {String[]}  A list of province information by key
+   */
+  listRegions (key = null) {
+    if (!key) {
+      return this.#settings.data.map(region => region.name)
+    } else {
+      const keys = [...Object.keys(this.#settings.data[0])]
+
+      if (
+        !keys.includes(key) || !typeof key === 'string'
+      ) {
+        return []
+      }
+
+      return this.#settings.data
+        .map(region => region[key])
+    }
   }
 }
 

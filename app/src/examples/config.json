@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "sources": [
+      "http://localhost:3000"
+    ],
+    "title": "List of Random Provinces by Regions",
+    "description": "Sample regions config file",
+    "date_created": "20240824"
+  },
+  "data": [
+    {
+      "name": "Mondstat",
+      "abbrev": "MON",
+      "region_num": "1",
+      "region_name": "The City of Freedom",
+      "provinces": ["Brightcrown Mountains","Galesong Hill","Starfell Valley","Windwail Highland","Dragonspine"]
+    },
+    {
+      "name": "Inazuma",
+      "abbrev": "INZ",
+      "region_num": "3",
+      "region_name": "The Realm of Eternity",
+      "provinces": ["Narukami","Kannazuka","Yashiori","Watatsumi","Seirai","Tsurumi","Enkanomiya"]
+    }
+  ]
+}
