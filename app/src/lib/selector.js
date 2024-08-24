@@ -26,7 +26,7 @@ const selectDataSource = async () => {
         console.log(`Downloading file from ${url}...`)
 
         try {
-          ExcelHandler = new ExcelFactory(url)
+          ExcelHandler = new ExcelFactory({ url })
           await ExcelHandler.init()
           exit = true
 

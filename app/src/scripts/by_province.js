@@ -18,7 +18,10 @@ const main = async () => {
 
     if (ExcelHandler !== null) {
       // Prompt to ask for province name(s)
-      const provinces = await prompt('\nEnter province names separated by comma: ')
+      const provincesText = await prompt('\nEnter province names separated by comma: ')
+      const provinces = provincesText
+        .split(',')
+        .map(province => province.trim())
 
       if (provinces) {
         // List the municipalities of a targets province(s)

@@ -1,6 +1,6 @@
 {
   "name": "ph-municipalities",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "List and write the `municipalities` of Philippines provinces or regions into JSON files",
   "main": "index.js",
   "engines": {
@@ -42,7 +42,8 @@
   },
   "dependencies": {
     "dotenv": "^16.0.1",
-    "xlsx": "https://cdn.sheetjs.com/xlsx-0.18.10/xlsx-0.18.10.tgz"
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.18.10/xlsx-0.18.10.tgz",
+    "zod": "^3.23.8"
   },
   "pkg": {
     "assets": [
