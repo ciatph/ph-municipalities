@@ -14,7 +14,7 @@ const file = new ExcelFile({
 // file.init()
 
 // listMunicipalities() lists all municipalities
-// for each province
+// for each given province
 const provinces = ['Albay', 'Masbate', 'Sorsogon']
 
 /* eslint-disable no-unused-vars */
@@ -40,3 +40,15 @@ console.log(file.datalist)
 file.datalist = [
   { municipality: 'Tayum', province: 'Abra' },
   { municipality: 'Bucay', province: 'Abra' }]
+
+// List all regions
+const regions = file.listRegions()
+console.log('---regions', regions)
+
+// List region data from query
+const regionQuery = file.listRegions('region_name')
+console.log(`---region ${regionQuery}`, regionQuery)
+
+// List the provinces of a region
+const regionProvinces = file.listProvinces('Test')
+console.log(`---provinces of ${regions[0]}`, regionProvinces)

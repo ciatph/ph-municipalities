@@ -2,27 +2,28 @@ require('dotenv').config()
 const path = require('path')
 
 const ExcelFile = require('../classes/excel')
-const config = require('./config.json')
 
-// Load the local Excel file
-// Use a custom regions settins file "config"
-const file = new ExcelFile({
-  pathToFile: path.join(__dirname, '..', '..', 'data', 'day1.xlsx'),
-  fastload: true,
-  settings: config
-})
+// Use the the following if installed via npm
+// const { ExcelFile } = require('ph-municipalities')
 
-// Load provinces from the custom config file
-const provinces = file
-  .settings
-  .data
-  .find(item => item.abbrev === 'INZ')?.provinces ?? []
+const main = () => {
+  try {
+    // Initialize an ExcelFile class instance.
+    const PHExcel = new ExcelFile({
+      pathToFile: path.join(__dirname, 'excelfile.xlsx'),
+      url: process.env.EXCEL_FILE_URL
+    })
 
-// List the municipalities of defined provinces in the config file
-// Note: Province/municipality names should match with those in the 10-day Excel file
-const municipalities = file.listMunicipalities({ provinces })
+    // Download file
+    PHExcel.init()
 
-console.log('---provinces', provinces)
+    // Listen to the instance's EVENTS.LOADED event.
+    PHExcel.events.on(PHExcel.EVENTS.LOADED, () => {
+      console.log('--Excel data loaded!', PHExcel.datalist)
+    })
+  } catch (err) {
+    console.log(`[ERROR]: ${err.message}`)
+  }
+}
 
-console.log('\nProvince/municipality names should match with those in the 10-day Excel file')
-console.log('---municipalities', municipalities)
+main()

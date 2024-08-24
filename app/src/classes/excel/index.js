@@ -392,6 +392,40 @@ class ExcelFile {
       throw new Error(err.message)
     }
   }
+
+  /**
+   * Lists the province names of a region defined in the settings file
+   * @param {String} regionName - Region name that matches with the `/app/config/regions.json` file's `data[N].name`
+   * @returns {String[]}  A list provinces under the `regionName`.
+   */
+  listProvinces (regionName) {
+    return this.#settings.data
+      .find(region => region.name === regionName)?.provinces ?? []
+  }
+
+  /**
+   * Lists the region names defined in the settings file
+   * @param {Object} key - Key name of the region data definition key.
+   *    - Valid values are: `name`, `abbrev`, `region_num`, and `region_name`
+   *    - See the `/app/config/regions.json` file -> `data[]` item keys for more information.
+   * @returns {String[]}  A list of province information by key
+   */
+  listRegions (key = null) {
+    if (!key) {
+      return this.#settings.data.map(region => region.name)
+    } else {
+      const keys = [...Object.keys(this.#settings.data[0])]
+
+      if (
+        !keys.includes(key) || !typeof key === 'string'
+      ) {
+        return []
+      }
+
+      return this.#settings.data
+        .map(region => region[key])
+    }
+  }
 }
 
 module.exports = ExcelFile
