@@ -4,8 +4,6 @@
  * @returns {Bool} true|false
  */
 const isObject = (item) => {
-  console.log('---type', typeof (item), item)
-
   return item &&
     typeof item === 'object' &&
     item.constructor === Object
