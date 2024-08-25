@@ -301,6 +301,10 @@ class ExcelFile {
     return this.#pathToFile
   }
 
+  get url () {
+    return this.#url
+  }
+
   /**
    * Get the requested data with other misc data
    * @param {String[]} provinces - List of provinces
