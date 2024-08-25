@@ -7,6 +7,7 @@ dist/
 *.json
 *.zip
 *.txt
+*.tgz
 
 .env.example
 .eslintrc.js
@@ -18,14 +19,14 @@ dist/
 # Ignore all JSON files except:
 !package.json
 !package-lock.json
-!app/config/regions.json
+!config/regions.json
 
 # Ignore all Excel files except:
 !data/day1.xlsx
 
 # Exclude examples
-app/src/examples/
+src/examples/
 
 # Docker
-Docker
+Dockerfile
 .dockerignore
