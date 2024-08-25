@@ -151,7 +151,7 @@ npm run list:region
 
 - Asks users to enter the download URL of a remote excel file or use the default local excel file
   - Loads and parses the local excel file in `/app/data/day1.xlsx` by default.
-  - Loads and parses the downloaded excel file in `/app/data/datasource.xlsx` if download URL in the class constructor is provided.
+  - Loads and parses the downloaded excel file to `/app/data/datasource.xlsx` if download URL in the class constructor is provided.
 - Displays a list of available PH **region** names.
 - Lists all provinces and municipalities of a specified region via commandline input.
 - Asks for an option to write results to a JSON file.
@@ -162,7 +162,7 @@ npm run list:region
 
 - Asks users to enter the download URL of a remote excel file or use the default local excel file
   - Loads and parses the local excel file in `/app/data/day1.xlsx` by default.
-  - Loads and parses the downloaded excel file in `/app/data/datasource.xlsx` if download URL in the class constructor is provided.
+  - Loads and parses the downloaded excel file to `/app/data/datasource.xlsx` if download URL in the class constructor is provided.
 - Lists all municipalities under specified province(s) via commandline input.
 - Asks for an option to write results to a JSON file.
 - Run the script as follows if installed using `npm i ph-municipalities`:
@@ -431,10 +431,7 @@ const file = new ExcelFile({
 })
 
 // Load provinces from the custom config file
-const provinces = file
-  .settings
-  .data
-  .find(item => item.abbrev === 'INZ')?.provinces ?? []
+const provinces = file.listProvinces('Inazuma')
 
 // List the municipalities of defined provinces in the config file
 // Note: Province/municipality names should match with those in the 10-day Excel file
