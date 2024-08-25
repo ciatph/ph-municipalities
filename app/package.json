@@ -18,8 +18,8 @@
     "minify:region": "ncc build src/scripts/by_region.js -m -o dist/region",
     "minify:province": "ncc build src/scripts/by_province.js -m -o dist/province",
     "minify:all": "npm run minify:region && npm run minify:province",
-    "lint": "eslint src",
-    "lint:fix": "eslint src --fix",
+    "lint": "eslint src __tests__",
+    "lint:fix": "eslint src __tests__ --fix",
     "test": "jest"
   },
   "repository": {
