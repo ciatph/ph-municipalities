@@ -10,6 +10,7 @@ Dockerfile
 *.xlsx
 *.json
 *.zip
+*.tgz
 dist/
 
 # Ignore all JSON files except:

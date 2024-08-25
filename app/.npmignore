@@ -6,18 +6,27 @@ dist/
 *.xlsx
 *.json
 *.zip
+*.txt
+*.tgz
 
 .env.example
 .eslintrc.js
 .eslintrc_win.js
 .gitignore
 .npmignore
+.eslintignore
 
 # Ignore all JSON files except:
 !package.json
 !package-lock.json
-!data/regions.json
+!config/regions.json
 
 # Ignore all Excel files except:
-!data/regions.json
 !data/day1.xlsx
+
+# Exclude examples
+src/examples/
+
+# Docker
+Dockerfile
+.dockerignore
