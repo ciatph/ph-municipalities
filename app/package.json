@@ -19,7 +19,8 @@
     "minify:province": "ncc build src/scripts/by_province.js -m -o dist/province",
     "minify:all": "npm run minify:region && npm run minify:province",
     "lint": "eslint src",
-    "lint:fix": "eslint src --fix"
+    "lint:fix": "eslint src --fix",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
+    "jest": "^29.7.0",
     "pkg": "^5.8.0"
   },
   "dependencies": {
