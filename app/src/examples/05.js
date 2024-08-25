@@ -13,10 +13,7 @@ const file = new ExcelFile({
 })
 
 // Load provinces from the custom config file
-const provinces = file
-  .settings
-  .data
-  .find(item => item.abbrev === 'INZ')?.provinces ?? []
+const provinces = file.listProvinces('Inazuma')
 
 // List the municipalities of defined provinces in the config file
 // Note: Province/municipality names should match with those in the 10-day Excel file

@@ -101,8 +101,6 @@ jobs:
       - name: Publish package
         run: |
           cp README.md app/
-          # Exclude examples
-          rm -r -f /app/examples
           cd app
           npm publish
         env:
