@@ -13,6 +13,10 @@ const checkClass = ({ excelInstance, isRemote = false, classType = null }) => {
   expect(Array.isArray(excelInstance.datalist)).toBe(true)
   expect(excelInstance.datalist.length).toBeGreaterThan(0)
 
+  const regions = excelInstance.listRegions()
+  expect(Array.isArray(regions)).toBe(true)
+  expect(regions.every(item => typeof item === 'string')).toBe(true)
+
   if (isRemote) {
     expect(typeof excelInstance.url).toBe('string')
     expect(typeof excelInstance.url).toBe('string')
