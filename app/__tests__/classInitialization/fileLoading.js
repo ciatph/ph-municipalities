@@ -59,7 +59,7 @@ describe('Class intialization using DEFAULT config', () => {
       classType: ExcelFile
     })
 
-    logger.log('[INIT]: Success loading using default config')
+    logger.log('[INIT]: Success loading using "DEFAULT" config')
   })
 })
 
@@ -117,6 +117,6 @@ describe('Class intialization using CUSTOM config', () => {
       classType: ExcelFile
     })
 
-    logger.log('[INIT]: Success loading using custom config')
+    logger.log('[INIT]: Success loading using "CUSTOM" config')
   })
 })

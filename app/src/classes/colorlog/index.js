@@ -1,5 +1,6 @@
 /**
  * Prints colored console.log messages
+ * @class
  */
 class ColorLog {
   static TEXT = {
@@ -42,7 +43,7 @@ class ColorLog {
   }
 
   /**
-   *
+   * Prints colored log message in console.log()
    * @param {String} message - Log message text
    * @param {Object} options - (Optional)
    * @param {String} options.color - ANSI color defined in `ColorLog.COLORS`
@@ -56,14 +57,12 @@ class ColorLog {
     this.setColor(options.color)
     this.setText(options.isBold)
 
-    console.log(
-      `${this.#weight}${this.#color}%s${ColorLog.TEXT.NORMAL}`,
-      this.#log
-    )
+    const style = `${this.#weight}${this.#color}%s${ColorLog.TEXT.NORMAL}`
+    console.log(style, this.#log)
   }
 
   /**
-   * Sets the text color in console.log
+   * Sets the text color in console.log()
    * @param {String} color - ANSI color defined in `ColorLog.COLORS`
    * @returns
    */

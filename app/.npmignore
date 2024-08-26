@@ -26,10 +26,8 @@ dist/
 
 # Exclude directories
 src/examples/
-src/__tests__/
 
 # Docker
 Dockerfile
 .dockerignore
 jest.config.js
-

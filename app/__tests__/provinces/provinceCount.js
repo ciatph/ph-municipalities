@@ -2,10 +2,11 @@ require('dotenv')
 const path = require('path')
 
 const ExcelFile = require('../../src/classes/excel')
-const checkClass = require('../classInitialization/checkClass')
-
 const ColorLog = require('../../src/classes/colorlog')
 const logger = new ColorLog({ color: ColorLog.COLORS.TEXT.YELLOW, isBold: true })
+
+const checkClass = require('../classInitialization/checkClass')
+const { arrayToString } = require('../../src/lib/utils')
 
 /* eslint-disable no-undef */
 describe('Provinces names and count match', () => {
@@ -14,8 +15,6 @@ describe('Provinces names and count match', () => {
     pathToFile: path.join(__dirname, 'excelfiledownload.xlsx'),
     url: process.env.EXCEL_FILE_URL
   })
-
-  const arrayToString = (array) => array.toString().split(',').join(', ')
 
   it('settings (seasonal) provinces should match with (10-day) Excel provinces', async () => {
     jest.setTimeout(15000)
@@ -39,7 +38,7 @@ describe('Provinces names and count match', () => {
     const allProvinces = excelFile.listRegions('provinces').flat()
     let uniqueProvinces = new Set(allProvinces)
 
-    // Provinces from config and the Excel file should be unique
+    // Provinces from config and the Excel files should be unique
     expect(uniqueProvinces.size).toBe(allProvinces.length)
     expect(uniqueExcelProvinces.size).toBe(allExcelProvinces.length)
 
@@ -61,6 +60,7 @@ describe('Provinces names and count match', () => {
       logger.log(msg)
     }
 
+    // Provinces present in the 10-Day Excel file but missing in the config (PAGASA seasonal) file
     if (fromExcel.length > 0) {
       uniqueExcelProvinces = new Set(allExcelProvinces.filter(item => !fromExcel.includes(item)))
       let msg = `[WARNING]: ${fromExcel.length} province(s) in the 10-Day Excel file are missing\n`
@@ -68,17 +68,18 @@ describe('Provinces names and count match', () => {
       logger.log(msg)
     }
 
+    // Provinces names do not match in 10-Day Excel file and the (PAGASA seasonal) config file
     if (fromExcel.length > 0 || fromConfig.length > 0) {
       let msg = `[INFO]: Original provinces count are: ${allProvinces.length} (PAGASA seasonal config) vs. ${allExcelProvinces.length} (10-Day Excel file)\n`
       msg += '[INFO]: Removed incosistent provinces in the config and Excel file during check (see yellow WARNINGs)\n'
       msg += `[INFO]: Modified provinces count are: ${uniqueProvinces.size} (PAGASA seasonal config) vs. ${uniqueExcelProvinces.size} (10-Day Excel file)\n\n`
-      msg += '[WARNING]: Extend the ExcelFile or ExcelParser class in your scripts to customize this behaviour.'
+      msg += '[WARNING]: If these you believe these INFOs are incorrect, feel free to create an Issue or extend and override\nthe ExcelFile or ExcelParser class in your scripts to customize this behaviour.'
 
       logger.log(msg, {
         color: ColorLog.COLORS.TEXT.CYAN
       })
     } else {
-      logger.log('[INIT]: Success loading using custom config', {
+      logger.log('[PROVINCES]: Province counts match in config and Excel', {
         color: ColorLog.COLORS.TEXT.GREEN
       })
     }
