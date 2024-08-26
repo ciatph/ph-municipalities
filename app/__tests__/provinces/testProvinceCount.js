@@ -34,7 +34,7 @@ describe('Provinces names and count match', () => {
       uniqueProvinces: uniqueProvinceList,
       fromConfig,
       fromExcel
-    } = createInstances({ excelFile })
+    } = createInstances(excelFile)
 
     // Provinces from config and the Excel files should be unique
     expect(uniqueProvinceList.size).toBe(allProvinces.length)
@@ -50,6 +50,8 @@ describe('Provinces names and count match', () => {
     })
 
     // Provinces from config and Excel file count should match
+    // 20240826: Synced counts to pass tests, but take note of warning logs for
+    // custom overrides and extensions for future PAGASA seasonal config / 10-day Excel file updates
     expect(uniqueExcelProvinces.size).toBe(uniqueProvinces.size)
   })
 })
