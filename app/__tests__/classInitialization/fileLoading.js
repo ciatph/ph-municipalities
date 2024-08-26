@@ -42,8 +42,10 @@ describe('Class intialization using DEFAULT config', () => {
     })
 
     // Start file download
-    await excelFile.init()
-    await excelFactory.init()
+    await Promise.all([
+      excelFile.init(),
+      excelFactory.init()
+    ])
 
     checkClass({
       excelInstance: excelFactory,
@@ -98,8 +100,10 @@ describe('Class intialization using CUSTOM config', () => {
     })
 
     // Start file download
-    await excelFile.init()
-    await excelFactory.init()
+    await Promise.all([
+      excelFile.init(),
+      excelFactory.init()
+    ])
 
     checkClass({
       excelInstance: excelFactory,
