@@ -21,7 +21,18 @@ jobs:
           cd app
           npm install
           npm run lint
-      - name: Test
+
+  test:
+    runs-on: ubuntu-latest
+    needs: lint-app
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+      - name: Use NodeJS v16.14.2
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.14.2
+      - name: Install Dependencies and Test
         run: |
           cd app
           npm install
