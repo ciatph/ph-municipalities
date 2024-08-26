@@ -24,8 +24,9 @@ dist/
 # Ignore all Excel files except:
 !data/day1.xlsx
 
-# Exclude examples
+# Exclude directories
 src/examples/
+src/__tests__/
 
 # Docker
 Dockerfile
