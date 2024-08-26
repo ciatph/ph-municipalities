@@ -8,18 +8,24 @@ class ColorLog {
   }
 
   static COLORS = {
-    BLUE: '\x1b[34m',
-    LIGHT_BLUE: '\x1b[36m',
-    GREEN: '\x1b[32m',
-    RED: '\x1b[31m',
-    YELLOW: '\x1b[33m'
+    TEXT: {
+      WHITE: '\x1b[37m',
+      GRAY: '\x1b[90m',
+      GREEN: '\x1b[32m',
+      RED: '\x1b[31m',
+      YELLOW: '\x1b[33m',
+      BLUE: '\x1b[34m',
+      CYAN: '\x1b[36m',
+      RESET: '\x1b[0m',
+      MAGENTA: '\x1b[35m'
+    }
   }
 
   /** Message log */
   #log = null
 
   /** Text color */
-  #color = ColorLog.COLORS.GREEN
+  #color = ColorLog.COLORS.TEXT.GREEN
 
   /** Text weight (bold, normal) */
   #weight = false
@@ -64,7 +70,7 @@ class ColorLog {
   setColor (color) {
     if (!color) return
 
-    if (!Object.values(ColorLog.COLORS)) {
+    if (!Object.values(ColorLog.COLORS.TEXT)) {
       throw new Error(`${color} not supported`)
     }
 
