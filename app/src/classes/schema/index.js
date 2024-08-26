@@ -34,7 +34,7 @@ class Schema {
 
       if (!result?.success) {
         const errorLog = this.formatErrorLog(result?.error?.errors)
-        throw new Error(`Settings validation failed\n${errorLog}`)
+        throw new Error(`Schema settings validation failed\n${errorLog}`)
       }
     } catch (err) {
       throw new Error(err.message)

@@ -24,9 +24,10 @@ dist/
 # Ignore all Excel files except:
 !data/day1.xlsx
 
-# Exclude examples
+# Exclude directories
 src/examples/
 
 # Docker
 Dockerfile
 .dockerignore
+jest.config.js

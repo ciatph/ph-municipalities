@@ -1,5 +1,11 @@
 const path = require('path')
+
+const {
+  createInstances,
+  updateInstances
+} = require('../../__tests__/provinces')
 const prompt = require('./prompt')
+
 const ExcelFactory = require('../classes/excelfactory')
 
 /**
@@ -45,6 +51,25 @@ const selectDataSource = async () => {
       }
     }
   }
+
+  // Display parsing/info logs
+  const {
+    allExcelProvinces,
+    allProvinces,
+    uniqueExcelProvinces: uniqueExcelList,
+    uniqueProvinces: uniqueProvinceList,
+    fromConfig,
+    fromExcel
+  } = createInstances(ExcelHandler)
+
+  updateInstances({
+    allExcelProvinces,
+    allProvinces,
+    uniqueExcelProvinces: uniqueExcelList,
+    uniqueProvinces: uniqueProvinceList,
+    fromConfig,
+    fromExcel
+  })
 
   return ExcelHandler
 }

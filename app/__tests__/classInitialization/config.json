@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "sources": [
+      "https://www.pagasa.dost.gov.ph/climate/climate-prediction/seasonal-forecast"
+    ],
+    "title": "List of Philippine Provinces by Regions",
+    "description": "This dataset is a list of provinces in the Philippines grouped by regions. Region data was manually encoded using the PAGASA source URLs as the primary source of information and Wikipedia as a secondary source. The final region data are adjusted to sync with the PAGASA 10-Day Weather Forecast Excel files (2nd source).",
+    "date_created": "20240826"
+  },
+  "data": [
+    {
+      "name": "Region I",
+      "abbrev": null,
+      "region_num": "1",
+      "region_name": "Ilocos",
+      "provinces": ["Ilocos Norte","Ilocos Sur","La Union","Pangasinan"]
+    },
+    {
+      "name": "Region II",
+      "abbrev": null,
+      "region_num": "2",
+      "region_name": "Cagayan Valley",
+      "provinces": ["Batanes","Cagayan","Isabela","Nueva Vizcaya","Quirino"]
+    }
+  ]
+}
