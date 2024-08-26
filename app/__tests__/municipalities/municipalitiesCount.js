@@ -90,7 +90,7 @@ describe('Municipalities total count match', () => {
     }
 
     let passMsg = '[20240826]: Allow test to succeed here since there is little information about updated\n'
-    passMsg += 'PAGASA seasonal & 10-day province/municipalities naming conventions for the other regions\n'
+    passMsg += 'PAGASA seasonal & 10-day province/municipalities naming conventions for the other regions.\n'
     passMsg += 'Take note of the INFOS/WARNINGS and extend/override the class methods to accommodate custom settings as neccessary'
     expect(logger.log(passMsg, { color: ColorLog.COLORS.TEXT.YELLOW })).toBe(undefined)
 
