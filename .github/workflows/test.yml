@@ -25,6 +25,11 @@ jobs:
   test:
     runs-on: ubuntu-latest
     needs: lint-app
+    env:
+      EXCEL_FILE_URL: ${{ secrets.EXCEL_FILE_URL }}
+      SHEETJS_COLUMN: ${{ secrets.SHEETJS_COLUMN }}
+      SORT_ALPHABETICAL: ${{ secrets.SORT_ALPHABETICAL }}
+      SPECIAL_CHARACTERS: ${{ secrets.SPECIAL_CHARACTERS }}
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
