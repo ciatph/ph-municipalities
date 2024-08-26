@@ -11,8 +11,6 @@ const config = require('./config.json')
 
 /* eslint-disable no-undef */
 describe('Class intialization using DEFAULT config', () => {
-  jest.setTimeout(30000)
-
   it('should load local Excel file', () => {
     const excelFile = new ExcelFile({
       pathToFile: path.join(__dirname, '..', '..', 'data', 'day1.xlsx')
@@ -32,6 +30,8 @@ describe('Class intialization using DEFAULT config', () => {
   })
 
   it('should load remote Excel file', async () => {
+    jest.setTimeout(15000)
+
     const excelFile = new ExcelFile({
       pathToFile: path.join(__dirname, 'excelfiledownload.xlsx'),
       url: process.env.EXCEL_FILE_URL
@@ -62,8 +62,6 @@ describe('Class intialization using DEFAULT config', () => {
 })
 
 describe('Class intialization using CUSTOM config', () => {
-  jest.setTimeout(30000)
-
   it('should load local Excel file', () => {
     const excelFile = new ExcelFile({
       pathToFile: path.join(__dirname, '..', '..', 'data', 'day1.xlsx'),
@@ -86,6 +84,8 @@ describe('Class intialization using CUSTOM config', () => {
   })
 
   it('should load remote Excel file', async () => {
+    jest.setTimeout(15000)
+
     const excelFile = new ExcelFile({
       pathToFile: path.join(__dirname, 'excelfiledownload.xlsx'),
       url: process.env.EXCEL_FILE_URL,

@@ -18,7 +18,7 @@ describe('Provinces names and count match', () => {
   const arrayToString = (array) => array.toString().split(',').join(', ')
 
   it('settings (seasonal) provinces should match with (10-day) Excel provinces', async () => {
-    jest.setTimeout(30000)
+    jest.setTimeout(15000)
 
     // Start file download
     await excelFile.init()
