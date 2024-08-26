@@ -157,7 +157,7 @@ class ExcelFile {
         return acc
       }, [])
 
-      console.log(`Loaded ${this.#data.length} rows`)
+      console.log(`Loaded ${this.#data.length} rows, ${this.#datalist.length} with data`)
 
       if (this.#datalist.length === 0) {
         throw new Error('Failed to load data. Please check the SHEETJS_COLUMN name or the excel file contents.')
@@ -291,6 +291,11 @@ class ExcelFile {
     this.#datalist = data
   }
 
+  // Returns the raw Excel JSON data
+  get data () {
+    return this.#data
+  }
+
   // Returns the region data settings object
   get settings () {
     return this.#settings
@@ -299,6 +304,10 @@ class ExcelFile {
   // Returns the full path to the 10-day weather forecast Excel file
   get pathToFile () {
     return this.#pathToFile
+  }
+
+  get url () {
+    return this.#url
   }
 
   /**
@@ -340,7 +349,7 @@ class ExcelFile {
     }
 
     return this.#datalist
-      .filter(item => provinces.includes(item.province))
+      .filter(item => provinces.includes(item.province.trim()))
       .reduce((acc, item) => {
         if (acc[item.province] === undefined) {
           acc[item.province] = []

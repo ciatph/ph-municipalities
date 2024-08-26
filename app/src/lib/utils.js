@@ -9,6 +9,9 @@ const isObject = (item) => {
     item.constructor === Object
 }
 
+const arrayToString = (array) => array.toString().split(',').join(', ')
+
 module.exports = {
-  isObject
+  isObject,
+  arrayToString
 }
