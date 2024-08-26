@@ -3,8 +3,10 @@ const path = require('path')
 
 const ExcelFile = require('../../src/classes/excel')
 const ExcelFactory = require('../../src/classes/excelfactory')
-const checkClass = require('./checkClass')
+const ColorLog = require('../../src/classes/colorlog')
+const logger = new ColorLog({ isBold: true })
 
+const checkClass = require('./checkClass')
 const config = require('./config.json')
 
 /* eslint-disable no-undef */
@@ -54,6 +56,8 @@ describe('Class intialization using DEFAULT config', () => {
       isRemote: true,
       classType: ExcelFile
     })
+
+    logger.log('[INIT]: Success loading using default config')
   })
 })
 
@@ -108,5 +112,7 @@ describe('Class intialization using CUSTOM config', () => {
       isRemote: true,
       classType: ExcelFile
     })
+
+    logger.log('[INIT]: Success loading using custom config')
   })
 })
