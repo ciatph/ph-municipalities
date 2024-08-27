@@ -20,13 +20,11 @@ const createInstances = (excelFile) => {
 
   try {
     // Unique provinces from the Excel file
-    const allExcelProvinces = excelFile.datalist
-      .map(item => item.province)
-      .filter((x, i, a) => a.indexOf(x) === i)
+    const allExcelProvinces = excelFile.listAllProvinces(true)
     const uniqueExcelProvinces = new Set(allExcelProvinces)
 
     // Unique provinces from the config file (PAGASA Seasonal)
-    const allProvinces = excelFile.listRegions('provinces').flat()
+    const allProvinces = excelFile.listAllProvinces()
     const uniqueProvinces = new Set(allProvinces)
 
     // Provinces present in the config (PAGASA seasonal) but missing in the 10-Day Excel file

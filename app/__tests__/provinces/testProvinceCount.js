@@ -11,7 +11,7 @@ const updateInstances = require('./updateInstances')
 describe('Provinces names and count match', () => {
   // Test using the latest 10-day PAGASA Excel file
   const excelFile = new ExcelFile({
-    pathToFile: path.join(__dirname, 'excelfiledownload.xlsx'),
+    pathToFile: path.join(__dirname, 'excelfiledownload3.xlsx'),
     url: process.env.EXCEL_FILE_URL
   })
 
