@@ -40,7 +40,7 @@ describe('Municipalities total count match', () => {
 
     // Process missing PAGASA seasonal config provinces/municipalities
     if (hasMissingInConfig) {
-      const fromConfig = excel.provinces.filter(item => !config.provinces.has(item))
+      const fromConfig = excel.provinces.filter(item => !config.provinces.includes(item))
 
       const countMissingConfig = Object.values(
         excelFile.listMunicipalities({ provinces: fromConfig })

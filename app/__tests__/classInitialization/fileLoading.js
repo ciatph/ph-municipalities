@@ -33,7 +33,7 @@ describe('Class intialization using DEFAULT config', () => {
     jest.setTimeout(15000)
 
     const excelFile = new ExcelFile({
-      pathToFile: path.join(__dirname, 'excelfiledownload.xlsx'),
+      pathToFile: path.join(__dirname, 'excelfiledownload4.xlsx'),
       url: process.env.EXCEL_FILE_URL
     })
 
@@ -89,7 +89,7 @@ describe('Class intialization using CUSTOM config', () => {
     jest.setTimeout(15000)
 
     const excelFile = new ExcelFile({
-      pathToFile: path.join(__dirname, 'excelfiledownload.xlsx'),
+      pathToFile: path.join(__dirname, 'excelfiledownload5.xlsx'),
       url: process.env.EXCEL_FILE_URL,
       settings: config
     })

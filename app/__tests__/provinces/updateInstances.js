@@ -51,7 +51,7 @@ const updateInstances = ({
       let msg = `[INFO]: Original provinces count are: ${allProvinces.length} (PAGASA seasonal config) vs. ${allExcelProvinces.length} (10-Day Excel file)\n`
       msg += '[INFO]: Removed incosistent provinces in the config and Excel file only during checking/testing (see yellow WARNINGs)\n'
       msg += `[INFO]: Modified provinces count are: ${uniqueProvinces.size} (PAGASA seasonal config) vs. ${uniqueExcelProvinces.size} (10-Day Excel file)\n\n`
-      msg += '[NOTE]: If these you believe these INFOs are incorrect, feel free to reach out or you may extend and override\n'
+      msg += '[NOTE]: If you believe these INFOs are incorrect, feel free to reach out or you may extend and override\n'
       msg += 'the ExcelFile or ExcelFactory classes in your scripts to customize this behaviour and other settings.'
 
       logger.log(msg, {
