@@ -9,6 +9,8 @@ const Schema = require('../schema')
 const regionSchema = require('../../lib/schemas/regionSchema')
 const defaultRegionsConfig = require('../../../config/regions.json')
 
+const { capitalizeText } = require('../../lib/utils')
+
 /**
  * Load, process and parse an Excel File containing a list of PH municipalities.
  * The Excel File should contain a column with string pattern:
@@ -23,6 +25,12 @@ class ExcelFile {
 
   /** Region information from the /app/config/regions.json or other config file */
   #settings = null
+
+  /** 10-day Excel file information */
+  #metadata = {
+    // Weather forecast date
+    forecastDate: null
+  }
 
   /** Other app settings and configurations */
   #options = {
@@ -169,6 +177,15 @@ class ExcelFile {
           if (row[this.#options.SHEETJS_COL] === 'Project Areas') {
             const OFFSET_FROM_FLAG = 2
             this.#options.dataRowStart = index + OFFSET_FROM_FLAG
+          }
+
+          if (this.#metadata.forecastDate === null) {
+            const contentAsKeys = Object.keys(row ?? '')
+            const content = contentAsKeys.filter(item => item.includes('FORECAST DATE'))
+
+            this.#metadata.forecastDate = content.length > 0
+              ? capitalizeText(content[0])
+              : 'Forecast Date: n/a'
           }
         }
 
@@ -334,9 +351,14 @@ class ExcelFile {
     return this.#settings
   }
 
-  // Retuls the local options object
+  // Returns the local options object
   get options () {
     return this.#options
+  }
+
+  // Returns the loaded Excel file's metadata
+  get metadata () {
+    return this.#metadata
   }
 
   // Returns the full path to the 10-day weather forecast Excel file
@@ -464,7 +486,7 @@ class ExcelFile {
       const keys = [...Object.keys(this.#settings.data[0])]
 
       if (
-        !keys.includes(key) || !typeof key === 'string'
+        !keys.includes(key) || typeof key !== 'string'
       ) {
         return []
       }

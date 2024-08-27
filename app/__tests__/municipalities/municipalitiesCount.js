@@ -70,7 +70,7 @@ describe('Municipalities total count match', () => {
     if (hasMissingInConfig || hasMissingInExcel) {
       logger.log(
         '[INFO]: If you believe these RED warning(s) are incorrect, feel free to reach out\n' +
-        'or extend and override the ExcelFile or ExcelFactory classes in your scripts.', {
+        'or you may extend and override the ExcelFile or ExcelFactory classes in your scripts.', {
           color: ColorLog.COLORS.TEXT.RED
         })
 
