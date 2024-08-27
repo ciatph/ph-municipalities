@@ -7,9 +7,40 @@ on:
     types: [published]
 
 jobs:
+  test-app:
+    name: Lint and Test App
+    runs-on: ubuntu-latest
+    env:
+      EXCEL_FILE_URL: ${{ secrets.EXCEL_FILE_URL }}
+      SHEETJS_COLUMN: ${{ secrets.SHEETJS_COLUMN }}
+      SORT_ALPHABETICAL: ${{ secrets.SORT_ALPHABETICAL }}
+      SPECIAL_CHARACTERS: ${{ secrets.SPECIAL_CHARACTERS }}
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.release.tag_name }}
+      - name: Use NodeJS v16.14.2
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.14.2
+      - name: Install Dependencies
+        run: |
+          cd app
+          npm install
+      - name: Lint App
+        run: |
+          cd app
+          npm run lint
+      - name: Test App
+        run: |
+          cd app
+          npm test
+
   build-on-win:
-    name: Lint and Package App
+    name: Build and Package App
     runs-on: windows-latest
+    needs: test-app
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
