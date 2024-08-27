@@ -37,10 +37,14 @@ const createInstances = (excelFile) => {
     // Action: remove these provinces from provinces count equality check
     const fromExcel = allExcelProvinces.filter(item => !allProvinces.includes(item))
 
-    // Log other information
-    logger.log(`[INFO]: Loaded ${excelFile.datalist.length} data rows`, {
-      color: ColorLog.COLORS.TEXT.GREEN
-    })
+    // Log other info
+    const dataSource = excelFile?.url ?? 'default local 10-Day Excel file'
+
+    let message = `[INFO]: Loaded ${excelFile.data.length} Excel rows\n`
+    message += `[INFO]: Parsed ${excelFile.datalist.length} data rows\n`
+    message += `[INFO]: from ${dataSource}\n`
+    message += `[INFO]: ${excelFile.metadata.forecastDate}`
+    logger.log(message, { color: ColorLog.COLORS.TEXT.GREEN })
 
     return {
       allExcelProvinces,
