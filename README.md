@@ -40,7 +40,8 @@ The following dependencies are used for this project. Feel free to use other dep
    - npm v8.5.0
 4. Excel file
    - ph-municipalities uses Excel files in the `/app/data` directory as data source.
-   - At minimum, the excel file should have a **column** that contains municipality and province names following the pattern `"municipalityName (provinceName)"`
+   - At minimum, the Excel file should have a **column** that contains municipality and province names following the pattern `"municipalityName (provinceName)"`
+   - (Optional) The Excel file should have a row on the same **column** as above containing the text `"Project Areas"` plus two (2) blank rows before rows containing municipality and province names to enable strict testing and validation of the number of parsed data rows
    - Checkout the excel file format on the `/app/data/day1.xlsx` sample file for more information
 5. (Optional) Download URL for a remote excel file.
    - See the `EXCEL_FILE_URL` variable on the [Installation](#installation) section.

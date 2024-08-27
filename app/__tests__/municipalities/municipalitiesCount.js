@@ -36,6 +36,8 @@ describe('Municipalities total count match', () => {
       hasMissingInConfig
     } = createMunicipalityInstance(excelFile)
 
+    let totalMunicipalitiesConfig = config.countMunicipalities
+
     // Process missing PAGASA seasonal config provinces/municipalities
     if (hasMissingInConfig) {
       const fromConfig = excel.provinces.filter(item => !config.provinces.has(item))
@@ -43,6 +45,9 @@ describe('Municipalities total count match', () => {
       const countMissingConfig = Object.values(
         excelFile.listMunicipalities({ provinces: fromConfig })
       ).flat()?.length ?? 0
+
+      // Add missing Excel municipalities count
+      totalMunicipalitiesConfig += countMissingConfig
 
       logger.log(
         `[WARNING]: ${fromConfig.length} PROVINCE(S) PRESENT in the 10-day Excel file\n` +
@@ -68,21 +73,29 @@ describe('Municipalities total count match', () => {
         'or extend and override the ExcelFile or ExcelFactory classes in your scripts.', {
           color: ColorLog.COLORS.TEXT.RED
         })
+
+      let passMsg = '[20240826]: Allow the test to succeed here since there is little information about updated\n'
+      passMsg += 'PAGASA seasonal & 10-day province/municipalities naming conventions for the other regions, and they\n'
+      passMsg += 'may change anytime without prior notice. Take note of the INFOS/WARNINGS and\n'
+      passMsg += 'extend/override the class methods on custom scripts to accommodate custom settings as necessary'
+      expect(logger.log(passMsg, { color: ColorLog.COLORS.TEXT.YELLOW })).toBe(undefined)
     } else {
       logger.log('[MUNICIPALITIES]: Municipalities counts match in config and Excel', {
         color: ColorLog.COLORS.TEXT.GREEN
       })
     }
 
-    let passMsg = '[20240826]: Allow the test to succeed here since there is little information about updated\n'
-    passMsg += 'PAGASA seasonal & 10-day province/municipalities naming conventions for the other regions, and they\n'
-    passMsg += 'may change anytime without prior notice. Take note of the INFOS/WARNINGS and\n'
-    passMsg += 'extend/override the class methods on custom scripts to accommodate custom settings as necessary'
-    expect(logger.log(passMsg, { color: ColorLog.COLORS.TEXT.YELLOW })).toBe(undefined)
-
-    /* Uncomment true "tests" for testing
-    expect(countExcelMunicipalities).toBe(countConfigMunicipalities)
-    expect(allExcelProvinces.length).toBe(allProvinces.size)
+    /* Uncomment true "tests" for municipalities count match testing
+    expect(excel.countMunicipalities).toBe(config.countMunicipalities)
+    expect(excel.provinces.length).toBe(config.provinces.size)
     */
+
+    if (excelFile.options.dataRowStart > 0) {
+    // Parsed/loaded municipalities in the Excel file using the (manual-encoded) PAGASA seasonal config
+    // including provinces missing in the config should be equal to the raw loaded data count
+      expect(totalMunicipalitiesConfig + excelFile.options.dataRowStart).toBe(excelFile.data.length)
+    } else {
+      throw new Error('Invalid 10-day Excel file format: Missing "Project Areas" text')
+    }
   })
 })

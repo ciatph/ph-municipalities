@@ -21,8 +21,23 @@ class ExcelFile {
   /** Full file path to excel file on local storage */
   #pathToFile = null
 
-  /** Region information from the /config/regions.json or other config file */
+  /** Region information from the /app/config/regions.json or other config file */
   #settings = null
+
+  /** Other app settings and configurations */
+  #options = {
+    /**
+     * SheetJS array index number translated from the Excel headers row count
+     * before elements containing "municipalityName (provinceName)" data
+     */
+    dataRowStart: 0,
+
+    /** Internal excel file column name read by sheetjs.
+     *  This column contains strings following the pattern
+     *      "municipalityName (provinceName)"
+     */
+    SHEETJS_COL: process.env.SHEETJS_COLUMN || '__EMPTY'
+  }
 
   /** Excel workbook object parsed by sheetjs */
   #workbook = null
@@ -39,12 +54,6 @@ class ExcelFile {
    * Content: [{ municipality, province }, ... ]
    */
   #datalist = []
-
-  /** Internal excel file column name read by sheetjs.
-   *  This column contains strings following the pattern
-   *      "municipalityName (provinceName)"
-   */
-  #SHEETJS_COL = process.env.SHEETJS_COLUMN || '__EMPTY'
 
   /** Event emitter for listening to custom events */
   events = new EventEmitter()
@@ -66,7 +75,7 @@ class ExcelFile {
    * @param {Bool} [params.fastload] - (Optional) Start loading and parsing the local excel file on class initialization if the "url" param is not provided.
    *    - If `false` or not provided, call the `.init()` method later on a more convenient time.
    */
-  constructor ({ url, pathToFile, fastload = true, settings = null } = {}) {
+  constructor ({ url, pathToFile, fastload = true, settings = null, options = null } = {}) {
     if (url === '' || pathToFile === '') {
       throw new Error('Missing remote file url or local file path.')
     }
@@ -78,6 +87,8 @@ class ExcelFile {
     if (!pathToFile.includes('.xlsx')) {
       throw new Error('pathToFile should contain an excel file name ending in .xlsx')
     }
+
+    this.setOptions(options)
 
     // Set the local Excel file path
     this.#pathToFile = pathToFile
@@ -141,16 +152,23 @@ class ExcelFile {
       this.#data = XLSX.utils.sheet_to_json(this.#workbook.Sheets[this.#sheets[0]])
 
       // Extract the municipality and province names
-      this.#datalist = this.#data.reduce((acc, row) => {
-        if (row[this.#SHEETJS_COL] !== undefined && this.followsStringPattern(row[this.#SHEETJS_COL])) {
-          const municipality = this.getMunicipalityName(row[this.#SHEETJS_COL])
-          const province = this.getProvinceName(row[this.#SHEETJS_COL])
+      this.#datalist = this.#data.reduce((acc, row, index) => {
+        if (row[this.#options.SHEETJS_COL] !== undefined && this.followsStringPattern(row[this.#options.SHEETJS_COL])) {
+          const municipality = this.getMunicipalityName(row[this.#options.SHEETJS_COL])
+          const province = this.getProvinceName(row[this.#options.SHEETJS_COL])
 
           if (province !== null) {
             acc.push({
               municipality: municipality.trim(),
               province
             })
+          }
+        } else {
+          // Find the SheetJS array index of rows containing data
+          // Note: this relies on the structure of the default Excel file in /app/data/day1.xlsx or similar
+          if (row[this.#options.SHEETJS_COL] === 'Project Areas') {
+            const OFFSET_FROM_FLAG = 2
+            this.#options.dataRowStart = index + OFFSET_FROM_FLAG
           }
         }
 
@@ -203,6 +221,21 @@ class ExcelFile {
    */
   followsStringPattern (str) {
     return /[a-zA-Z,.] *\([^)]*\) */.test(str)
+  }
+
+  /**
+   * Sets the local this.#options settings
+   * @param {Object} options - Miscellaneous app settings defined in this.#options
+   * @returns
+   */
+  setOptions (options) {
+    if (!options) return false
+
+    for (const key in this.#options) {
+      if (options[key] !== undefined) {
+        this.#options[key] = options[key]
+      }
+    }
   }
 
   /**
@@ -299,6 +332,11 @@ class ExcelFile {
   // Returns the region data settings object
   get settings () {
     return this.#settings
+  }
+
+  // Retuls the local options object
+  get options () {
+    return this.#options
   }
 
   // Returns the full path to the 10-day weather forecast Excel file
