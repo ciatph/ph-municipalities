@@ -23,9 +23,7 @@ const createMunicipalityInstance = (excelFile) => {
     // Unique provinces/municipalities from the 10-day Excel file
     const excel = {}
 
-    excel.provinces = excelFile.datalist
-      .map(item => item.province)
-      .filter((x, i, a) => a.indexOf(x) === i)
+    excel.provinces = excelFile.listAllProvinces(true)
 
     excel.municipalities = excelFile
       .listMunicipalities({ provinces: excel.provinces })
@@ -38,14 +36,14 @@ const createMunicipalityInstance = (excelFile) => {
 
     // Unique provinces/municipalities from the config file (PAGASA Seasonal)
     const config = {}
-    config.provinces = new Set(excelFile.listRegions('provinces').flat())
-    config.municipalities = excelFile.listMunicipalities({ provinces: [...config.provinces] })
+    config.provinces = excelFile.listAllProvinces()
+    config.municipalities = excelFile.listMunicipalities({ provinces: config.provinces })
     config.countMunicipalities = Object.values(config.municipalities).reduce((sum, item) => sum + item.length, 0)
 
     // Municipalities exist in 10-day Excel but not in the municipalities list built from the PAGASA seasonal config
     const hasMissingInConfig = (excel.countMunicipalities - config.countMunicipalities) > 0
     // Province(s) exist in the PAGASA seasonal config but not in the 10-day Excel
-    const hasMissingInExcel = (config.provinces.size - excel.provinces.length) > 0
+    const hasMissingInExcel = (config.provinces.length - excel.provinces.length) > 0
 
     logger.log(
       `[INFO]: Parsed municipalities from config: ${config.countMunicipalities}\n` +

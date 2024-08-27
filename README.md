@@ -2,7 +2,7 @@
 
 The **ph-municipalities** NPM package has **NPM scripts** that allow interactive querying of Philippines municipalities included in one or more provinces or from a whole region, with an option of writing them to JSON files from the command line.
 
-It uses `/app/data/day1.xlsx` (downloaded and stored as of this 20220808) from PAGASA's [10-day weather forecast Excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the default data source.
+It uses a **PAGASA 10-day weather forecast Excel** file in `/app/data/day1.xlsx` (downloaded and stored as of this 20220808) from PAGASA's [10-Day Climate Forecast web page](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the default data source, syncing with the **PAGASA Seasonal weather forecast** regions and province names defined in the manually-encoded `/app/config/regions.json` file to determine the region names.
 
 It also asks users to key in the file download URL of a remote PAGASA 10-Day weather forecast Excel file should they want to use another Excel file for a new and updated data source.
 

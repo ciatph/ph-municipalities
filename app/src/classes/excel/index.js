@@ -467,11 +467,37 @@ class ExcelFile {
   /**
    * Lists the province names of a region defined in the settings file
    * @param {String} regionName - Region name that matches with the `/app/config/regions.json` file's `data[N].name`
-   * @returns {String[]}  A list provinces under the `regionName`.
+   * @returns {String[]}  List provinces under the `regionName`.
    */
   listProvinces (regionName) {
     return this.#settings.data
       .find(region => region.name === regionName)?.provinces ?? []
+  }
+
+  /**
+   * Lists the province names of a region defined in the settings (PAGASA seasonal config) file or from the parsed Excel file
+   * @param {String} region - Region name that matches with the `/app/config/regions.json` file's `data[N].name`
+   * @param {Bool} fromExcel - Flag to return the province names from the parsed 10-day Excel file. Defaults to `false`.
+   *    - Note: Province names from a "remote" Excel file may change without notice.
+   *    - It may differ from the contents of the "default" settings (PAGASA seasonal config) file.
+   *    - If the province names from the "remote" Excel file and "default" settings (PAGASA seasonal config) file vary,
+   *      consider initializing an `ExcelFile` or `ExcelFactory` class with a custom settings config file following
+   *      the format of the default settings file in `/app/config/regions.json`
+   * @returns {String[]}  List of all provinces from a 10-day Excel file.
+   */
+  listAllProvinces (fromExcel = false) {
+    if (fromExcel) {
+      // Return unique province names from the parsed Excel file
+      return this.#datalist
+        .map(item => item.province)
+        .filter((x, i, a) => a.indexOf(x) === i)
+    } else {
+      // Return province names from the PAGASA seasonal config file
+      return this.listRegions().reduce((list, region) => {
+        const provinces = this.listProvinces(region)
+        return [...list, ...provinces]
+      }, [])
+    }
   }
 
   /**
