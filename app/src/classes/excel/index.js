@@ -237,7 +237,7 @@ class ExcelFile {
    * @returns {Bool} true | false
    */
   followsStringPattern (str) {
-    return /[a-zA-Z,.] *\([^)]*\) */.test(str)
+    return /[a-zA-Z,.] *\([^)]*\) *$/.test(str)
   }
 
   /**
@@ -325,6 +325,8 @@ class ExcelFile {
    * @returns {null} Returns null if "provinceName" is not found
    */
   getProvinceName (str) {
+    if (!str) return null
+
     const match = str.match(/\(([^)]+)\)/)
     return (match !== null)
       ? match[1]
