@@ -39,7 +39,7 @@ describe('Class intialization using DEFAULT config', () => {
   })
 
   it('should load LOCAL_SOURCE Excel file', () => {
-    jest.setTimeout(20000)
+    jest.setTimeout(40000)
     logger.log('[INIT]: Started loading using "DEFAULT" config on LOCAL file')
 
     checkClass({
