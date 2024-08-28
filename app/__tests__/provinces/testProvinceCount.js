@@ -1,4 +1,4 @@
-require('dotenv')
+require('dotenv').config()
 const path = require('path')
 
 const ExcelFile = require('../../src/classes/excel')
