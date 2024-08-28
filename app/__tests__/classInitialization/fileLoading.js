@@ -30,7 +30,7 @@ describe('Class intialization using DEFAULT config', () => {
   })
 
   it('should load remote Excel file', async () => {
-    jest.setTimeout(15000)
+    jest.setTimeout(20000)
     logger.log('[INIT]: Started loading using "DEFAULT" config')
 
     const excelFile = new ExcelFile({
@@ -85,7 +85,7 @@ describe('Class intialization using CUSTOM config', () => {
   })
 
   it('should load remote Excel file', async () => {
-    jest.setTimeout(15000)
+    jest.setTimeout(20000)
     logger.log('[INIT]: Started loading using "CUSTOM" config')
 
     const excelFile = new ExcelFile({

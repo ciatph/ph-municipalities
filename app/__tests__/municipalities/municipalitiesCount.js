@@ -18,7 +18,7 @@ describe('Municipalities total count match', () => {
   })
 
   it('municipalities from provinces config should match with original Excel municipalities count', async () => {
-    jest.setTimeout(15000)
+    jest.setTimeout(20000)
 
     // Start file download
     await excelFile.init()
