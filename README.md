@@ -8,6 +8,12 @@ It also asks users to key in the file download URL of a remote PAGASA 10-Day wea
 
 > _**INFO:** When installing the package using `npm i ph-municipalities`, the default data source is inside `/data/day1.xlsx`. All source codes and files are also inside the **ph-municipalities** root directory._
 
+### Architecture Diagram
+
+![ph-municipalities-arch](/docs/diagrams/ph-municipalities-arch-90.png)
+
+###  Dataset Output
+
 Extracted municipalities are written in JSON files following the format:
 
 ```
@@ -65,6 +71,7 @@ The following dependencies are used for this project. Feel free to use other dep
   - [`npm run minify:all`](#npm-run-minifyall)
   - [`npm run lint`](#npm-run-lint)
   - [`npm run lint:fix`](#npm-run-lintfix)
+  - [`npm test`](#npm-test)
 - [Class Usage](#class-usage)
   - [Load and Parse a Local Excel File](#load-and-parse-a-local-excel-file)
   - [Download and Parse a Remote Excel File](#download-and-parse-a-remote-excel-file)
@@ -219,6 +226,10 @@ Lint JavaScript source codes.
 ### `npm run lint:fix`
 
 Fix JavaScript lint errors.
+
+### `npm test`
+
+Run tests defined in the `/app/__tests__` directory.
 
 ## Class Usage
 
