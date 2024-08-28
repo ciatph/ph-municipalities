@@ -22,12 +22,6 @@ describe('Municipalities per province count match', () => {
     // Start file download
     await excelFile.init()
 
-    checkClass({
-      excelInstance: excelFile,
-      isRemote: true,
-      classType: ExcelFile
-    })
-
     // Parsed/processed provinces from the Excel file
     const allProvinces = excelFile.listAllProvinces(true)
 
@@ -73,8 +67,6 @@ describe('Municipalities per province count match', () => {
       }
     })
 
-    expect(missing).toHaveLength(0)
-
     let totalLoaded = 0
     let totalParsed = 0
 
@@ -107,5 +99,13 @@ describe('Municipalities per province count match', () => {
         logger.log(msg, { color: ColorLog.COLORS.TEXT.YELLOW })
       }
     }
+
+    checkClass({
+      excelInstance: excelFile,
+      isRemote: true,
+      classType: ExcelFile
+    })
+
+    expect(missing).toHaveLength(0)
   })
 })

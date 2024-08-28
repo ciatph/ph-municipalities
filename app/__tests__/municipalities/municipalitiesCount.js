@@ -23,12 +23,6 @@ describe('Municipalities total count match', () => {
     // Start file download
     await excelFile.init()
 
-    checkClass({
-      excelInstance: excelFile,
-      isRemote: true,
-      classType: ExcelFile
-    })
-
     const {
       excel,
       config,
@@ -84,6 +78,12 @@ describe('Municipalities total count match', () => {
         color: ColorLog.COLORS.TEXT.GREEN
       })
     }
+
+    checkClass({
+      excelInstance: excelFile,
+      isRemote: true,
+      classType: ExcelFile
+    })
 
     /* Uncomment true "tests" for municipalities count match testing
     expect(excel.countMunicipalities).toBe(config.countMunicipalities)

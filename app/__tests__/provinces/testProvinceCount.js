@@ -21,12 +21,6 @@ describe('Provinces names and count match', () => {
     // Start file download
     await excelFile.init()
 
-    checkClass({
-      excelInstance: excelFile,
-      isRemote: true,
-      classType: ExcelFile
-    })
-
     const {
       allExcelProvinces,
       allProvinces,
@@ -36,10 +30,6 @@ describe('Provinces names and count match', () => {
       fromExcel
     } = createInstances(excelFile)
 
-    // Provinces from config and the Excel files should be unique
-    expect(uniqueProvinceList.size).toBe(allProvinces.length)
-    expect(uniqueExcelList.size).toBe(allExcelProvinces.length)
-
     const { uniqueExcelProvinces, uniqueProvinces } = updateInstances({
       allExcelProvinces,
       allProvinces,
@@ -48,6 +38,16 @@ describe('Provinces names and count match', () => {
       fromConfig,
       fromExcel
     })
+
+    checkClass({
+      excelInstance: excelFile,
+      isRemote: true,
+      classType: ExcelFile
+    })
+
+    // Provinces from config and the Excel files should be unique
+    expect(uniqueProvinceList.size).toBe(allProvinces.length)
+    expect(uniqueExcelList.size).toBe(allExcelProvinces.length)
 
     // Provinces from config and Excel file count should match
     // 20240826: Synced counts to pass tests, but take note of warning logs for

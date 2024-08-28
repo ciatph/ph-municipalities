@@ -31,6 +31,7 @@ describe('Class intialization using DEFAULT config', () => {
 
   it('should load remote Excel file', async () => {
     jest.setTimeout(15000)
+    logger.log('[INIT]: Started loading using "DEFAULT" config')
 
     const excelFile = new ExcelFile({
       pathToFile: path.join(__dirname, 'excelfiledownload4.xlsx'),
@@ -58,8 +59,6 @@ describe('Class intialization using DEFAULT config', () => {
       isRemote: true,
       classType: ExcelFile
     })
-
-    logger.log('[INIT]: Success loading using "DEFAULT" config')
   })
 })
 
@@ -87,6 +86,7 @@ describe('Class intialization using CUSTOM config', () => {
 
   it('should load remote Excel file', async () => {
     jest.setTimeout(15000)
+    logger.log('[INIT]: Started loading using "CUSTOM" config')
 
     const excelFile = new ExcelFile({
       pathToFile: path.join(__dirname, 'excelfiledownload5.xlsx'),
@@ -116,7 +116,5 @@ describe('Class intialization using CUSTOM config', () => {
       isRemote: true,
       classType: ExcelFile
     })
-
-    logger.log('[INIT]: Success loading using "CUSTOM" config')
   })
 })
