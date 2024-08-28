@@ -8,6 +8,12 @@ It also asks users to key in the file download URL of a remote PAGASA 10-Day wea
 
 > _**INFO:** When installing the package using `npm i ph-municipalities`, the default data source is inside `/data/day1.xlsx`. All source codes and files are also inside the **ph-municipalities** root directory._
 
+### Architecture Diagram
+
+![ph-municipalities-arch](/docs/diagrams/ph-municipalities-arch-90.png)
+
+###  Dataset Output
+
 Extracted municipalities are written in JSON files following the format:
 
 ```
