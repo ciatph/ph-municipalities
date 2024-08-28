@@ -22,7 +22,7 @@ const LOCAL_SOURCE = {
 // Classes loading the remote 10-day Excel file using a custom regions config
 const REMOTE_SOURCE = {
   excelFile: new ExcelFile({
-    pathToFile: path.join(__dirname, 'excelfiledownload4.xlsx'),
+    pathToFile: path.join(__dirname, 'excelfiledownload5.xlsx'),
     url: process.env.EXCEL_FILE_URL,
     settings: config
   }),
