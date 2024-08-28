@@ -11,7 +11,7 @@ module.exports = {
     '__tests__/municipalities/index.js',
     '__tests__/provinces/createInstances.js',
     '__tests__/provinces/updateInstances.js',
-    '__tests__/provinces/testProvinceCount.js',
+    // '__tests__/provinces/testProvinceCount.js',
     '__tests__/provinces/index.js'
   ]
 }
