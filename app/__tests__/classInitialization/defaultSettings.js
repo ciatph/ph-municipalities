@@ -8,8 +8,8 @@ const logger = new ColorLog({ isBold: true })
 
 const checkClass = require('./checkClass')
 
-// Classes loading the default local 10-day Excel file
-const local = {
+// Classes loading the default local 10-day Excel file using the default PAGASA seasonal config
+const LOCAL_SOURCE = {
   excelFactory: new ExcelFactory(),
 
   excelFile: new ExcelFile({
@@ -17,8 +17,8 @@ const local = {
   })
 }
 
-// Classes loading the remote 10-day Excel file
-const remote = {
+// Classes loading the remote 10-day Excel file using the default PAGASA seasonal config
+const REMOTE_SOURCE = {
   excelFile: new ExcelFile({
     pathToFile: path.join(__dirname, 'excelfiledownload4.xlsx'),
     url: process.env.EXCEL_FILE_URL
@@ -33,38 +33,38 @@ const remote = {
 describe('Class intialization using DEFAULT config', () => {
   beforeAll(async () => {
     return await Promise.all([
-      remote.excelFile.init(),
-      remote.excelFactory.init()
+      REMOTE_SOURCE.excelFile.init(),
+      REMOTE_SOURCE.excelFactory.init()
     ])
   })
 
-  it('should load local Excel file', () => {
+  it('should load LOCAL_SOURCE Excel file', () => {
     jest.setTimeout(20000)
     logger.log('[INIT]: Started loading using "DEFAULT" config on LOCAL file')
 
     checkClass({
-      excelInstance: local.excelFactory,
+      excelInstance: LOCAL_SOURCE.excelFactory,
       classType: ExcelFactory
     })
 
     checkClass({
-      excelInstance: local.excelFile,
+      excelInstance: LOCAL_SOURCE.excelFile,
       classType: ExcelFile
     })
   })
 
-  it('should load remote Excel file', async () => {
+  it('should load REMOTE_SOURCE Excel file', async () => {
     jest.setTimeout(20000)
     logger.log('[INIT]: Started loading using "DEFAULT" config on REMOTE file')
 
     checkClass({
-      excelInstance: remote.excelFactory,
+      excelInstance: REMOTE_SOURCE.excelFactory,
       isRemote: true,
       classType: ExcelFactory
     })
 
     checkClass({
-      excelInstance: remote.excelFile,
+      excelInstance: REMOTE_SOURCE.excelFile,
       isRemote: true,
       classType: ExcelFile
     })
