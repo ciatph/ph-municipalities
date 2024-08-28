@@ -1,4 +1,4 @@
-require('dotenv')
+require('dotenv').config()
 const path = require('path')
 
 const ExcelFile = require('../../src/classes/excel')
@@ -9,26 +9,23 @@ const checkClass = require('../classInitialization/checkClass')
 const createMunicipalityInstance = require('./createMunicipalityInstance')
 const { arrayToString } = require('../../src/lib/utils')
 
+// Test using the latest 10-day PAGASA Excel file
+const excelFile = new ExcelFile({
+  pathToFile: path.join(__dirname, 'excelfiledownload.xlsx'),
+  url: process.env.EXCEL_FILE_URL
+})
+
 /* eslint-disable no-undef */
 describe('Municipalities total count match', () => {
-  // Test using the latest 10-day PAGASA Excel file
-  const excelFile = new ExcelFile({
-    pathToFile: path.join(__dirname, 'excelfiledownload.xlsx'),
-    url: process.env.EXCEL_FILE_URL
+  beforeAll(async () => {
+    // Start file download
+    return await excelFile.init()
   })
 
   it('municipalities from provinces config should match with original Excel municipalities count', async () => {
-    jest.setTimeout(15000)
+    jest.setTimeout(20000)
 
-    // Start file download
-    await excelFile.init()
-
-    checkClass({
-      excelInstance: excelFile,
-      isRemote: true,
-      classType: ExcelFile
-    })
-
+    // Create local/remote ExcelFile classes using the default PAGASA region settings
     const {
       excel,
       config,
@@ -84,6 +81,12 @@ describe('Municipalities total count match', () => {
         color: ColorLog.COLORS.TEXT.GREEN
       })
     }
+
+    checkClass({
+      excelInstance: excelFile,
+      isRemote: true,
+      classType: ExcelFile
+    })
 
     /* Uncomment true "tests" for municipalities count match testing
     expect(excel.countMunicipalities).toBe(config.countMunicipalities)

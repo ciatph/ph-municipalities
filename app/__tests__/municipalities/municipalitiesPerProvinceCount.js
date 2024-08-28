@@ -1,4 +1,4 @@
-require('dotenv')
+require('dotenv').config()
 const path = require('path')
 
 const ExcelFile = require('../../src/classes/excel')
@@ -8,25 +8,21 @@ const logger = new ColorLog()
 const checkClass = require('../classInitialization/checkClass')
 const { arrayToString } = require('../../src/lib/utils')
 
+// Test using the latest 10-day PAGASA Excel file
+const excelFile = new ExcelFile({
+  pathToFile: path.join(__dirname, 'excelfiledownload2.xlsx'),
+  url: process.env.EXCEL_FILE_URL
+})
+
 /* eslint-disable no-undef */
 describe('Municipalities per province count match', () => {
-  // Test using the latest 10-day PAGASA Excel file
-  const excelFile = new ExcelFile({
-    pathToFile: path.join(__dirname, 'excelfiledownload2.xlsx'),
-    url: process.env.EXCEL_FILE_URL
+  beforeAll(async () => {
+    // Start file download
+    return await excelFile.init()
   })
 
   it('number of parsed/processed municipalities per province should match per province count from original data', async () => {
-    jest.setTimeout(15000)
-
-    // Start file download
-    await excelFile.init()
-
-    checkClass({
-      excelInstance: excelFile,
-      isRemote: true,
-      classType: ExcelFile
-    })
+    jest.setTimeout(20000)
 
     // Parsed/processed provinces from the Excel file
     const allProvinces = excelFile.listAllProvinces(true)
@@ -73,8 +69,6 @@ describe('Municipalities per province count match', () => {
       }
     })
 
-    expect(missing).toHaveLength(0)
-
     let totalLoaded = 0
     let totalParsed = 0
 
@@ -107,5 +101,13 @@ describe('Municipalities per province count match', () => {
         logger.log(msg, { color: ColorLog.COLORS.TEXT.YELLOW })
       }
     }
+
+    checkClass({
+      excelInstance: excelFile,
+      isRemote: true,
+      classType: ExcelFile
+    })
+
+    expect(missing).toHaveLength(0)
   })
 })

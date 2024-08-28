@@ -1,4 +1,4 @@
-require('dotenv')
+require('dotenv').config()
 
 const ColorLog = require('../../src/classes/colorlog')
 const logger = new ColorLog({ color: ColorLog.COLORS.TEXT.YELLOW, isBold: true })

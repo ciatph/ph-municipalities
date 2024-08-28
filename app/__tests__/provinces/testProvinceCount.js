@@ -1,4 +1,4 @@
-require('dotenv')
+require('dotenv').config()
 const path = require('path')
 
 const ExcelFile = require('../../src/classes/excel')
@@ -7,25 +7,21 @@ const checkClass = require('../classInitialization/checkClass')
 const createInstances = require('./createInstances')
 const updateInstances = require('./updateInstances')
 
+// Test using the latest 10-day PAGASA Excel file
+const excelFile = new ExcelFile({
+  pathToFile: path.join(__dirname, 'excelfiledownload3.xlsx'),
+  url: process.env.EXCEL_FILE_URL
+})
+
 /* eslint-disable no-undef */
 describe('Provinces names and count match', () => {
-  // Test using the latest 10-day PAGASA Excel file
-  const excelFile = new ExcelFile({
-    pathToFile: path.join(__dirname, 'excelfiledownload3.xlsx'),
-    url: process.env.EXCEL_FILE_URL
+  beforeAll(async () => {
+    // Start file download
+    return await excelFile.init()
   })
 
   it('settings (seasonal) provinces should match with (10-day) Excel provinces', async () => {
-    jest.setTimeout(15000)
-
-    // Start file download
-    await excelFile.init()
-
-    checkClass({
-      excelInstance: excelFile,
-      isRemote: true,
-      classType: ExcelFile
-    })
+    jest.setTimeout(20000)
 
     const {
       allExcelProvinces,
@@ -36,10 +32,6 @@ describe('Provinces names and count match', () => {
       fromExcel
     } = createInstances(excelFile)
 
-    // Provinces from config and the Excel files should be unique
-    expect(uniqueProvinceList.size).toBe(allProvinces.length)
-    expect(uniqueExcelList.size).toBe(allExcelProvinces.length)
-
     const { uniqueExcelProvinces, uniqueProvinces } = updateInstances({
       allExcelProvinces,
       allProvinces,
@@ -48,6 +40,16 @@ describe('Provinces names and count match', () => {
       fromConfig,
       fromExcel
     })
+
+    checkClass({
+      excelInstance: excelFile,
+      isRemote: true,
+      classType: ExcelFile
+    })
+
+    // Provinces from config and the Excel files should be unique
+    expect(uniqueProvinceList.size).toBe(allProvinces.length)
+    expect(uniqueExcelList.size).toBe(allExcelProvinces.length)
 
     // Provinces from config and Excel file count should match
     // 20240826: Synced counts to pass tests, but take note of warning logs for
