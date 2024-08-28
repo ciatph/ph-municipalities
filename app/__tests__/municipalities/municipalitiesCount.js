@@ -1,4 +1,4 @@
-require('dotenv')
+require('dotenv').config()
 const path = require('path')
 
 const ExcelFile = require('../../src/classes/excel')
@@ -18,16 +18,10 @@ describe('Municipalities total count match', () => {
   })
 
   it('municipalities from provinces config should match with original Excel municipalities count', async () => {
-    jest.setTimeout(15000)
+    jest.setTimeout(20000)
 
     // Start file download
     await excelFile.init()
-
-    checkClass({
-      excelInstance: excelFile,
-      isRemote: true,
-      classType: ExcelFile
-    })
 
     const {
       excel,
@@ -84,6 +78,12 @@ describe('Municipalities total count match', () => {
         color: ColorLog.COLORS.TEXT.GREEN
       })
     }
+
+    checkClass({
+      excelInstance: excelFile,
+      isRemote: true,
+      classType: ExcelFile
+    })
 
     /* Uncomment true "tests" for municipalities count match testing
     expect(excel.countMunicipalities).toBe(config.countMunicipalities)
