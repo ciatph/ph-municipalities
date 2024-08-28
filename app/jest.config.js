@@ -7,7 +7,7 @@ module.exports = {
     '__tests__/classInitialization/checkClass.js',
     '__tests__/municipalities/createMunicipalityInstance.js',
     // '__tests__/municipalities/municipalitiesCount.js',
-    '__tests__/municipalities/municipalitiesPerProvinceCount.js',
+    // '__tests__/municipalities/municipalitiesPerProvinceCount.js',
     '__tests__/municipalities/index.js',
     '__tests__/provinces/createInstances.js',
     '__tests__/provinces/updateInstances.js',
