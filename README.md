@@ -71,6 +71,7 @@ The following dependencies are used for this project. Feel free to use other dep
   - [`npm run minify:all`](#npm-run-minifyall)
   - [`npm run lint`](#npm-run-lint)
   - [`npm run lint:fix`](#npm-run-lintfix)
+  - [`npm test`](#npm-test)
 - [Class Usage](#class-usage)
   - [Load and Parse a Local Excel File](#load-and-parse-a-local-excel-file)
   - [Download and Parse a Remote Excel File](#download-and-parse-a-remote-excel-file)
@@ -225,6 +226,10 @@ Lint JavaScript source codes.
 ### `npm run lint:fix`
 
 Fix JavaScript lint errors.
+
+### `npm test`
+
+Run tests defined in the `/app/__tests__` directory.
 
 ## Class Usage
 
