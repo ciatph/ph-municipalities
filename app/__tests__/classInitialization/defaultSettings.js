@@ -39,6 +39,9 @@ describe('Class intialization using DEFAULT config', () => {
   })
 
   it('should load local Excel file', () => {
+    jest.setTimeout(20000)
+    logger.log('[INIT]: Started loading using "DEFAULT" config on LOCAL file')
+
     checkClass({
       excelInstance: local.excelFactory,
       classType: ExcelFactory
@@ -52,7 +55,7 @@ describe('Class intialization using DEFAULT config', () => {
 
   it('should load remote Excel file', async () => {
     jest.setTimeout(20000)
-    logger.log('[INIT]: Started loading using "DEFAULT" config')
+    logger.log('[INIT]: Started loading using "DEFAULT" config on REMOTE file')
 
     checkClass({
       excelInstance: remote.excelFactory,

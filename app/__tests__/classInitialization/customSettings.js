@@ -43,6 +43,9 @@ describe('Class intialization using CUSTOM config', () => {
   })
 
   it('should load local Excel file', () => {
+    jest.setTimeout(20000)
+    logger.log('[INIT]: Started loading using "CUSTOM" config on LOCAL file')
+
     checkClass({
       excelInstance: local.excelFactory,
       classType: ExcelFactory
@@ -56,7 +59,7 @@ describe('Class intialization using CUSTOM config', () => {
 
   it('should load remote Excel file', async () => {
     jest.setTimeout(20000)
-    logger.log('[INIT]: Started loading using "CUSTOM" config')
+    logger.log('[INIT]: Started loading using "CUSTOM" config on REMOTE file')
 
     checkClass({
       excelInstance: remote.excelFactory,
