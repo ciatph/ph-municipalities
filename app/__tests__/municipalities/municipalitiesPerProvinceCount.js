@@ -8,19 +8,21 @@ const logger = new ColorLog()
 const checkClass = require('../classInitialization/checkClass')
 const { arrayToString } = require('../../src/lib/utils')
 
+// Test using the latest 10-day PAGASA Excel file
+const excelFile = new ExcelFile({
+  pathToFile: path.join(__dirname, 'excelfiledownload2.xlsx'),
+  url: process.env.EXCEL_FILE_URL
+})
+
 /* eslint-disable no-undef */
 describe('Municipalities per province count match', () => {
-  // Test using the latest 10-day PAGASA Excel file
-  const excelFile = new ExcelFile({
-    pathToFile: path.join(__dirname, 'excelfiledownload2.xlsx'),
-    url: process.env.EXCEL_FILE_URL
+  beforeAll(async () => {
+    // Start file download
+    return await excelFile.init()
   })
 
   it('number of parsed/processed municipalities per province should match per province count from original data', async () => {
     jest.setTimeout(20000)
-
-    // Start file download
-    await excelFile.init()
 
     // Parsed/processed provinces from the Excel file
     const allProvinces = excelFile.listAllProvinces(true)
