@@ -22,7 +22,7 @@ const LOCAL_SOURCE = {
 // Classes loading the remote 10-day Excel file using a custom regions config
 const REMOTE_SOURCE = {
   excelFile: new ExcelFile({
-    pathToFile: path.join(__dirname, 'excelfiledownload4.xlsx'),
+    pathToFile: path.join(__dirname, 'excelfiledownload5.xlsx'),
     url: process.env.EXCEL_FILE_URL,
     settings: config
   }),
@@ -36,9 +36,9 @@ const REMOTE_SOURCE = {
 /* eslint-disable no-undef */
 describe('Class intialization using CUSTOM config', () => {
   beforeAll(async () => {
-    return await Promise.all([
-      REMOTE_SOURCE.excelFile.init(),
-      REMOTE_SOURCE.excelFactory.init()
+    await Promise.all([
+      REMOTE_SOURCE.excelFile.init(false),
+      REMOTE_SOURCE.excelFactory.init(false)
     ])
   })
 
