@@ -1,5 +1,3 @@
-const path = require('path')
-
 const {
   createInstances,
   updateInstances
@@ -23,8 +21,6 @@ const selectDataSource = async () => {
       const askDownload = await prompt('\nWould you like to download and use a remote Excel file?\nPress enter to ignore. Press Y and enter to proceed. [n/Y]: ')
 
       if (askDownload === 'Y') {
-        const pathToFile = path.join(process.cwd(), 'datasource.xlsx')
-
         while (!url) {
           url = await prompt('\nEnter the download URL of a remote Excel file: ')
         }
@@ -36,7 +32,7 @@ const selectDataSource = async () => {
           await ExcelHandler.init()
           exit = true
 
-          console.log(`\nUsing the file downloaded to ${pathToFile}\nas data source`)
+          console.log(`\nUsing the file downloaded to ${ExcelHandler.pathToFile}\nas data source`)
         } catch (err) {
           console.log(`[ERROR] ${err.message}`)
           ExcelHandler = null

@@ -1,24 +1,24 @@
 /**
- * Formats municipality names into a single text string.
- * Attach municipalities count and total count.
+ * Formats municipality names for logging.
+ * Attaches municipalities count and total count to the return data.
  * @param {Object} municipalitiesGroup - Object that have province names as keys, each containing a String[] of municipalities
  * @returns {Object} { total, data }
- *    - total: {String} total municipalities count
- *    - data: {Object} mutated municipalitiesGroup. The String[] array municipalities are converted to 1 long String text
+ *    - total: {Number} total municipalities count
+ *    - data: {Object} mutated municipalitiesGroup. Contains the String[] municipalities array and the number of municipalities per province.
  */
 const formatDisplay = (municipalitiesGroup) => {
-  const total = Object.keys(municipalitiesGroup).reduce((count, municipality) => {
-    count += municipalitiesGroup[municipality].length
+  const total = Object.keys(municipalitiesGroup).reduce((count, province) => {
+    count += municipalitiesGroup[province].length
     return count
   }, 0)
 
   return {
     total,
-    data: Object.keys(municipalitiesGroup).reduce((formatted, municipality) => ({
+    data: Object.keys(municipalitiesGroup).reduce((formatted, province) => ({
       ...formatted,
-      [municipality]: {
-        count: municipalitiesGroup[municipality].length,
-        municipalities: municipalitiesGroup[municipality].toString().split(',')
+      [province]: {
+        count: municipalitiesGroup[province].length,
+        municipalities: municipalitiesGroup[province]
       }
     }), {})
   }
