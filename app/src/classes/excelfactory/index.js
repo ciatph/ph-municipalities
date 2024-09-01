@@ -7,8 +7,9 @@ require('dotenv').config({
 const ExcelFile = require('../excel')
 
 /**
- * Convenience factory class that creates an ExcelFile class using the default Excel data set.
- * Creates an `ExcelFile` class with remote download given the URL parameter.
+ * Convenience factory class that creates an `ExcelFile` class using the default Excel data set.
+ * Creates an `ExcelFile` class with remote Excel file download given the URL parameter,
+ *    downloading the Excel file to a local Excel file with a random-generated name.
  */
 class ExcelFactory extends ExcelFile {
   /**
@@ -19,8 +20,11 @@ class ExcelFactory extends ExcelFile {
    */
   constructor ({ url, settings } = {}) {
     if (url) {
+      const randomTime = new Date().getTime()
+      const fileName = `datasource_${randomTime}.xlsx`
+
       super({
-        pathToFile: path.join(process.cwd(), 'datasource.xlsx'),
+        pathToFile: path.join(process.cwd(), fileName),
         url,
         settings
       })
