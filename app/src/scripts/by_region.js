@@ -22,7 +22,7 @@ const main = async () => {
       const regionNames = ExcelHandler.listRegions()
 
       console.log('\nREGION NAMES')
-      console.log(regionNames.toString().split(',').join('\n'))
+      console.table(regionNames)
 
       // Prompt to ask for province name(s)
       const region = await prompt('\nEnter a region name: ')
