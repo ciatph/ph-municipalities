@@ -37,8 +37,8 @@ const REMOTE_SOURCE = {
 describe('Class intialization using CUSTOM config', () => {
   beforeAll(async () => {
     await Promise.all([
-      REMOTE_SOURCE.excelFile.init(false),
-      REMOTE_SOURCE.excelFactory.init(false)
+      REMOTE_SOURCE.excelFile.init(),
+      REMOTE_SOURCE.excelFactory.init()
     ])
   })
 
