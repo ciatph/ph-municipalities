@@ -34,7 +34,7 @@ const REMOTE_SOURCE = {
 }
 
 /* eslint-disable no-undef */
-describe('Class intialization using CUSTOM config', () => {
+describe('Class intialization using CUSTOM PAGASA seasonal (regions) config', () => {
   beforeAll(async () => {
     await Promise.all([
       REMOTE_SOURCE.excelFile.init(),
