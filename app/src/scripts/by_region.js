@@ -19,7 +19,9 @@ const main = async () => {
 
     if (ExcelHandler !== null) {
       // Display region abbreviations
-      const regionNames = ExcelHandler.listRegions()
+      const regionNames = ExcelHandler
+        .listRegions()
+        .map(region => ({ 'Region Name': region }))
 
       console.log('\nREGION NAMES')
       console.table(regionNames)

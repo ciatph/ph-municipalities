@@ -10,7 +10,10 @@ describe('Regions listing test', () => {
       pathToFile: path.join(__dirname, '..', '..', 'data', 'day1.xlsx')
     })
 
-    const regions = excelFile.listRegions()
+    const regions = excelFile
+      .listRegions()
+      .map(region => ({ 'Region Name': region }))
+
     console.table(regions)
 
     expect(regions).toBeDefined()
