@@ -28,6 +28,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: out
+          include-hidden-files: true
           path: out/ph-municipalities/${{ env.version }}
           retention-days: 3
 
