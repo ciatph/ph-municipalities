@@ -27,9 +27,9 @@ jobs:
       - name: Archive Development Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: out
+          name: docs
           include-hidden-files: true
-          path: out/ph-municipalities/${{ env.version }}
+          path: docs/ph-municipalities/${{ env.version }}
           retention-days: 3
 
   deploy-docs:
@@ -40,7 +40,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@v4
         with:
-          name: out
+          name: docs
 
       - name: List files for publish
         run: ls -l -a
