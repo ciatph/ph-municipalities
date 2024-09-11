@@ -24,6 +24,9 @@ jobs:
           chmod u+x scripts/build-docs.sh
           ./scripts/build-docs.sh
 
+      - name: Debug Environment Variables
+        run: cat $GITHUB_ENV
+
       - name: Archive Development Artifact
         uses: actions/upload-artifact@v4
         with:
