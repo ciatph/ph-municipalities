@@ -9,7 +9,7 @@ npm install --save-dev jsdoc minami taffydb
 npm run generate-docs
 
 # Find and export the active version no.
-filePath="app/package.json"
+filePath="package.json"
 version=$(grep -oP '"version":\s*"\K[^"]+' "$filePath")
 
 # Output the version as a GitHub Actions output variable
