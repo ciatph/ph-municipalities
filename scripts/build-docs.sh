@@ -15,3 +15,12 @@ version=$(grep -oP '"version":\s*"\K[^"]+' "$filePath")
 # Output the version as a GitHub Actions output variable
 echo "$version" >> $GITHUB_ENV
 echo version: "$version"
+
+# Log directories
+ls -l -a
+
+cd docs
+ls -l -a
+
+cd ph-municipalities
+ls -l -a
