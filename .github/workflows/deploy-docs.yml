@@ -31,9 +31,9 @@ jobs:
           path: out/ph-municipalities/${{ env.version }}
           retention-days: 3
 
-  deploy-client:
+  deploy-docs:
     name: Deploy client to Github Pages
-    needs: lint-client
+    needs: build-docs
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifact
