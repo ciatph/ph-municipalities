@@ -44,7 +44,7 @@ class Schema {
   /**
    * Formats error messages into a single string
    * @param {Object[]} errors - List of zod error messages
-   * @returns
+   * @returns {Bool}
    */
   formatErrorLog (errors = []) {
     if (!Array.isArray(errors)) {
