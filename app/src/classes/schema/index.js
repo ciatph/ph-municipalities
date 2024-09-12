@@ -2,7 +2,10 @@
  * Validates Objects with [zod](https://github.com/colinhacks/zod) schemas and formats validation error(s) for log output.
  */
 class Schema {
-  /** Settings object */
+  /**
+   * Settings object.
+   * @type {Object | null}
+   */
   #data = null
 
   /**

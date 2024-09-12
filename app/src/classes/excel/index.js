@@ -17,22 +17,40 @@ const { capitalizeText } = require('../../lib/utils')
  *    "municipalityName (ProvinceName)"
  */
 class ExcelFile {
-  /** Remote download URL of an excel file */
+  /**
+   * Remote download URL of an excel file
+   * @type {string | null}
+   */
   #url = null
 
-  /** Full file path to excel file on local storage */
+  /**
+   * Full file path to excel file on local storage
+   * @type {string | null}
+   */
   #pathToFile = null
 
-  /** Region information from the /app/config/regions.json or other config file */
+  /**
+   * Region information from the `/app/config/regions.json` or other JSON config file.
+   * @type {Object | null}
+   */
   #settings = null
 
-  /** 10-day Excel file information */
+  /**
+   * 10-day Excel file information
+   * @type {Object.<string, string | null>}
+   */
   #metadata = {
-    // Weather forecast date
+    /**
+     * Weather forecast date
+     * @type {string | null}
+     */
     forecastDate: null
   }
 
-  /** Other app settings and configurations */
+  /**
+   * Other app settings and configurations
+   * @type {Object.<string, string | number>}
+   */
   #options = {
     /**
      * SheetJS array index number translated from the Excel headers row count
@@ -49,26 +67,43 @@ class ExcelFile {
     SHEETJS_COL: process.env.SHEETJS_COLUMN || '__EMPTY'
   }
 
-  /** Excel workbook object parsed by sheetjs */
+  /**
+   * Excel workbook object parsed by sheetjs
+   * @type {Object[] | null}
+   */
   #workbook = null
 
-  /** Excel sheet names parsed by sheetjs */
+  /**
+   * Excel sheet names parsed by sheetjs.
+   * @type {string[] | null}
+   */
   #sheets = null
 
-  /** Objects[] Array corresponding to excel rows extracted from the excel sheet by sheetjs */
+  /**
+   * Objects[] Array corresponding to excel rows extracted from the excel sheet by sheetjs.
+   * @type {Object[] | null}
+   */
   #data = null
 
-  /** Object[] Array of processed string corresponding to the column in the excel file
-   *  that contains the list of municipalities following the pattern:
+  /**
+   * Object[] Array of processed string corresponding to the column in the excel file
+   * that contains the list of municipalities following the pattern:
    *  "municipalityName (provinceName)"
    * Content: [{ municipality, province }, ... ]
+   * @type {Object[] | null}
    */
   #datalist = []
 
-  /** Event emitter for listening to custom events */
+  /**
+   * Node event emitter for listening to custom events.
+   * @type {Function}
+   */
   events = new EventEmitter()
 
-  /** List of EventEmitter events */
+  /**
+   * List of EventEmitter events.
+   * @type {Object.<string, string>}
+   */
   EVENTS = {
     LOADED: 'loaded'
   }

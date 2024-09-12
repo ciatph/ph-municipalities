@@ -1,13 +1,34 @@
 /**
  * Prints colored console.log messages
- * @class
  */
 class ColorLog {
+  /**
+   * Text styles for logging.
+   * @static
+   * @type {Object.<string, string>}
+   * @property {string} BOLD - Bold text style.
+   * @property {string} NORMAL - Normal text style.
+   */
   static TEXT = {
     BOLD: '\x1b[1m',
     NORMAL: '\x1b[0m'
   }
 
+  /**
+   * ANSI colors for coloring the logging text.
+   * @static
+   * @type {Object.<string, object>}
+   * @property {Object} TEXT - Object containing color properties.
+   * @property {string} TEXT.WHITE - White color.
+   * @property {string} TEXT.GRAY - Gray color.
+   * @property {string} TEXT.GREEN - Green color.
+   * @property {string} TEXT.RED - Red color.
+   * @property {string} TEXT.YELLOW - Yellow color.
+   * @property {string} TEXT.BLUE - Blue color.
+   * @property {string} TEXT.CYAN - Cyan color.
+   * @property {string} TEXT.RESET - Reset color.
+   * @property {string} TEXT.MAGENTA - Magenta color.
+   */
   static COLORS = {
     TEXT: {
       WHITE: '\x1b[37m',
@@ -22,13 +43,22 @@ class ColorLog {
     }
   }
 
-  /** Message log */
+  /**
+   * Message log text.
+   * @type {string | null}
+   */
   #log = null
 
-  /** Text color */
+  /**
+   * Text color
+   * @type {string}
+   */
   #color = ColorLog.COLORS.TEXT.GREEN
 
-  /** Text weight (bold, normal) */
+  /**
+   * Text weight (bold, normal)
+   * @type {string}
+   */
   #weight = false
 
   /**

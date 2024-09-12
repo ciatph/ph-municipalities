@@ -39,8 +39,9 @@ Pre-compiled windows binaries are available for download in the latest [Releases
 
 ## Class Documentation
 
-- Class documentation and methods are available at https://ciatph.github.io/ph-municipalities.
+- Class and methods documentation are available at https://ciatph.github.io/ph-municipalities.
 - The documentation website's HTML files are available in the [`gh-pages`](https://github.com/ciatph/ph-municipalities/tree/gh-pages) branch of this repository.
+- Class source codes are available at https://github.com/ciatph/ph-municipalities.
 - Refer to the [Building the Class Documentation](#building-the-class-documentation) section for more information about updating and building the class documentation.
 
 ## Requirements
