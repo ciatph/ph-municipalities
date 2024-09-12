@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Copy files
-cp docs/diagrams/*.png app/
+cp docs/diagrams/ph-municipalities-arch-90.png app/diagram.png
 sed "s|/docs/diagrams|/ph-municipalities|g" README.md > app/README.md
 
 cd app
