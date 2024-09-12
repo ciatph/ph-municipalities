@@ -37,12 +37,14 @@ class ExcelFile {
     /**
      * SheetJS array index number translated from the Excel headers row count
      * before elements containing "municipalityName (provinceName)" data
+     * @type {number}
      */
     dataRowStart: 0,
 
     /** Internal excel file column name read by sheetjs.
      *  This column contains strings following the pattern
      *      "municipalityName (provinceName)"
+     * @type {string}
      */
     SHEETJS_COL: process.env.SHEETJS_COLUMN || '__EMPTY'
   }
@@ -73,14 +75,14 @@ class ExcelFile {
 
   /**
    * Initialize an ExcelFile object
-   * @typedef {Object} params - Constructor parameter Object
-   * @param {String} [params.url] - (Optional) Remote download URL of an excel file
-   * @param {String} params.pathToFile
+   * @param {Object} params - Constructor parameter Object
+   * @param {string} [params.url] - (Optional) Remote download URL of an excel file
+   * @param {string} params.pathToFile
    *    - Full local file path of an existing Excel file, **required** if `params.url` is not provided
    *    - Full local file path to an existing or non-existent Excel file on which to download/save the remote Excel file from `params.url`,
    *      if the `params.url` parameter is provided
    * @param {Object} [params.settings] - (Optional) Region settings configuration object following the format of the `/app/config/regions.json` file. Defaults to the mentioned file if not provided.
-   * @param {Bool} [params.fastload] - (Optional) Start loading and parsing the local excel file on class initialization if the "url" param is not provided.
+   * @param {boolean} [params.fastload] - (Optional) Start loading and parsing the local excel file on class initialization if the "url" param is not provided.
    *    - If `false` or not provided, call the `.init()` method later on a more convenient time.
    */
   constructor ({ url, pathToFile, fastload = true, settings = null, options = null } = {}) {
@@ -233,8 +235,8 @@ class ExcelFile {
   /**
    * Checks if a string follows the pattern:
    *    "municipalityName (provinceName)"
-   * @param {String} str - String to check
-   * @returns {Bool} true | false
+   * @param {string} str - String to check
+   * @returns {boolean} true | false
    */
   followsStringPattern (str) {
     return /[a-zA-Z,.] *\([^)]*\) *$/.test(str)
@@ -243,7 +245,7 @@ class ExcelFile {
   /**
    * Sets the local this.#options settings
    * @param {Object} options - Miscellaneous app settings defined in this.#options
-   * @returns {Bool}
+   * @returns {boolean}
    */
   setOptions (options) {
     if (!options) return false
@@ -257,8 +259,8 @@ class ExcelFile {
 
   /**
    * Checks if a string contains special characters
-   * @param {String} str - String to check
-   * @returns {Bool}
+   * @param {string} str - String to check
+   * @returns {boolean}
    */
   static hasSpecialChars (str) {
     /* eslint-disable no-control-regex */
@@ -268,8 +270,8 @@ class ExcelFile {
 
   /**
    * Cleans/removes default-known special characters and garbled text defined in config from string.
-   * @param {String} str - String to clean
-   * @returns {String} - Clean string
+   * @param {string} str - String to clean
+   * @returns {string} - Clean string
    */
   static removeGarbledText (str) {
     // Known garbled special text
@@ -304,8 +306,8 @@ class ExcelFile {
   /**
    * Extracts the municipality name from a string following the pattern:
    *    "municipalityName (provinceName)"
-   * @param {String} str
-   * @returns {String} municipality name
+   * @param {string} str
+   * @returns {string} municipality name
    */
   getMunicipalityName (str) {
     const municipalityName = str.replace(/ *\([^)]*\) */g, '')
@@ -320,8 +322,8 @@ class ExcelFile {
   /**
    * Extracts the province name from a string following the pattern:
    *    "municipalityName (provinceName)"
-   * @param {String} str
-   * @returns {String} province name
+   * @param {string} str
+   * @returns {string} province name
    * @returns {null} Returns null if "provinceName" is not found
    */
   getProvinceName (str) {
@@ -436,8 +438,8 @@ class ExcelFile {
    * Writes queried municipalities data to a JSON file.
    * Lists municipalities by by provinces.
    * @param {String[]} provinces - Array of case-sensitive province names. Starts with an upper case.
-   * @param {String} fielName - Full file path to a JSON file
-   * @param {Bool} prettify - Write the JSON content with proper spacings and newlines
+   * @param {string} fielName - Full file path to a JSON file
+   * @param {boolean} prettify - Write the JSON content with proper spacings and newlines
    * @returns {Object} Formatted raw data with misc. metadata
    */
   writeMunicipalities ({ provinces, fileName, prettify = false }) {
@@ -466,7 +468,7 @@ class ExcelFile {
 
   /**
    * Lists the province names of a region defined in the settings file
-   * @param {String} regionName - Region name that matches with the `/app/config/regions.json` file's `data[N].name`
+   * @param {string} regionName - Region name that matches with the `/app/config/regions.json` file's `data[N].name`
    * @returns {String[]}  List provinces under the `regionName`.
    */
   listProvinces (regionName) {
@@ -476,8 +478,8 @@ class ExcelFile {
 
   /**
    * Lists the province names of a region defined in the settings (PAGASA seasonal config) file or from the parsed Excel file
-   * @param {String} region - Region name that matches with the `/app/config/regions.json` file's `data[N].name`
-   * @param {Bool} fromExcel - Flag to return the province names from the parsed 10-day Excel file. Defaults to `false`.
+   * @param {string} region - Region name that matches with the `/app/config/regions.json` file's `data[N].name`
+   * @param {boolean} fromExcel - Flag to return the province names from the parsed 10-day Excel file. Defaults to `false`.
    *    - Note: Province names from a "remote" Excel file may change without notice.
    *    - It may differ from the contents of the "default" settings (PAGASA seasonal config) file.
    *    - If the province names from the "remote" Excel file and "default" settings (PAGASA seasonal config) file vary,

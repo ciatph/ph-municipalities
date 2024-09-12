@@ -33,9 +33,9 @@ class ColorLog {
 
   /**
    * Initializes a ColorLog class
-   * @typedef {Object} params - Input parameters
-   * @param {String} params.color - ANSI color defined in `ColorLog.COLORS`
-   * @param {Bool} params.isBold - Flag to render bold colored text
+   * @param {Object} params - Input parameters
+   * @param {string} params.color - ANSI color defined in `ColorLog.COLORS`
+   * @param {boolean} params.isBold - Flag to render bold colored text
    */
   constructor ({ color, isBold = false } = {}) {
     this.setColor(color)
@@ -44,11 +44,11 @@ class ColorLog {
 
   /**
    * Prints colored log message in console.log()
-   * @param {String} message - Log message text
+   * @param {string} message - Log message text
    * @param {Object} options - (Optional)
-   * @param {String} options.color - ANSI color defined in `ColorLog.COLORS`
-   * @param {Bool} options.isBold - Flag to render bold colored text
-   * @returns {Bool}
+   * @param {string} options.color - ANSI color defined in `ColorLog.COLORS`
+   * @param {boolean} options.isBold - Flag to render bold colored text
+   * @returns {boolean}
    */
   log (message, options = {}) {
     if (!message || typeof message !== 'string') return
@@ -63,8 +63,8 @@ class ColorLog {
 
   /**
    * Sets the text color in console.log()
-   * @param {String} color - ANSI color defined in `ColorLog.COLORS`
-   * @returns {Bool}
+   * @param {string} color - ANSI color defined in `ColorLog.COLORS`
+   * @returns {boolean}
    */
   setColor (color) {
     if (!color) return
@@ -78,8 +78,8 @@ class ColorLog {
 
   /**
    * Sets the text weight in console.log
-   * @param {Bool} isBold - Flag to render bold colored text
-   * @returns {Bool}
+   * @param {boolean} isBold - Flag to render bold colored text
+   * @returns {boolean}
    */
   setText (isBold) {
     if (![true, false].includes(isBold)) return

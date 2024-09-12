@@ -7,8 +7,8 @@ const logger = new ColorLog({ color: ColorLog.COLORS.TEXT.YELLOW, isBold: true }
  * Builds objects containing all provinces AND municipality names for the PAGASA seasonal config and 10-Day Excel file to use for comparison checks and logs viewing purposes only.
  * @param {Class} excelFile - `ExcelFile` or `ExcelFactory` instance
  * @returns {Object} Object containing Arrays and Sets of province and municipality names
- *    - `hasMissingInExcel` {Bool} - Flag if province(s) exist in the PAGASA seasonal config but not in the 10-day Excel
- *    - `hasMissingInConfig` {Bool} - Flag if municipalities exist in 10-day Excel but not in the municipalities list built from the PAGASA seasonal config
+ *    - `hasMissingInExcel` {boolean} - Flag if province(s) exist in the PAGASA seasonal config but not in the 10-day Excel
+ *    - `hasMissingInConfig` {boolean} - Flag if municipalities exist in 10-day Excel but not in the municipalities list built from the PAGASA seasonal config
  *    - `excel` {Object} - Contains full province/municipality names and data from the 10-day Excel file
  *    - `excel.provinces` {String[]} - all provinces from the 10-day Excel file
  *    - `excel.municipalities` {Object} - Object with province names as keys and values are String[] array of municipalities under the province
