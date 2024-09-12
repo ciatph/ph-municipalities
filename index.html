@@ -132,18 +132,11 @@ Click to expand the table of contents
 <li><code>npm run list:province</code></li>
 </ul>
 </li>
-<li><a href="#npm-scripts-for-building-documentation">NPM Scripts for Building Documentation</a>
-<ul>
-<li><code>npm run generate-docs</code></li>
-<li><code>npm run docs:install</code></li>
-<li><code>npm run docs:build</code></li>
-</ul>
-</li>
 <li><a href="#npm-scripts-for-building-windows-executable-files-of-the-interactive-cli-scripts">NPM Scripts for Building Windows Executable Files of the Interactive CLI Scripts</a>
 <ul>
-<li><code>build:win:region</code></li>
-<li><code>build:win:province</code></li>
-<li><code>build:win:all</code></li>
+<li><code>npm run build:win:region</code></li>
+<li><code>npm run build:win:province</code></li>
+<li><code>npm run build:win:all</code></li>
 <li><code>npm run minify:region</code></li>
 </ul>
 </li>
@@ -151,6 +144,13 @@ Click to expand the table of contents
 <ul>
 <li><code>npm run minify:province</code></li>
 <li><code>npm run minify:all</code></li>
+</ul>
+</li>
+<li><a href="#npm-scripts-for-building-documentation">NPM Scripts for Building Documentation</a>
+<ul>
+<li><code>npm run generate-docs</code></li>
+<li><code>npm run docs:install</code></li>
+<li><code>npm run docs:build</code></li>
 </ul>
 </li>
 <li><a href="#npm-scripts-for-linting-files-and-unit-testing">NPM Scripts for Linting Files and Unit Testing</a>
@@ -353,6 +353,29 @@ npm run list:region
 </details>
 <hr>
 <details>
+<summary style="font-size: 18px;" id="npm-scripts-for-compiling-the-interactive-cli-scripts-into-stand-alone-scripts">
+  <b>NPM Scripts for Compiling the Interactive CLI Scripts into Stand-Alone Scripts</b>
+</summary>
+<h3><code>npm run minify:region</code></h3>
+<ul>
+<li>Compiles the Node.js project's <code>npm list:region</code> script and dependencies into a single script using <a href="https://www.npmjs.com/package/@vercel/ncc"><strong>ncc</strong></a>.</li>
+<li>The compiled/minified file will be stored in <code>/dist/region</code>. Run the command to use the compiled script:<br>
+<code>node dist/region</code></li>
+</ul>
+<h3><code>npm run minify:province</code></h3>
+<ul>
+<li>Compiles the Node.js project's <code>npm list:province</code> script and dependencies into a single script using <a href="https://www.npmjs.com/package/@vercel/ncc"><strong>ncc</strong></a>.</li>
+<li>The compiled/minified file will be stored in <code>/dist/province</code>. Run the command to use the compiled script:<br>
+<code>node dist/province</code></li>
+</ul>
+<h3><code>npm run minify:all</code></h3>
+<ul>
+<li>Run the <code>npm list:region</code> and <code>npm list:province</code> scripts in one go.</li>
+<li>Each compiled/minified files will be stored in the <code>/dist</code> directory.</li>
+</ul>
+</details>
+<hr>
+<details>
 <summary style="font-size: 18px;" id="npm-scripts-for-building-documentation">
   <b>NPM Scripts for Building Documentation</b>
 </summary>
@@ -392,43 +415,20 @@ docker exec -u root -it ph-municipalities npm run docs:build
 <summary style="font-size: 18px;" id="npm-scripts-for-building-windows-executable-files-of-the-interactive-cli-scripts">
   <b>NPM Scripts for Building Windows Executable Files of the Interactive CLI Scripts</b>
 </summary>
-<h3><code>build:win:region</code></h3>
+<h3><code>npm run build:win:region</code></h3>
 <ul>
 <li>Package the Node.js project's <code>npm start</code> script into a stand-alone windows <code>node16-win-x64</code> executable.</li>
 <li>The windows executable file will be stored in <code>/dist/ph-regions-win.exe</code>. Click the executable file to run.</li>
 </ul>
-<h3><code>build:win:province</code></h3>
+<h3><code>npm run build:win:province</code></h3>
 <ul>
 <li>Package the Node.js project's <code>npm list:province</code> script into a stand-alone windows <code>node16-win-x64</code> executable.</li>
 <li>The windows executable file will be stored in <code>/dist/ph-provinces-win.exe</code>. Click the executable file to run.</li>
 </ul>
-<h3><code>build:win:all</code></h3>
+<h3><code>npm run build:win:all</code></h3>
 <ul>
 <li>Package the Node.js project's <code>npm start</code> and <code>npm list:province</code> script into a stand-alone windows <code>node16-win-x64</code> executables in one go.</li>
 <li>Each window executable file will be stored in the <code>/dist</code> directory.</li>
-</ul>
-</details>
-<hr>
-<details>
-<summary style="font-size: 18px;" id="npm-scripts-for-compiling-the-interactive-cli-scripts-into-stand-alone-scripts">
-  <b>NPM Scripts for Compiling the Interactive CLI Scripts into Stand-Alone Scripts</b>
-</summary>
-<h3><code>npm run minify:region</code></h3>
-<ul>
-<li>Compiles the Node.js project's <code>npm list:region</code> script and dependencies into a single script using <a href="https://www.npmjs.com/package/@vercel/ncc"><strong>ncc</strong></a>.</li>
-<li>The compiled/minified file will be stored in <code>/dist/region</code>. Run the command to use the compiled script:<br>
-<code>node dist/region</code></li>
-</ul>
-<h3><code>npm run minify:province</code></h3>
-<ul>
-<li>Compiles the Node.js project's <code>npm list:province</code> script and dependencies into a single script using <a href="https://www.npmjs.com/package/@vercel/ncc"><strong>ncc</strong></a>.</li>
-<li>The compiled/minified file will be stored in <code>/dist/province</code>. Run the command to use the compiled script:<br>
-<code>node dist/province</code></li>
-</ul>
-<h3><code>npm run minify:all</code></h3>
-<ul>
-<li>Run the <code>npm list:region</code> and <code>npm list:province</code> scripts in one go.</li>
-<li>Each compiled/minified files will be stored in the <code>/dist</code> directory.</li>
 </ul>
 </details>
 <hr>
@@ -806,7 +806,7 @@ chmod u+x scripts/docs-build.sh
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.3</a> on Thu Sep 12 2024 17:28:16 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.3</a> on Thu Sep 12 2024 17:31:31 GMT+0000 (Coordinated Universal Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
