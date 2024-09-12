@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Copy files
-cp README.md app/
-cp docs/ app/
+cp -r docs/ app/
+sed "s|/docs/diagrams|/diagrams|g" README.md > app/README.md
 
 cd app
 
