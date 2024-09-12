@@ -366,7 +366,7 @@ Below are example usages of the `ExcelFile` class, run from the **/app/src/examp
 This is a simple usage example of the `ExcelFile` class.
 
 <details>
-<summary><b>Simple Usage</b></summary>
+<summary>Simple Usage</summary>
 
 ```javascript
 const path = require('path')
@@ -415,7 +415,7 @@ file.datalist = [
 
 <details>
 <summary>
-  <b>Reading regions, provinces and municipalities</b>
+Reading regions, provinces and municipalities
 </summary>
 
 ```javascript
@@ -456,7 +456,7 @@ Adding a `url` field in the constructor parameter prepares the class to downlo
 
 <details>
 <summary>
-  <b>Remote Excel file download example</b>
+Remote Excel file download example
 </summary>
 
 > **INFO:** Run the `.init()` method after initializing a class with a `url` parameter to start the async file download.
@@ -494,7 +494,7 @@ main()
 
 <details>
 <summary>
-  <b>Initialize an ExcelFile class instance.</b>
+Initialize an ExcelFile class instance
 </summary>
 
 ```javascript
@@ -541,7 +541,7 @@ Follow the codes to define a custom regions config file, following the format of
 
 <details>
 <summary>
-  <b>config.json</b>
+config.json
 </summary>
 
 ```
@@ -578,7 +578,7 @@ Follow the codes to define a custom regions config file, following the format of
 
 <details>
 <summary>
-  <b>Custom config usage</b>
+Custom config usage
 </summary>
 
 ```javascript
@@ -617,7 +617,10 @@ console.log('---municipalities', municipalities)
 
 ## Building Standalone Windows Executables
 
-The main npm scripts can be packaged into standalone windows executables. Pre-compiled windows binaries are available for download in the latest [Releases](https://github.com/ciatph/ph-municipalities/releases) download page.
+<details>
+<summary>
+The main npm scripts can be packaged into standalone windows executables. Pre-compiled windows binaries are available for download in the latest <a href="https://github.com/ciatph/ph-municipalities/releases">Releases</a> download page.
+</summary>
 
 1. Run any of the following scripts to build the programs.
    ```bash
@@ -627,9 +630,14 @@ The main npm scripts can be packaged into standalone windows executables. Pre-co
    ```
 2. Click the resulting executable files in the `/dist` directory to execute.
 
+</details>
+
 ## Compiling into Single, Minified Files
 
+<details>
+<summary>
 The main npm scripts can be compiled into standalone JavaScript files together with all its dependencies.
+</summary>
 
 1. Run any of the following scripts to compile the source codes.
    ```bash
@@ -642,6 +650,8 @@ The main npm scripts can be compiled into standalone JavaScript files together w
    node dist/region
    node dist/province
    ```
+
+</details>
 
 ## Building the Class Documentation
 
