@@ -22,7 +22,8 @@ jobs:
       - name: Install jsdoc and build
         run: |
           chmod u+x scripts/docs-build-gh.sh && ./scripts/docs-build-gh.sh
-          cd app && ./docs-install.sh
+          cd app
+          chmod u+x docs-build-gh.sh && ./docs-install.sh
           npm run generate-docs
           ls -l -a
           cd docs
