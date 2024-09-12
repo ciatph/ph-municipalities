@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Copy files
+cp README.md app/
+cp docs/ app/
+
 cd app
 
 # Install jsdoc and theme
@@ -7,6 +11,12 @@ npm install --save-dev jsdoc@4.0.3 minami@1.2.3 taffydb@2.7.3
 
 # Generate the documentation
 npm run generate-docs
+
+# Log directories
+ls -l -a
+
+cd docs
+ls -l -a
 
 # Find and export the active version no.
 # filePath="package.json"
@@ -17,9 +27,3 @@ npm run generate-docs
 
 # echo "$version" >> $GITHUB_ENV
 # echo version: "$version"
-
-# Log directories
-ls -l -a
-
-cd docs
-ls -l -a
