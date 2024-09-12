@@ -21,6 +21,9 @@ ls -l -a
 cd docs
 ls -l -a
 
+# Return to the root directory
+cd ..
+
 # Find and export the active version no.
 # filePath="package.json"
 # version=$(grep -oP '"version":\s*"\K[^"]+' "$filePath")
