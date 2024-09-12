@@ -4,25 +4,22 @@
 # NOTE: It requires JSDoc and theme dependencies.
 # Run docs-install first before running this script.
 
-# Copy picture files
+# Copy build files
 mkdir app/docs
 cp docs/diagrams/ph-municipalities-arch-90.png app/docs/diagram.png
+
+chmod u+x scripts/docs-install.sh
+cp scripts/docs-install.sh app/
 
 # Copy README file
 sed "s|/docs/diagrams/ph-municipalities-arch-90.png|/ph-municipalities/diagram.png|g" README.md > app/README.md
 cd app
-
-# Generate the documentation
-npm run generate-docs
 
 # Log directories
 ls -l -a
 
 cd docs
 ls -l -a
-
-# Return to the root directory
-cd ..
 
 # Find and export the active version no.
 # filePath="package.json"
