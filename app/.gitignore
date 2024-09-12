@@ -1,12 +1,13 @@
 node_modules/
+dist/
+docs/
+README.md
 .env
 .vscode
 *.xlsx
 *.json
 *.zip
 *.tgz
-dist/
-docs/
 
 # Ignore all JSON files except:
 !package.json

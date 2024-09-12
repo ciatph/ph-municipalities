@@ -24,9 +24,6 @@ jobs:
           chmod u+x scripts/build-docs.sh
           ./scripts/build-docs.sh
 
-      - name: Debug Environment Variables
-        run: cat $GITHUB_ENV
-
       - name: Archive Development Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -36,7 +33,7 @@ jobs:
           retention-days: 3
 
   deploy-docs:
-    name: Deploy client to Github Pages
+    name: Deploy docs to Github Pages
     needs: build-docs
     runs-on: ubuntu-latest
     steps:
