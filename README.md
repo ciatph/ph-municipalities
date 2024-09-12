@@ -81,25 +81,25 @@ Click to expand the table of contents
 - [Installation Using Docker](#installation-using-docker)
 - [Available Scripts](#available-scripts)
   - [Interactive CLI Scripts](#interactive-cli-scripts)
-     - [`npm start` / `npm run list:region`](#npm-start--npm-run-listregion)
-     - [`npm run list:province`](#npm-run-listprovince)
+     - `npm start` / `npm run list:region`
+     - `npm run list:province`
   - [NPM Scripts for Building Documentation](#npm-scripts-for-building-documentation)
-     - [`npm run generate-docs`](#npm-run-generate-docs)
-     - [`npm run docs:install`](#npm-run-docsinstall)
-     - [`npm run docs:build`](#npm-run-docsbuild)
+     - `npm run generate-docs`
+     - `npm run docs:install`
+     - `npm run docs:build`
   - [NPM Scripts for Building Windows Executable Files of the Interactive CLI Scripts](#npm-scripts-for-building-windows-executable-files-of-the-interactive-cli-scripts)
-     - [`build:win:region`](#buildwinregion)
-     - [`build:win:province`](#buildwinprovince)
-     - [`build:win:all`](#buildwinall)
-     - [`npm run minify:region`](#npm-run-minifyregion)
+     - `build:win:region`
+     - `build:win:province`
+     - `build:win:all`
+     - `npm run minify:region`
   - [NPM Scripts for Compiling the Interactive CLI Scripts into Stand-Alone Scripts](#npm-scripts-for-compiling-the-interactive-cli-scripts-into-stand-alone-scripts)
-     - [`npm run minify:province`](#npm-run-minifyprovince)
-     - [`npm run minify:all`](#npm-run-minifyall)
+     - `npm run minify:province`
+     - `npm run minify:all`
   - [NPM Scripts for Linting Files and Unit Testing](#npm-scripts-for-linting-files-and-unit-testing)
-     - [`npm run lint`](#npm-run-lint)
-     - [`npm run lint:fix`](#npm-run-lintfix)
-     - [`npm test`](#npm-test)
-     - [`npm run example`](#npm-run-example)
+     - `npm run lint`
+     - `npm run lint:fix`
+     - `npm test`
+     - `npm run example`
 - [Class Usage](#class-usage)
   - [Load and Parse a Local Excel File](#load-and-parse-a-local-excel-file)
   - [Download and Parse a Remote Excel File](#download-and-parse-a-remote-excel-file)
