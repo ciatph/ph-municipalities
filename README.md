@@ -261,6 +261,30 @@ npm run list:region
 ---
 
 <details>
+<summary style="font-size: 18px;" id="npm-scripts-for-building-windows-executable-files-of-the-interactive-cli-scripts">
+  <b>NPM Scripts for Building Windows Executable Files of the Interactive CLI Scripts</b>
+</summary>
+
+### `npm run build:win:region`
+
+- Package the Node.js project's `npm start` script into a stand-alone windows `node16-win-x64` executable.
+- The windows executable file will be stored in `/dist/ph-regions-win.exe`. Click the executable file to run.
+
+### `npm run build:win:province`
+
+- Package the Node.js project's `npm list:province` script into a stand-alone windows `node16-win-x64` executable.
+- The windows executable file will be stored in `/dist/ph-provinces-win.exe`. Click the executable file to run.
+
+### `npm run build:win:all`
+
+- Package the Node.js project's `npm start` and `npm list:province` script into a stand-alone windows `node16-win-x64` executables in one go.
+- Each window executable file will be stored in the `/dist` directory.
+
+</details>
+
+---
+
+<details>
 <summary style="font-size: 18px;" id="npm-scripts-for-building-documentation">
   <b>NPM Scripts for Building Documentation</b>
 </summary>
@@ -310,30 +334,6 @@ docker exec -u root -it ph-municipalities npm run docs:build
 ---
 
 <details>
-<summary style="font-size: 18px;" id="npm-scripts-for-building-windows-executable-files-of-the-interactive-cli-scripts">
-  <b>NPM Scripts for Building Windows Executable Files of the Interactive CLI Scripts</b>
-</summary>
-
-### `npm run build:win:region`
-
-- Package the Node.js project's `npm start` script into a stand-alone windows `node16-win-x64` executable.
-- The windows executable file will be stored in `/dist/ph-regions-win.exe`. Click the executable file to run.
-
-### `npm run build:win:province`
-
-- Package the Node.js project's `npm list:province` script into a stand-alone windows `node16-win-x64` executable.
-- The windows executable file will be stored in `/dist/ph-provinces-win.exe`. Click the executable file to run.
-
-### `npm run build:win:all`
-
-- Package the Node.js project's `npm start` and `npm list:province` script into a stand-alone windows `node16-win-x64` executables in one go.
-- Each window executable file will be stored in the `/dist` directory.
-
-</details>
-
----
-
-<details>
 <summary style="font-size: 18px;" id="npm-scripts-for-linting-files-and-unit-testing">
   <b>NPM Scripts for Linting Files and Unit Testing</b>
 </summary>
@@ -356,6 +356,8 @@ Run tests defined in the `/app/__tests__` directory.
 - Demonstrates sample usage with `await`
 
 </details>
+
+<br>
 
 ## Class Usage
 
