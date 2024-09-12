@@ -205,10 +205,10 @@ Builds the class documentation into the **/docs** directory.
 
 ### `npm run docs:install`
 
-Runs the Bash script that installs the JSDoc and theme dependencies for building the class documentation.
+Runs the Bash script that installs the JSDoc and theme dependencies for building the class documentation within athe development Docker environment.
 
 > [!NOTE]
-> This script requires running from a Bash terminal: it won't work from a Windows command line terminal.
+> This script requires running from a Bash terminal - it won't work from a Windows command line terminal. It is reserved for building the documentation with Docker.
 
 This script is used for building the class documentation from a local Docker environment along with the `npm run docs:build` NPM script.
 
@@ -219,10 +219,10 @@ docker exec -u root -it ph-municipalities npm run docs:build
 
 ### `npm run docs:build`
 
-Runs the Bash script that builds the class documentation using JSDoc.
+Runs the Bash script that builds the class documentation using JSDoc within athe development Docker environment.
 
 > [!NOTE]
-> This script requires running from a Bash terminal: it won't work from a Windows command line terminal.
+> This script requires running from a Bash terminal - it won't work from a Windows command line terminal. It is reserved for building the documentation with Docker.
 
 This script is used for building the class documentation from a local Docker environment along with the `npm run docs:install` NPM script.
 
