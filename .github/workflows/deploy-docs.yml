@@ -32,7 +32,7 @@ jobs:
         with:
           name: docs
           include-hidden-files: true
-          path: docs/
+          path: app/docs/
           retention-days: 3
 
   deploy-docs:
