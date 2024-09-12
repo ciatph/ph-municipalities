@@ -17,3 +17,9 @@ npm run generate-docs
 
 # echo "$version" >> $GITHUB_ENV
 # echo version: "$version"
+
+# Log directories
+ls -l -a
+
+cd docs
+ls -l -a

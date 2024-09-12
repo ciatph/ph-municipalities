@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-docs:
-    name: Install JSDoc Dependencies
+    name: Build Class Documentation
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -32,7 +32,7 @@ jobs:
         with:
           name: docs
           include-hidden-files: true
-          path: docs
+          path: docs/
           retention-days: 3
 
   deploy-docs:
