@@ -2,8 +2,7 @@ name: Build and Deploy Docs
 
 on:
   push:
-    branches-ignore:
-      - master
+    branches:
       - dev
 
 jobs:
