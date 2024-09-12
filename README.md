@@ -47,6 +47,8 @@ Pre-compiled windows binaries are available for download in the latest [Releases
 
 The following dependencies are used for this project. Feel free to use other dependency versions as needed.
 
+<details>
+<summary>Expand to view requirements</summary>
 1. Windows 10 OS
 2. nvm for Windows v1.1.9
 3. NodeJS, installed using nvm
@@ -59,6 +61,7 @@ The following dependencies are used for this project. Feel free to use other dep
    - Checkout the excel file format on the `/app/data/day1.xlsx` sample file for more information
 5. (Optional) Download URL for a remote excel file.
    - See the `EXCEL_FILE_URL` variable on the [Installation](#installation) section.
+</details>
 
 ## Contents
 
