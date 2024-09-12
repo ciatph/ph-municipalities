@@ -65,30 +65,41 @@ The following dependencies are used for this project. Feel free to use other dep
 
 </details>
 
-## Contents
+## Table of Contents
+
+<details>
+<summary>
+Click to expand the table of contents
+</summary>
+
 
 - [ph-municipalities](#ph-municipalities)
 - [Class Documentation](#class-documentation)
 - [Requirements](#requirements)
-- [Contents](#contents)
+- [Table of Contents](#table-of-contents)
 - [Installation](#installation)
 - [Installation Using Docker](#installation-using-docker)
 - [Available Scripts](#available-scripts)
-  - [`npm start` / `npm run list:region`](#npm-start--npm-run-listregion)
-  - [`npm run list:province`](#npm-run-listprovince)
-  - [`npm run example`](#npm-run-example)
-  - [`npm run generate-docs`](#npm-run-generate-docs)
-  - [`npm run docs:install`](#npm-run-docsinstall)
-  - [`npm run docs:build`](#npm-run-docsbuild)
-  - [`build:win:region`](#buildwinregion)
-  - [`build:win:province`](#buildwinprovince)
-  - [`build:win:all`](#buildwinall)
-  - [`npm run minify:region`](#npm-run-minifyregion)
-  - [`npm run minify:province`](#npm-run-minifyprovince)
-  - [`npm run minify:all`](#npm-run-minifyall)
-  - [`npm run lint`](#npm-run-lint)
-  - [`npm run lint:fix`](#npm-run-lintfix)
-  - [`npm test`](#npm-test)
+  - [Interactive CLI Scripts](#interactive-cli-scripts)
+     - [`npm start` / `npm run list:region`](#npm-start--npm-run-listregion)
+     - [`npm run list:province`](#npm-run-listprovince)
+  - [NPM Scripts for Building Documentation](#npm-scripts-for-building-documentation)
+     - [`npm run generate-docs`](#npm-run-generate-docs)
+     - [`npm run docs:install`](#npm-run-docsinstall)
+     - [`npm run docs:build`](#npm-run-docsbuild)
+  - [NPM Scripts for Building Windows Executable Files of the Interactive CLI Scripts](#npm-scripts-for-building-windows-executable-files-of-the-interactive-cli-scripts)
+     - [`build:win:region`](#buildwinregion)
+     - [`build:win:province`](#buildwinprovince)
+     - [`build:win:all`](#buildwinall)
+     - [`npm run minify:region`](#npm-run-minifyregion)
+  - [NPM Scripts for Compiling the Interactive CLI Scripts into Stand-Alone Scripts](#npm-scripts-for-compiling-the-interactive-cli-scripts-into-stand-alone-scripts)
+     - [`npm run minify:province`](#npm-run-minifyprovince)
+     - [`npm run minify:all`](#npm-run-minifyall)
+  - [NPM Scripts for Linting Files and Unit Testing](#npm-scripts-for-linting-files-and-unit-testing)
+     - [`npm run lint`](#npm-run-lint)
+     - [`npm run lint:fix`](#npm-run-lintfix)
+     - [`npm test`](#npm-test)
+     - [`npm run example`](#npm-run-example)
 - [Class Usage](#class-usage)
   - [Load and Parse a Local Excel File](#load-and-parse-a-local-excel-file)
   - [Download and Parse a Remote Excel File](#download-and-parse-a-remote-excel-file)
@@ -100,6 +111,8 @@ The following dependencies are used for this project. Feel free to use other dep
    - [Using Docker](#using-docker)
    - [Using NodeJS](#using-nodejs)
 - [Troubleshooting](#troubleshooting)
+
+</details>
 
 ## Installation
 
@@ -114,6 +127,9 @@ The following dependencies are used for this project. Feel free to use other dep
 
 3. Create a `.env` file from the `.env.example` file inside the `/app` directory. Use the default values for the following environment variables.
 
+   <details>
+   <summary>List of .env variables and their description.</summary>
+
    > **INFO:** If installed as an NPM package with `npm i ph-municipalities`, create the `.env` file inside the NPM project's root directory.
 
    | Variable Name | Description |
@@ -124,13 +140,18 @@ The following dependencies are used for this project. Feel free to use other dep
    | SPECIAL_CHARACTERS | Key-value pairs of special characters or garbled text and their normalized text conversions, delimited by the `":"` character.<br>Multiple key-value pairs are delimited by the `","` character.<br>If a special character key's value is a an empty string, write it as i.e.,: `"some-garbled-text:"` |
    | IMAGE_URL | Raw URL of the README image file from this GitHub repository.<br> <blockquote>**NOTE:** Only add this variable in the GitHub Secrets for publishing to the NPM registry since NPM does not allow displaying images by relative path.</blockquote> |
 
+   </details>
+
 ## Installation Using Docker
 
 We can use Docker to run dockerized Node app for local development mode. The following methods require Docker and Docker compose correctly installed and set up on your development machine.
 
 ### Docker Dependencies
 
+<details>
+<summary>
 The following dependencies are used to build and run the image. Please feel feel free to use other OS and versions as needed.
+</summary>
 
 1. Ubuntu 22.04.1
    - Docker version 23.0.1, build a5eeb1
@@ -141,7 +162,12 @@ The following dependencies are used to build and run the image. Please feel feel
       - Docker Compose version v2.27.1-desktop.1
       - Docker Engine version 26.1.4, build 5650f9b
 
+</details>
+
 ### Docker for Localhost Development
+
+<details>
+<summary>Steps for using Docker with local development</summary>
 
 1. Set up the environment variables for the `/app` directory. Visit the [Installation](#installation) section, **step #3** for more information.
 
@@ -167,6 +193,8 @@ The following dependencies are used to build and run the image. Please feel feel
    - For new scripts (example only):<br>
    `docker exec -it ph-municipalities node ./src/new.js`
 
+</details>
+
 ## Available Scripts
 
 > _**Note:** These NPM scripts run relative within the `/app` directory, when working on a git-cloned repository of the app. To run using only NodeJS, navigate first to the `/app` directory and execute a target script, for example:_
@@ -175,6 +203,11 @@ The following dependencies are used to build and run the image. Please feel feel
 cd app
 npm run list:region
 ```
+
+<details>
+<summary style="font-size: 18px;" id="interactive-cli-scripts">
+  <b>Interactive CLI Scripts</b>
+</summary>
 
 ### `npm start` / `npm run list:region`
 
@@ -197,12 +230,14 @@ npm run list:region
 - Run the script as follows if installed using `npm i ph-municipalities`:
    - `node .\node_modules\ph-municipalities\src\scripts\by_province.js`
 
-### `npm run example`
-
-- Downloads and parses a remote excel file.
-- Demonstrates sample usage with `await`
+</details>
 
 ---
+
+<details>
+<summary style="font-size: 18px;" id="npm-scripts-for-building-documentation">
+  <b>NPM Scripts for Building Documentation</b>
+</summary>
 
 ### `npm run generate-docs`
 
@@ -244,7 +279,14 @@ docker exec -u root -it ph-municipalities npm run docs:install
 docker exec -u root -it ph-municipalities npm run docs:build
 ```
 
+</details>
+
 ---
+
+<details>
+<summary style="font-size: 18px;" id="npm-scripts-for-building-windows-executable-files-of-the-interactive-cli-scripts">
+  <b>NPM Scripts for Building Windows Executable Files of the Interactive CLI Scripts</b>
+</summary>
 
 ### `build:win:region`
 
@@ -261,7 +303,14 @@ docker exec -u root -it ph-municipalities npm run docs:build
 - Package the Node.js project's `npm start` and `npm list:province` script into a stand-alone windows `node16-win-x64` executables in one go.
 - Each window executable file will be stored in the `/dist` directory.
 
+</details>
+
 ---
+
+<details>
+<summary style="font-size: 18px;" id="npm-scripts-for-compiling-the-interactive-cli-scripts-into-stand-alone-scripts">
+  <b>NPM Scripts for Compiling the Interactive CLI Scripts into Stand-Alone Scripts</b>
+</summary>
 
 ### `npm run minify:region`
 
@@ -280,7 +329,14 @@ docker exec -u root -it ph-municipalities npm run docs:build
 - Run the `npm list:region` and `npm list:province` scripts in one go.
 - Each compiled/minified files will be stored in the `/dist` directory.
 
+</details>
+
 ---
+
+<details>
+<summary style="font-size: 18px;" id="npm-scripts-for-linting-files-and-unit-testing">
+  <b>NPM Scripts for Linting Files and Unit Testing</b>
+</summary>
 
 ### `npm run lint`
 
@@ -294,6 +350,13 @@ Fix JavaScript lint errors.
 
 Run tests defined in the `/app/__tests__` directory.
 
+### `npm run example`
+
+- Downloads and parses a remote excel file.
+- Demonstrates sample usage with `await`
+
+</details>
+
 ## Class Usage
 
 Below are example usages of the `ExcelFile` class, run from the **/app/src/examples** directory. Check out the `/app/src/examples/sample_usage.js` file for more examples.
@@ -302,7 +365,9 @@ Below are example usages of the `ExcelFile` class, run from the **/app/src/examp
 
 This is a simple usage example of the `ExcelFile` class.
 
-**Simple Usage**
+<details>
+<summary><b>Simple Usage</b></summary>
+
 ```javascript
 const path = require('path')
 const ExcelFile = require('../classes/excel')
@@ -346,7 +411,13 @@ file.datalist = [
    { municipality: 'Bucay', province: 'Abra' }]
 ```
 
-**Reading regions, provinces and municipalities**
+</details>
+
+<details>
+<summary>
+  <b>Reading regions, provinces and municipalities</b>
+</summary>
+
 ```javascript
 const path = require('path')
 const ExcelFile = require('../classes/excel')
@@ -377,9 +448,16 @@ const municipalitiesFromProvince = file.listMunicipalities({ provinces })
 console.log(`---municipalities`, municipalitiesFromProvince)
 ```
 
+</details>
+
 ### Download and Parse a Remote Excel File
 
 Adding a `url` field in the constructor parameter prepares the class to download a remote Excel file for the data source.
+
+<details>
+<summary>
+  <b>Remote Excel file download example</b>
+</summary>
 
 > **INFO:** Run the `.init()` method after initializing a class with a `url` parameter to start the async file download.
 
@@ -410,9 +488,14 @@ const main = async () => {
 main()
 ```
 
+</details>
+
 ### Alternate Usage - Events
 
-Initialize an `ExcelFile` class instance.
+<details>
+<summary>
+  <b>Initialize an ExcelFile class instance.</b>
+</summary>
 
 ```javascript
 require('dotenv').config()
@@ -446,6 +529,8 @@ const main = () => {
 main()
 ```
 
+</details>
+
 ### Using a Custom Configuration File
 
 The **ph-municipalities** `ExcelFile` and `ExcelFactory` classes use a default configuration file to define their regions and provinces in the `/app/config/regions.json` file. The regions and provinces data in this file syncs with the PAGASA Seasonal and 10-Day Weather Forecast Excel files provinces and municipalities naming convention, encoded by hand as of August 24, 2024.
@@ -454,7 +539,11 @@ Follow the codes to define a custom regions config file, following the format of
 
 > _**Note:** The custom config file's province/municipality names should match those in the 10-day Excel file._
 
-**config.json**
+<details>
+<summary>
+  <b>config.json</b>
+</summary>
+
 ```
 {
   "metadata": {
@@ -485,7 +574,13 @@ Follow the codes to define a custom regions config file, following the format of
 }
 ```
 
-**Custom config usage**
+</details>
+
+<details>
+<summary>
+  <b>Custom config usage</b>
+</summary>
+
 ```javascript
 require('dotenv').config()
 const path = require('path')
@@ -517,6 +612,8 @@ console.log('---provinces', provinces)
 console.log('\nProvince/municipality names should match with those in the 10-day Excel file')
 console.log('---municipalities', municipalities)
 ```
+
+</details>
 
 ## Building Standalone Windows Executables
 
@@ -550,7 +647,10 @@ The main npm scripts can be compiled into standalone JavaScript files together w
 
 The class documentation uses [JSDoc](https://jsdoc.app/) annotations where applicable in the JavaScript source codes inside the **/src** directory. There are two (2) options for building the class documentation.
 
-### Using Docker
+<details>
+<summary style="font-size: 18px;" id="using-docker">
+  <b>Using Docker</b>
+</summary>
 
 1. Run docker for localhost development. Refer to the [Docker for Localhost Development](#docker-for-localhost-development) section for more information.
 
@@ -564,7 +664,14 @@ The class documentation uses [JSDoc](https://jsdoc.app/) annotations where appli
    docker exec -u root -it ph-municipalities npm run docs:build
    ```
 
-### Using NodeJS
+</details>
+
+<br>
+
+<details>
+<summary style="font-size: 18px;" id="using-nodejs">
+  <b>Using NodeJS</b>
+</summary>
 
 1. Install the dependencies for JSDoc. Refer to the [**`npm run generate-docs`**](#npm-run-generate-docs) Script usage for more information.
 2. Copy Bash scripts to the **/app** directory.
@@ -587,11 +694,16 @@ The class documentation uses [JSDoc](https://jsdoc.app/) annotations where appli
    ./scripts/docs-build.sh
    ```
 
+</details>
+
 ## Troubleshooting
 
 This section describes several common errors and related fixes.
 
-### EACCESS: permission denied
+<details>
+<summary style="font-size: 18px;">
+  <b>EACCESS: permission denied</b>
+</summary>
 
 #### Information
 
@@ -607,7 +719,9 @@ This section describes several common errors and related fixes.
    `sudo chown -R <APP_UID>:<APP_UID> ./app`
 3. Re-run the NPM script.
 
+</details>
 
+<br>
 
 @ciatph<br>
 20220807
