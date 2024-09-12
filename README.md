@@ -37,6 +37,12 @@ Extracted municipalities are written in JSON files following the format:
 
 Pre-compiled windows binaries are available for download in the latest [Releases](https://github.com/ciatph/ph-municipalities/releases) download page.
 
+## Class Documentation
+
+- Class documentation and methods are available at https://ciatph.github.io/ph-municipalities.
+- The documentation website's HTML files are available in the [`gh-pages`](https://github.com/ciatph/ph-municipalities/tree/gh-pages) branch of this repository.
+- Refer to the [Building the Class Documentation](#building-the-class-documentation) section for more information about updating and building the class documentation.
+
 ## Requirements
 
 The following dependencies are used for this project. Feel free to use other dependency versions as needed.
@@ -57,6 +63,7 @@ The following dependencies are used for this project. Feel free to use other dep
 ## Contents
 
 - [ph-municipalities](#ph-municipalities)
+- [Class Documentation](#class-documentation)
 - [Requirements](#requirements)
 - [Contents](#contents)
 - [Installation](#installation)
@@ -536,7 +543,7 @@ The main npm scripts can be compiled into standalone JavaScript files together w
 
 ## Building the Class Documentation
 
-There are two (2) options for building the class documentation.
+The class documentation uses [JSDoc](https://jsdoc.app/) annotations where applicable in the JavaScript source codes inside the **/src** directory. There are two (2) options for building the class documentation.
 
 ### Using Docker
 
