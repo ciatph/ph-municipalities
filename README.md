@@ -66,8 +66,8 @@ The following dependencies are used for this project. Feel free to use other dep
   - [`npm run list:province`](#npm-run-listprovince)
   - [`npm run example`](#npm-run-example)
   - [`npm run generate-docs`](#npm-run-generate-docs)
-  - [`npm run docs:install`](#npm-run-docs-install)
-  - [`npm run docs:build`](#npm-run-docs-build)
+  - [`npm run docs:install`](#npm-run-docsinstall)
+  - [`npm run docs:build`](#npm-run-docsbuild)
   - [`build:win:region`](#buildwinregion)
   - [`build:win:province`](#buildwinprovince)
   - [`build:win:all`](#buildwinall)
@@ -545,12 +545,12 @@ Install the dependencies for JSDoc. Refer to the [**`npm run generate-docs`**](#
 
 1. Run docker for localhost development. Refer to the [Docker for Localhost Development](#docker-for-localhost-development) section for more information.
 
-2. Install the dependencies for JSDoc. Suceeding builds will not need to install dependencies after an initial installation. Refer to the [**npm run docs:install**](#npm-run-docs-install) script usage for more information.<br>
+2. Install the dependencies for JSDoc. Suceeding builds will not need to install dependencies after an initial installation. Refer to the [**npm run docs:install**](#npm-run-docsinstall) script usage for more information.<br>
    ```bash
    npm run docs:install
    ```
 
-3. Build the documentation. Refer to the [**npm run docs:build**](#npm-run-docs-build) script usage for more information.<br>
+3. Build the documentation. Refer to the [**npm run docs:build**](#npm-run-docsbuild) script usage for more information.<br>
    ```bash
    npm run docs:build
    ```
