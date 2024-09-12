@@ -184,6 +184,18 @@ npm run list:region
 - Downloads and parses a remote excel file.
 - Demonstrates sample usage with `await`
 
+### `npm run generate-docs`
+
+Builds the class documentation into the **/docs** directory.
+
+> [!NOTE]
+> This script requires manual installation of the `jsdoc@4.0.3`, `minami@1.2.3`, and `taffydb@2.7.3` packages as **devDependencies**.
+> These libraries, only used for building the class documentation, were excluded from the final package.json to have fewer external dependencies.
+> ```bash
+> npm install --save-dev jsdoc@4.0.3 minami@1.2.3 taffydb@2.7.3
+> ```
+> Installing these libraries will update the `package.json` and `package-lock.json` files. Take care not to push changes caused by installation.
+
 ---
 
 ### `build:win:region`
