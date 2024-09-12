@@ -21,8 +21,10 @@ jobs:
 
       - name: Install jsdoc and build
         run: |
-          chmod u+x scripts/build-docs.sh
-          ./scripts/build-docs.sh
+          ./scripts/local-docs-install
+          cd app && npm run generate-docs
+          # chmod u+x scripts/build-docs.sh
+          # ./scripts/build-docs.sh
 
       - name: Archive Development Artifact
         uses: actions/upload-artifact@v4
