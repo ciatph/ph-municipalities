@@ -83,18 +83,18 @@ Click to expand the table of contents
   - [Interactive CLI Scripts](#interactive-cli-scripts)
      - `npm start` / `npm run list:region`
      - `npm run list:province`
-  - [NPM Scripts for Building Documentation](#npm-scripts-for-building-documentation)
-     - `npm run generate-docs`
-     - `npm run docs:install`
-     - `npm run docs:build`
   - [NPM Scripts for Building Windows Executable Files of the Interactive CLI Scripts](#npm-scripts-for-building-windows-executable-files-of-the-interactive-cli-scripts)
-     - `build:win:region`
-     - `build:win:province`
-     - `build:win:all`
+     - `npm run build:win:region`
+     - `npm run build:win:province`
+     - `npm run build:win:all`
      - `npm run minify:region`
   - [NPM Scripts for Compiling the Interactive CLI Scripts into Stand-Alone Scripts](#npm-scripts-for-compiling-the-interactive-cli-scripts-into-stand-alone-scripts)
      - `npm run minify:province`
      - `npm run minify:all`
+  - [NPM Scripts for Building Documentation](#npm-scripts-for-building-documentation)
+     - `npm run generate-docs`
+     - `npm run docs:install`
+     - `npm run docs:build`
   - [NPM Scripts for Linting Files and Unit Testing](#npm-scripts-for-linting-files-and-unit-testing)
      - `npm run lint`
      - `npm run lint:fix`
@@ -235,6 +235,32 @@ npm run list:region
 ---
 
 <details>
+<summary style="font-size: 18px;" id="npm-scripts-for-compiling-the-interactive-cli-scripts-into-stand-alone-scripts">
+  <b>NPM Scripts for Compiling the Interactive CLI Scripts into Stand-Alone Scripts</b>
+</summary>
+
+### `npm run minify:region`
+
+- Compiles the Node.js project's `npm list:region` script and dependencies into a single script using [**ncc**](https://www.npmjs.com/package/@vercel/ncc).
+- The compiled/minified file will be stored in `/dist/region`. Run the command to use the compiled script:<br>
+`node dist/region`
+
+### `npm run minify:province`
+
+- Compiles the Node.js project's `npm list:province` script and dependencies into a single script using [**ncc**](https://www.npmjs.com/package/@vercel/ncc).
+- The compiled/minified file will be stored in `/dist/province`. Run the command to use the compiled script:<br>
+`node dist/province`
+
+### `npm run minify:all`
+
+- Run the `npm list:region` and `npm list:province` scripts in one go.
+- Each compiled/minified files will be stored in the `/dist` directory.
+
+</details>
+
+---
+
+<details>
 <summary style="font-size: 18px;" id="npm-scripts-for-building-documentation">
   <b>NPM Scripts for Building Documentation</b>
 </summary>
@@ -288,46 +314,20 @@ docker exec -u root -it ph-municipalities npm run docs:build
   <b>NPM Scripts for Building Windows Executable Files of the Interactive CLI Scripts</b>
 </summary>
 
-### `build:win:region`
+### `npm run build:win:region`
 
 - Package the Node.js project's `npm start` script into a stand-alone windows `node16-win-x64` executable.
 - The windows executable file will be stored in `/dist/ph-regions-win.exe`. Click the executable file to run.
 
-### `build:win:province`
+### `npm run build:win:province`
 
 - Package the Node.js project's `npm list:province` script into a stand-alone windows `node16-win-x64` executable.
 - The windows executable file will be stored in `/dist/ph-provinces-win.exe`. Click the executable file to run.
 
-### `build:win:all`
+### `npm run build:win:all`
 
 - Package the Node.js project's `npm start` and `npm list:province` script into a stand-alone windows `node16-win-x64` executables in one go.
 - Each window executable file will be stored in the `/dist` directory.
-
-</details>
-
----
-
-<details>
-<summary style="font-size: 18px;" id="npm-scripts-for-compiling-the-interactive-cli-scripts-into-stand-alone-scripts">
-  <b>NPM Scripts for Compiling the Interactive CLI Scripts into Stand-Alone Scripts</b>
-</summary>
-
-### `npm run minify:region`
-
-- Compiles the Node.js project's `npm list:region` script and dependencies into a single script using [**ncc**](https://www.npmjs.com/package/@vercel/ncc).
-- The compiled/minified file will be stored in `/dist/region`. Run the command to use the compiled script:<br>
-`node dist/region`
-
-### `npm run minify:province`
-
-- Compiles the Node.js project's `npm list:province` script and dependencies into a single script using [**ncc**](https://www.npmjs.com/package/@vercel/ncc).
-- The compiled/minified file will be stored in `/dist/province`. Run the command to use the compiled script:<br>
-`node dist/province`
-
-### `npm run minify:all`
-
-- Run the `npm list:region` and `npm list:province` scripts in one go.
-- Each compiled/minified files will be stored in the `/dist` directory.
 
 </details>
 
