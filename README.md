@@ -551,12 +551,12 @@ The class documentation uses [JSDoc](https://jsdoc.app/) annotations where appli
 
 2. Install the dependencies for JSDoc. Suceeding builds will not need to install dependencies after an initial installation. Refer to the [**npm run docs:install**](#npm-run-docsinstall) script usage for more information.<br>
    ```bash
-   npm run docs:install
+   docker exec -u root -it ph-municipalities npm run docs:install
    ```
 
 3. Build the documentation. Refer to the [**npm run docs:build**](#npm-run-docsbuild) script usage for more information.<br>
    ```bash
-   npm run docs:build
+   docker exec -u root -it ph-municipalities npm run docs:build
    ```
 
 ### Using NodeJS
