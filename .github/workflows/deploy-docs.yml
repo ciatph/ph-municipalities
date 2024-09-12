@@ -23,7 +23,7 @@ jobs:
         run: |
           chmod u+x scripts/docs-build-gh.sh && ./scripts/docs-build-gh.sh
           cd app
-          chmod u+x docs-build-gh.sh && ./docs-install.sh
+          chmod u+x docs-install.sh && ./docs-install.sh
           npm run generate-docs
           ls -l -a
           cd docs
