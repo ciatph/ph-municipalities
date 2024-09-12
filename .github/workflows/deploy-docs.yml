@@ -1,0 +1,53 @@
+name: Build and Deploy Docs
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build-docs:
+    name: Build Class Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Use NodeJS v16.14.2
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.14.2
+
+      - name: Install jsdoc and build
+        run: |
+          chmod u+x scripts/docs-build-gh.sh && ./scripts/docs-build-gh.sh
+          cd app && ./docs-install.sh
+          npm run generate-docs
+
+      - name: Archive Development Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs
+          include-hidden-files: true
+          path: app/docs/
+          retention-days: 3
+
+  deploy-docs:
+    name: Deploy docs to Github Pages
+    needs: build-docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docs
+
+      - name: List files for publish
+        run: ls -l -a
+
+      - name: Deploy to Github Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          publish_branch: gh-pages

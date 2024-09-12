@@ -6,7 +6,9 @@ node_modules/
 *.zip
 *.tgz
 dist/
+docs/
 
 # Ignore all JSON files except:
 !package.json
 !package-lock.json
+!.jsdoc.json

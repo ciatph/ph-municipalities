@@ -243,7 +243,7 @@ class ExcelFile {
   /**
    * Sets the local this.#options settings
    * @param {Object} options - Miscellaneous app settings defined in this.#options
-   * @returns
+   * @returns {Bool}
    */
   setOptions (options) {
     if (!options) return false

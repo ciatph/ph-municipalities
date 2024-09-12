@@ -12,6 +12,9 @@ services:
       - ph-municipalities
     volumes:
       - ./app:/opt/app
+      - ./scripts:/opt/app/scripts
+      - ./docs/diagrams:/opt/app/diagrams
+      - ./README.md:/opt/app/README.tmp
       - /opt/app/node_modules
     stdin_open: true
     tty: true
