@@ -1,9 +1,7 @@
 #!/bin/bash
 
-# Copy files
-cp docs/diagrams/ph-municipalities-arch-90.png app/diagram.png
+# Copy README file
 sed "s|/docs/diagrams/ph-municipalities-arch-90.png|/ph-municipalities/diagram.png|g" README.md > app/README.md
-
 cd app
 
 # Install jsdoc and theme
@@ -11,6 +9,9 @@ npm install --save-dev jsdoc@4.0.3 minami@1.2.3 taffydb@2.7.3
 
 # Generate the documentation
 npm run generate-docs
+
+# Copy picture files
+cp docs/diagrams/ph-municipalities-arch-90.png app/docs/diagram.png
 
 # Log directories
 ls -l -a
