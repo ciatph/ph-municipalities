@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# NOTE: This script requires JSDoc and theme dependencies.
+# This script builds the class docs for GH Pages deployment, run from the repo root directory.
+# NOTE: It requires JSDoc and theme dependencies.
 # Run docs-install first before running this script.
 
 # Copy picture files

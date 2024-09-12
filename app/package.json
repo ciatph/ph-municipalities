@@ -19,7 +19,7 @@
     "minify:province": "ncc build src/scripts/by_province.js -m -o dist/province",
     "minify:all": "npm run minify:region && npm run minify:province",
     "docs:install": "./scripts/docs-install.sh",
-    "docs:build": "./scripts/local-docs-build.sh",
+    "docs:build": "./scripts/docs-build.sh",
     "generate-docs": "jsdoc --configure .jsdoc.json --verbose",
     "lint": "eslint src __tests__ .",
     "lint:fix": "eslint src __tests__ . --fix",

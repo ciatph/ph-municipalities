@@ -2,6 +2,7 @@ node_modules/
 dist/
 docs/
 README.md
+README.tmp
 .env
 .vscode
 *.xlsx
@@ -9,6 +10,7 @@ README.md
 *.zip
 *.tgz
 *.png
+*.sh
 
 # Ignore all JSON files except:
 !package.json

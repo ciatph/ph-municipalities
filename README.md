@@ -66,6 +66,8 @@ The following dependencies are used for this project. Feel free to use other dep
   - [`npm run list:province`](#npm-run-listprovince)
   - [`npm run example`](#npm-run-example)
   - [`npm run generate-docs`](#npm-run-generate-docs)
+  - [`npm run docs:install`](#npm-run-docs-install)
+  - [`npm run docs:build`](#npm-run-docs-build)
   - [`build:win:region`](#buildwinregion)
   - [`build:win:province`](#buildwinprovince)
   - [`build:win:all`](#buildwinall)
@@ -82,6 +84,9 @@ The following dependencies are used for this project. Feel free to use other dep
   - [Using a Custom Configuration File](#using-a-custom-configuration-file)
 - [Building Standalone Windows Executables](#building-standalone-windows-executables)
 - [Compiling into Single, Minified Files](#compiling-into-single-minified-files)
+- [Building the Class Documentation](#building-the-class-documentation)
+   - [Using NodeJS](#using-nodejs)
+   - [Using Docker](#using-docker)
 - [Troubleshooting](#troubleshooting)
 
 ## Installation
@@ -185,6 +190,8 @@ npm run list:region
 - Downloads and parses a remote excel file.
 - Demonstrates sample usage with `await`
 
+---
+
 ### `npm run generate-docs`
 
 Builds the class documentation into the **/docs** directory.
@@ -195,6 +202,34 @@ Builds the class documentation into the **/docs** directory.
 > npm install --save-dev jsdoc@4.0.3 minami@1.2.3 taffydb@2.7.3
 > ```
 > Installing these libraries will update the `package.json` and `package-lock.json` files. Take care not to push changes caused by installation.
+
+### `npm run docs:install`
+
+Runs the Bash script that installs the JSDoc and theme dependencies for building the class documentation.
+
+> [!NOTE]
+> This script requires running from a Bash terminal: it won't work from a Windows command line terminal.
+
+This script is used for building the class documentation from a local Docker environment along with the `npm run docs:build` NPM script.
+
+```bash
+docker exec -u root -it ph-municipalities npm run docs:install
+docker exec -u root -it ph-municipalities npm run docs:build
+```
+
+### `npm run docs:build`
+
+Runs the Bash script that builds the class documentation using JSDoc.
+
+> [!NOTE]
+> This script requires running from a Bash terminal: it won't work from a Windows command line terminal.
+
+This script is used for building the class documentation from a local Docker environment along with the `npm run docs:install` NPM script.
+
+```bash
+docker exec -u root -it ph-municipalities npm run docs:install
+docker exec -u root -it ph-municipalities npm run docs:build
+```
 
 ---
 
@@ -496,6 +531,28 @@ The main npm scripts can be compiled into standalone JavaScript files together w
    ```bash
    node dist/region
    node dist/province
+   ```
+
+## Building the Class Documentation
+
+There are two (2) options for building the class documentation.
+
+### Using NodeJS
+
+Install the dependencies for JSDoc. Refer to the [**`npm run generate-docs`**](#npm-run-generate-docs) Script usage for more information.
+
+### Using Docker
+
+1. Run docker for localhost development. Refer to the [Docker for Localhost Development](#docker-for-localhost-development) section for more information.
+
+2. Install the dependencies for JSDoc. Suceeding builds will not need to install dependencies after an initial installation. Refer to the [**npm run docs:install**](#npm-run-docs-install) script usage for more information.<br>
+   ```bash
+   npm run docs:install
+   ```
+
+3. Build the documentation. Refer to the [**npm run docs:build**](#npm-run-docs-build) script usage for more information.<br>
+   ```bash
+   npm run docs:build
    ```
 
 ## Troubleshooting
