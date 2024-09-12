@@ -6,8 +6,11 @@ dist/
 *.xlsx
 *.json
 *.zip
+*.tgz
 *.txt
 *.tgz
+*.png
+*.sh
 
 .env.example
 .eslintrc.js
@@ -15,6 +18,8 @@ dist/
 .gitignore
 .npmignore
 .eslintignore
+README.md
+README.tmp
 
 # Ignore all JSON files except:
 !package.json
@@ -26,6 +31,8 @@ dist/
 
 # Exclude directories
 src/examples/
+docs/
+diagrams/
 
 # Docker
 Dockerfile
