@@ -12,3 +12,4 @@ docs/
 !package.json
 !package-lock.json
 !.jsdoc.json
+!.jsdoc_full.json
