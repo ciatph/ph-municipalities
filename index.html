@@ -78,6 +78,12 @@
 }
 </code></pre>
 <p>Pre-compiled windows binaries are available for download in the latest <a href="https://github.com/ciatph/ph-municipalities/releases">Releases</a> download page.</p>
+<h2>Class Documentation</h2>
+<ul>
+<li>Class documentation and methods are available at https://ciatph.github.io/ph-municipalities.</li>
+<li>The documentation website's HTML files are available in the <a href="https://github.com/ciatph/ph-municipalities/tree/gh-pages"><code>gh-pages</code></a> branch of this repository.</li>
+<li>Refer to the <a href="#building-the-class-documentation">Building the Class Documentation</a> section for more information about updating and building the class documentation.</li>
+</ul>
 <h2>Requirements</h2>
 <p>The following dependencies are used for this project. Feel free to use other dependency versions as needed.</p>
 <ol>
@@ -106,6 +112,7 @@
 <h2>Contents</h2>
 <ul>
 <li><a href="#ph-municipalities">ph-municipalities</a></li>
+<li><a href="#class-documentation">Class Documentation</a></li>
 <li><a href="#requirements">Requirements</a></li>
 <li><a href="#contents">Contents</a></li>
 <li><a href="#installation">Installation</a></li>
@@ -141,8 +148,8 @@
 <li><a href="#compiling-into-single-minified-files">Compiling into Single, Minified Files</a></li>
 <li><a href="#building-the-class-documentation">Building the Class Documentation</a>
 <ul>
-<li><a href="#using-nodejs">Using NodeJS</a></li>
 <li><a href="#using-docker">Using Docker</a></li>
+<li><a href="#using-nodejs">Using NodeJS</a></li>
 </ul>
 </li>
 <li><a href="#troubleshooting">Troubleshooting</a></li>
@@ -311,13 +318,14 @@ npm run list:region
 <p>Builds the class documentation into the <strong>/docs</strong> directory.</p>
 <blockquote>
 <p>[!NOTE]
-This script requires manual installation of the <code>jsdoc@4.0.3</code>, <code>minami@1.2.3</code>, and <code>taffydb@2.7.3</code> packages as <strong>devDependencies</strong> inside the <strong>/app</strong> directory &gt; These libraries, only used for building the class documentation, were excluded from the final package.json to have fewer external dependencies.</p>
+This script requires manual installation of the <code>jsdoc@4.0.3</code>, <code>minami@1.2.3</code>, and <code>taffydb@2.7.3</code> packages as <strong>devDependencies</strong> inside the <strong>/app</strong> directory.
+These libraries, only used for building the class documentation, were excluded from the final package.json to have fewer external dependencies.</p>
 <pre class="prettyprint source lang-bash"><code>npm install --save-dev jsdoc@4.0.3 minami@1.2.3 taffydb@2.7.3
 </code></pre>
 <p>Installing these libraries will update the <code>package.json</code> and <code>package-lock.json</code> files. Take care not to push changes caused by installation.</p>
 </blockquote>
 <h3><code>npm run docs:install</code></h3>
-<p>Runs the Bash script that installs the JSDoc and theme dependencies for building the class documentation within athe development Docker environment.</p>
+<p>Runs the Bash script that installs the JSDoc and theme dependencies for building the class documentation only within the <strong>development Docker environment</strong>.</p>
 <blockquote>
 <p>[!NOTE]
 This script requires running from a Bash terminal - it won't work from a Windows command line terminal. It is reserved for building the documentation with Docker.</p>
@@ -327,7 +335,7 @@ This script requires running from a Bash terminal - it won't work from a Windows
 docker exec -u root -it ph-municipalities npm run docs:build
 </code></pre>
 <h3><code>npm run docs:build</code></h3>
-<p>Runs the Bash script that builds the class documentation using JSDoc within athe development Docker environment.</p>
+<p>Runs the Bash script that builds the class documentation using JSDoc only within the <strong>development Docker environment</strong>.</p>
 <blockquote>
 <p>[!NOTE]
 This script requires running from a Bash terminal - it won't work from a Windows command line terminal. It is reserved for building the documentation with Docker.</p>
@@ -604,9 +612,7 @@ node dist/province
 </li>
 </ol>
 <h2>Building the Class Documentation</h2>
-<p>There are two (2) options for building the class documentation.</p>
-<h3>Using NodeJS</h3>
-<p>Install the dependencies for JSDoc. Refer to the <a href="#npm-run-generate-docs"><strong><code>npm run generate-docs</code></strong></a> Script usage for more information.</p>
+<p>The class documentation uses <a href="https://jsdoc.app/">JSDoc</a> annotations where applicable in the JavaScript source codes inside the <strong>/src</strong> directory. There are two (2) options for building the class documentation.</p>
 <h3>Using Docker</h3>
 <ol>
 <li>
@@ -620,6 +626,41 @@ node dist/province
 <li>
 <p>Build the documentation. Refer to the <a href="#npm-run-docsbuild"><strong>npm run docs:build</strong></a> script usage for more information.<br></p>
 <pre class="prettyprint source lang-bash"><code>npm run docs:build
+</code></pre>
+</li>
+</ol>
+<h3>Using NodeJS</h3>
+<ol>
+<li>
+<p>Install the dependencies for JSDoc. Refer to the <a href="#npm-run-generate-docs"><strong><code>npm run generate-docs</code></strong></a> Script usage for more information.</p>
+</li>
+<li>
+<p>Copy Bash scripts to the <strong>/app</strong> directory.</p>
+<ul>
+<li>Create a <strong>/scripts</strong> directory inside the <strong>/app</strong> directory.</li>
+<li>Copy the <code>/scripts/docs-install.sh</code> and <code>/scripts/docs-build.sh</code> Bash scripts to the <strong>/scripts</strong> directory created from the previous step.</li>
+</ul>
+</li>
+<li>
+<p>Copy static assets to the <strong>/app</strong> directory.</p>
+<ul>
+<li>Copy the <code>/docs/diagrams</code> directory inside the <strong>/app</strong> directory.</li>
+<li>Copy the <code>README.md</code> file to the <strong>/app</strong> directory.</li>
+</ul>
+</li>
+<li>
+<p>Add appropriate user permission to the files.</p>
+<pre class="prettyprint source lang-bash"><code>chmod u+x scripts/docs-install.sh
+chmod u+x scripts/docs-build.sh
+</code></pre>
+</li>
+<li>
+<p>Run the commands for building the documentation.</p>
+<blockquote>
+<p><strong>INFO:</strong> Use a GitBash terminal if you are working on a Windows OS machine.</p>
+</blockquote>
+<pre class="prettyprint source lang-bash"><code>./scripts/docs-install.sh
+./scripts/docs-build.sh
 </code></pre>
 </li>
 </ol>
@@ -657,7 +698,7 @@ node dist/province
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.3</a> on Thu Sep 12 2024 15:01:03 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.3</a> on Thu Sep 12 2024 15:40:04 GMT+0000 (Coordinated Universal Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
