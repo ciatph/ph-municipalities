@@ -24,6 +24,9 @@ jobs:
           chmod u+x scripts/docs-build-gh.sh && ./scripts/docs-build-gh.sh
           cd app && ./docs-install.sh
           npm run generate-docs
+          ls -l -a
+          cd docs
+          ls -l -a
 
       - name: Archive Development Artifact
         uses: actions/upload-artifact@v4

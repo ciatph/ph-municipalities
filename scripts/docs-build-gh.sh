@@ -18,9 +18,6 @@ cd app
 # Log directories
 ls -l -a
 
-cd docs
-ls -l -a
-
 # Find and export the active version no.
 # filePath="package.json"
 # version=$(grep -oP '"version":\s*"\K[^"]+' "$filePath")
