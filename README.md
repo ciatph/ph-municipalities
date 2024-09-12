@@ -85,8 +85,8 @@ The following dependencies are used for this project. Feel free to use other dep
 - [Building Standalone Windows Executables](#building-standalone-windows-executables)
 - [Compiling into Single, Minified Files](#compiling-into-single-minified-files)
 - [Building the Class Documentation](#building-the-class-documentation)
-   - [Using NodeJS](#using-nodejs)
    - [Using Docker](#using-docker)
+   - [Using NodeJS](#using-nodejs)
 - [Troubleshooting](#troubleshooting)
 
 ## Installation
@@ -197,7 +197,8 @@ npm run list:region
 Builds the class documentation into the **/docs** directory.
 
 > [!NOTE]
-> This script requires manual installation of the `jsdoc@4.0.3`, `minami@1.2.3`, and `taffydb@2.7.3` packages as **devDependencies** inside the **/app** directory > These libraries, only used for building the class documentation, were excluded from the final package.json to have fewer external dependencies.
+> This script requires manual installation of the `jsdoc@4.0.3`, `minami@1.2.3`, and `taffydb@2.7.3` packages as **devDependencies** inside the **/app** directory.
+> These libraries, only used for building the class documentation, were excluded from the final package.json to have fewer external dependencies.
 > ```bash
 > npm install --save-dev jsdoc@4.0.3 minami@1.2.3 taffydb@2.7.3
 > ```
@@ -205,7 +206,7 @@ Builds the class documentation into the **/docs** directory.
 
 ### `npm run docs:install`
 
-Runs the Bash script that installs the JSDoc and theme dependencies for building the class documentation within athe development Docker environment.
+Runs the Bash script that installs the JSDoc and theme dependencies for building the class documentation only within the **development Docker environment**.
 
 > [!NOTE]
 > This script requires running from a Bash terminal - it won't work from a Windows command line terminal. It is reserved for building the documentation with Docker.
@@ -219,7 +220,7 @@ docker exec -u root -it ph-municipalities npm run docs:build
 
 ### `npm run docs:build`
 
-Runs the Bash script that builds the class documentation using JSDoc within athe development Docker environment.
+Runs the Bash script that builds the class documentation using JSDoc only within the **development Docker environment**.
 
 > [!NOTE]
 > This script requires running from a Bash terminal - it won't work from a Windows command line terminal. It is reserved for building the documentation with Docker.
@@ -537,10 +538,6 @@ The main npm scripts can be compiled into standalone JavaScript files together w
 
 There are two (2) options for building the class documentation.
 
-### Using NodeJS
-
-Install the dependencies for JSDoc. Refer to the [**`npm run generate-docs`**](#npm-run-generate-docs) Script usage for more information.
-
 ### Using Docker
 
 1. Run docker for localhost development. Refer to the [Docker for Localhost Development](#docker-for-localhost-development) section for more information.
@@ -553,6 +550,29 @@ Install the dependencies for JSDoc. Refer to the [**`npm run generate-docs`**](#
 3. Build the documentation. Refer to the [**npm run docs:build**](#npm-run-docsbuild) script usage for more information.<br>
    ```bash
    npm run docs:build
+   ```
+
+### Using NodeJS
+
+1. Install the dependencies for JSDoc. Refer to the [**`npm run generate-docs`**](#npm-run-generate-docs) Script usage for more information.
+2. Copy Bash scripts to the **/app** directory.
+   - Create a **/scripts** directory inside the **/app** directory.
+   - Copy the `/scripts/docs-install.sh` and `/scripts/docs-build.sh` Bash scripts to the **/scripts** directory created from the previous step.
+3. Copy static assets to the **/app** directory.
+   - Copy the `/docs/diagrams` directory inside the **/app** directory.
+   - Copy the `README.md` file to the **/app** directory.
+4. Add appropriate user permission to the files.
+   ```bash
+   chmod u+x scripts/docs-install.sh
+   chmod u+x scripts/docs-build.sh
+   ```
+5. Run the commands for building the documentation.
+
+   > **INFO:** Use a GitBash terminal if you are working on a Windows OS machine.
+
+   ```bash
+   ./scripts/docs-install.sh
+   ./scripts/docs-build.sh
    ```
 
 ## Troubleshooting
