@@ -8,6 +8,7 @@ README.md
 *.json
 *.zip
 *.tgz
+*.png
 
 # Ignore all JSON files except:
 !package.json
