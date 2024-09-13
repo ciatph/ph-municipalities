@@ -8,9 +8,10 @@ dist/
 *.zip
 *.tgz
 *.txt
-*.tgz
 *.png
 *.sh
+*.md
+*.tmp
 
 .env.example
 .eslintrc.js
@@ -18,8 +19,6 @@ dist/
 .gitignore
 .npmignore
 .eslintignore
-README.md
-README.tmp
 
 # Ignore all JSON files except:
 !package.json
@@ -34,7 +33,12 @@ src/examples/
 docs/
 diagrams/
 
-# Docker
+# Exclude the __tests__ directory except for some files
+__tests__/**/*
+!__tests__/provinces/**/*.js
+!__tests__/classInitialization/checkClass.js
+
+# Docker and other files
 Dockerfile
 .dockerignore
 jest.config.js
