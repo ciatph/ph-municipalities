@@ -77,7 +77,7 @@ The following dependencies are used for this project. Feel free to use other dep
 
 <p>ph-municipalities aims to provide a simple, organized, and flexible interface for viewing, querying, and listing Philippine provinces and municipalities using the <a href="https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast" target="_blank">PAGASA 10-day weather forecast Excel files</a> as the data source.</p>
 
-<p>Its early stages were written as procedural functions within a private backend project for extracting 10-day weather forecast data from the PAGASA 10-day weather forecast Excel files. When the private project started gaining complexity, a need to separate the logic and management for listing the Philippine province and municipalities per region rose. Creating an independent, public OpenSource version listing the provinces and municipalities per region was decided after experiencing drawbacks and difficulties testing using similar OpenSource libraries (some of which are listed above) for that project.</p>
+<p>Its early stages were written as procedural functions within a private backend project for extracting 10-day weather forecast data from the PAGASA 10-day weather forecast Excel files. When the private project started gaining complexity, a need to separate the logic and management for listing the Philippine province and municipalities per region rose. Creating an independent, public OpenSource version listing the provinces and municipalities per region was decided after experiencing drawbacks and difficulties testing using similar OpenSource libraries (some of which are [listed below](#similar-libraries)) for that project.</p>
 
 > <b><i>ph-municipalities aim to contribute to the OpenSource community by listing ONLY Philippine provinces and municipalities names, using <a href="https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast" target="_blank">PAGASA's 10-day weather forecast Excel files</a>, which are publicly accessible to everyone.</i></b>
 
@@ -101,7 +101,7 @@ The following dependencies are used for this project. Feel free to use other dep
 <br>
 
 <details>
-<summary style="color: #b3b3b3; font-size: 24px;">
+<summary style="color: #b3b3b3; font-size: 24px;" id="similar-libraries">
 <b>Are there alternative libraries to ph-municipalities for listing Philippine provinces and municipalities?</b>
 </summary>
 
