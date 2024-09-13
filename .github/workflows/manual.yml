@@ -1,22 +1,26 @@
-name: Manual Trigger Workflow
-
-# configure manual trigger
+name: Manual Trigger Workflow with loglevel & tags
+#get log & tags information
 on:
   workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'information'
+        type: choice
+        options:
+          - information
+          - debug
+          - warning
+          - critical
+      tags:
+        description: 'Purpose of Run This Workflow?'
+        required: true
+        type: string
 
 jobs:
-  lint-app:
-    name: Lint App
+  print-tag:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v3
-      - name: Use NodeJS v16.14.2
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.14.2
-      - name: Install Dependencies and lint
-        run: |
-          cd app
-          npm install
-          npm run lint
+      - name: Print the purpose of run
+        run: echo  ${{ inputs.tags }} purpose
