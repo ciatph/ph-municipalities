@@ -2,6 +2,9 @@ name: Manual Trigger Workflow with loglevel & tags
 #get log & tags information
 on:
   workflow_dispatch:
+    branches:
+      - wip/dispatch
+      - dev
     inputs:
       logLevel:
         description: 'Log level'
