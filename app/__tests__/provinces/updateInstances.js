@@ -41,8 +41,8 @@ const updateInstances = ({
     // Provinces present in the 10-Day Excel file but missing in the config (PAGASA seasonal) file
     if (fromExcel.length > 0) {
       uniqueExcelProvinces = new Set(allExcelProvinces.filter(item => !fromExcel.includes(item)))
-      let msg = `[WARNING]: ${fromExcel.length} province(s) in the 10-Day Excel file are missing\n`
-      msg += `in the (PAGASA seasonal) config: ${arrayToString(fromExcel)}`
+      let msg = `[WARNING]: ${fromExcel.length} province(s) missing in the 10-Day Excel file\n`
+      msg += `but present in the (PAGASA seasonal) config: ${arrayToString(fromExcel)}`
       logger.log(msg)
     }
 

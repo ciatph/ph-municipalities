@@ -90,8 +90,8 @@ describe('Municipalities per province count match', () => {
       const missingInConfig = allProvinces.filter(item => !allProvincesConfig.includes(item))
 
       if (missingInParsed.length > 0) {
-        let msg = `[WARNING]: ${missingInParsed.length} province(s) in the 10-Day Excel file are missing\n`
-        msg += `in the (PAGASA seasonal) config: ${arrayToString(missingInParsed)}`
+        let msg = `[WARNING]: ${missingInParsed.length} province(s) missing in the 10-Day Excel file\n`
+        msg += `but present in the (PAGASA seasonal) config: ${arrayToString(missingInParsed)}`
         logger.log(msg, { color: ColorLog.COLORS.TEXT.YELLOW })
       }
 
