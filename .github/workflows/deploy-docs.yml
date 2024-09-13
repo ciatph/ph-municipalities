@@ -1,6 +1,9 @@
 name: Build and Deploy Docs
 
 on:
+  push:
+    branches:
+      - dev  # Automatically trigger on pushes to the dev branch
   release:
     types: [published]  # Automatically trigger on new releases
   workflow_dispatch:  # Allows manual triggering of the workflow
@@ -36,6 +39,7 @@ jobs:
     name: Deploy docs to Github Pages
     needs: build-docs
     runs-on: ubuntu-latest
+    if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/dev')
     steps:
       - name: Download Artifact
         uses: actions/download-artifact@v4
