@@ -9,7 +9,6 @@ jobs:
   build-docs:
     name: Build Class Documentation
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/dev' || github.event_name == 'release'  # Run only if triggered from dev or on release
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
