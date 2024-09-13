@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - dev
+  release:
+    types: [published]
 
 jobs:
   build-docs:
