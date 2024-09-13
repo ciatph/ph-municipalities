@@ -1,7 +1,7 @@
 /**
  * Checks if a variable is a true JavaScript Object
  * @param {Object} item - JavaScript Object
- * @returns {Bool} true|false
+ * @returns {boolean} true|false
  */
 const isObject = (item) => {
   return item &&
@@ -12,14 +12,14 @@ const isObject = (item) => {
 /**
  * Converts an Array of strings (text) into a single comma-separated string
  * @param {String[]} arrayOfText - Array containing String items
- * @returns {String} Comma-separated text
+ * @returns {string} Comma-separated text
  */
 const arrayToString = (arrayOfText) => arrayOfText.toString().split(',').join(', ')
 
 /**
  * Capitalizes the first letter of words in a text
- * @param {String} text - String text
- * @returns {String} Capitalized text
+ * @param {string} text - String text
+ * @returns {string} Capitalized text
  */
 const capitalizeText = (text) => {
   if (typeof text !== 'string') return null

@@ -1,13 +1,34 @@
 /**
  * Prints colored console.log messages
- * @class
  */
 class ColorLog {
+  /**
+   * Text styles for logging.
+   * @static
+   * @type {Object.<string, string>}
+   * @property {string} BOLD - Bold text style.
+   * @property {string} NORMAL - Normal text style.
+   */
   static TEXT = {
     BOLD: '\x1b[1m',
     NORMAL: '\x1b[0m'
   }
 
+  /**
+   * ANSI colors for coloring the logging text.
+   * @static
+   * @type {Object.<string, object>}
+   * @property {Object} TEXT - Object containing color properties.
+   * @property {string} TEXT.WHITE - White color.
+   * @property {string} TEXT.GRAY - Gray color.
+   * @property {string} TEXT.GREEN - Green color.
+   * @property {string} TEXT.RED - Red color.
+   * @property {string} TEXT.YELLOW - Yellow color.
+   * @property {string} TEXT.BLUE - Blue color.
+   * @property {string} TEXT.CYAN - Cyan color.
+   * @property {string} TEXT.RESET - Reset color.
+   * @property {string} TEXT.MAGENTA - Magenta color.
+   */
   static COLORS = {
     TEXT: {
       WHITE: '\x1b[37m',
@@ -22,20 +43,29 @@ class ColorLog {
     }
   }
 
-  /** Message log */
+  /**
+   * Message log text.
+   * @type {string | null}
+   */
   #log = null
 
-  /** Text color */
+  /**
+   * Text color
+   * @type {string}
+   */
   #color = ColorLog.COLORS.TEXT.GREEN
 
-  /** Text weight (bold, normal) */
+  /**
+   * Text weight (bold, normal)
+   * @type {string}
+   */
   #weight = false
 
   /**
    * Initializes a ColorLog class
-   * @typedef {Object} params - Input parameters
-   * @param {String} params.color - ANSI color defined in `ColorLog.COLORS`
-   * @param {Bool} params.isBold - Flag to render bold colored text
+   * @param {Object} params - Input parameters
+   * @param {string} params.color - ANSI color defined in `ColorLog.COLORS`
+   * @param {boolean} params.isBold - Flag to render bold colored text
    */
   constructor ({ color, isBold = false } = {}) {
     this.setColor(color)
@@ -44,11 +74,11 @@ class ColorLog {
 
   /**
    * Prints colored log message in console.log()
-   * @param {String} message - Log message text
+   * @param {string} message - Log message text
    * @param {Object} options - (Optional)
-   * @param {String} options.color - ANSI color defined in `ColorLog.COLORS`
-   * @param {Bool} options.isBold - Flag to render bold colored text
-   * @returns
+   * @param {string} options.color - ANSI color defined in `ColorLog.COLORS`
+   * @param {boolean} options.isBold - Flag to render bold colored text
+   * @returns {boolean}
    */
   log (message, options = {}) {
     if (!message || typeof message !== 'string') return
@@ -63,8 +93,8 @@ class ColorLog {
 
   /**
    * Sets the text color in console.log()
-   * @param {String} color - ANSI color defined in `ColorLog.COLORS`
-   * @returns
+   * @param {string} color - ANSI color defined in `ColorLog.COLORS`
+   * @returns {boolean}
    */
   setColor (color) {
     if (!color) return
@@ -78,8 +108,8 @@ class ColorLog {
 
   /**
    * Sets the text weight in console.log
-   * @param {Bool} isBold - Flag to render bold colored text
-   * @returns
+   * @param {boolean} isBold - Flag to render bold colored text
+   * @returns {boolean}
    */
   setText (isBold) {
     if (![true, false].includes(isBold)) return

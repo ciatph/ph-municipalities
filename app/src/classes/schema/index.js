@@ -1,8 +1,11 @@
 /**
- * Validates Objects with zod schemas and formats validation error(s) for log output.
+ * Validates Objects with [zod](https://github.com/colinhacks/zod) schemas and formats validation error(s) for log output.
  */
 class Schema {
-  /** Settings object */
+  /**
+   * Settings object.
+   * @type {Object | null}
+   */
   #data = null
 
   /**
@@ -44,7 +47,7 @@ class Schema {
   /**
    * Formats error messages into a single string
    * @param {Object[]} errors - List of zod error messages
-   * @returns
+   * @returns {boolean}
    */
   formatErrorLog (errors = []) {
     if (!Array.isArray(errors)) {

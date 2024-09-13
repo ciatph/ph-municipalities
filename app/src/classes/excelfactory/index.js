@@ -16,8 +16,8 @@ const ExcelFile = require('../excel')
 class ExcelFactory extends ExcelFile {
   /**
    * Initializes an `ExcelFactory` class.
-   * @typedef {Object} params - Constructor parameter Object
-   * @param {String} [params.url] - (Optional) Remote download URL of an excel file
+   * @param {Object} params - Constructor parameter Object
+   * @param {string} [params.url] - (Optional) Remote download URL of an excel file
    * @param {Object} [params.settings] - (Optional) Region settings configuration object following the format of the `/app/config/regions.json` file. Defaults to the mentioned file if not provided.
    */
   constructor ({ url, settings } = {}) {

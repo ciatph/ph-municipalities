@@ -4,7 +4,7 @@
  * Checks valid `ExcelFile` or `ExcelFactory` class instances.
  * @typedef {Object} params - Input parameters
  * @param {Function} excelInstance - `ExcelFile` or `ExcelFactory` class instance
- * @param {Bool} isRemote - Flag if the Excel data source is from a remote download. Defaults to `false`.
+ * @param {boolean} isRemote - Flag if the Excel data source is from a remote download. Defaults to `false`.
  * @param {Function} classType - `ExcelFile` or `ExcelFactory` class
  */
 const checkClass = ({ excelInstance, isRemote = false, classType = null }) => {

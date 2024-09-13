@@ -1,12 +1,20 @@
 node_modules/
+dist/
+docs/
+diagrams/
+README.md
+README.tmp
 .env
 .vscode
 *.xlsx
 *.json
 *.zip
 *.tgz
-dist/
+*.png
+*.sh
 
 # Ignore all JSON files except:
 !package.json
 !package-lock.json
+!.jsdoc.json
+!.jsdoc_full.json
