@@ -6,6 +6,7 @@ on:
       - dev
   release:
     types: [published]
+  workflow_dispatch:  # Allows manual triggering of the workflow
 
 jobs:
   build-docs:
