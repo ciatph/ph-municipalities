@@ -135,9 +135,9 @@ Note, however, that these items use old and new data sources. These may not be f
 
 <br>
 
-While ph-municipalites do not support parsing and extracting PAGASA 10-day weather forecast data, _you can extend the `ExcelFile` or `ExcelAdapter` classes with custom logic and codes to enable parsing and extracting PAGASA 10-day weather forecast data_.
+While ph-municipalites do not support parsing and extracting PAGASA 10-day weather forecast data, _you can extend the `ExcelFile` or `ExcelFactory` classes with custom logic and codes to enable parsing and extracting PAGASA 10-day weather forecast data_.
 
-Since the `ExcelFile` or `ExcelAdapter` are [classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) (functions in disguise, not true OOP, but inheritance still works), you can extend them with class inheritance, overriding or creating new class methods to accommodate processing the PAGASA 10-day weather forecast data. Refer to the [ph-municipalities class documentation](https://ciatph.github.io/ph-municipalities) to know more about the available classes, member variables, and methods.
+Since the `ExcelFile` or `ExcelFactory` are [classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) (functions in disguise, not true OOP, but inheritance still works), you can extend them with class inheritance, overriding or creating new class methods to accommodate processing the PAGASA 10-day weather forecast data. Refer to the [ph-municipalities class documentation](https://ciatph.github.io/ph-municipalities) to know more about the available classes, member variables, and methods.
 
 An example of extending the classes to parse PAGASA 10-day weather forecast data may go along the lines of:
 
