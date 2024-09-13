@@ -48,7 +48,7 @@ class ExcelFile {
   }
 
   /**
-   * Other app settings and configurations
+   * Other class settings and configurations
    * @type {Object.<string, string | number>}
    */
   #options = {
