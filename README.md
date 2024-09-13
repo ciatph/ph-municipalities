@@ -75,11 +75,11 @@ The following dependencies are used for this project. Feel free to use other dep
 
 <br>
 
-<p>ph-municipalities aims to provide a simple, organized, and flexible interface for viewing, querying, and listing Philippine provinces and municipalities using the <a href="https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast" target="_blank">PAGASA 10-day weather forecast Excel files</a> as the data source.</p>
+ph-municipalities aims to provide a simple, organized, and flexible interface for viewing, querying, and listing Philippine provinces and municipalities using the [PAGASA 10-day weather forecast Excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the data source.
 
-<p>Its early stages were written as procedural functions within a private backend project for extracting 10-day weather forecast data from the PAGASA 10-day weather forecast Excel files. When the private project started gaining complexity, a need to separate the logic and management for listing the Philippine province and municipalities per region rose. Creating an independent, public OpenSource version listing the provinces and municipalities per region was decided after experiencing drawbacks and difficulties testing using similar OpenSource libraries (some of which are [listed below](#similar-libraries)) for that project.</p>
+Its early stages were written as procedural functions within a private backend project for extracting 10-day weather forecast data from the PAGASA 10-day weather forecast Excel files. When the private project started gaining complexity, a need to separate the logic and management for listing the Philippine province and municipalities per region rose. Creating an independent, public OpenSource version listing the provinces and municipalities per region was decided after experiencing drawbacks and difficulties testing using similar OpenSource libraries (some of which are [listed below](#similar-libraries)) for that project.
 
-> <b><i>ph-municipalities aim to contribute to the OpenSource community by listing ONLY Philippine provinces and municipalities names, using <a href="https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast" target="_blank">PAGASA's 10-day weather forecast Excel files</a>, which are publicly accessible to everyone.</i></b>
+> **_ph-municipalities aim to contribute to the OpenSource community by listing ONLY Philippine provinces and municipalities names, using [PAGASA's 10-day weather forecast Excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast), which are publicly accessible to everyone._**
 
 </details>
 
@@ -92,9 +92,9 @@ The following dependencies are used for this project. Feel free to use other dep
 
 <br>
 
-<p>While ph-municipalities use a <a href="https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast" target="_blank">PAGASA 10-day weather forecast Excel file</a> as a data source for its provinces and municipalities list, <b><i>NO, it cannot parse and extract PAGASA 10-day weather forecast data</i></b>.</p>
+While ph-municipalities use a [PAGASA 10-day weather forecast Excel file](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as a data source for its provinces and municipalities list, **_NO, it cannot parse and extract PAGASA 10-day weather forecast data_**.
 
-<p>ph-municipalities only have class methods for parsing, extracting, listing and querying provinces and municipalities names data from a PAGASA 10-day weather forecast Excel file. Refer to the <b>ExcelFile</b> <a href="https://ciatph.github.io/ph-municipalities/ExcelFile.html">class documentation</a> for more information about its available methods.</p>
+ph-municipalities only have class methods for parsing, extracting, listing and querying provinces and municipalities names data from a PAGASA 10-day weather forecast Excel file. Refer to the **ExcelFile** [class documentation](https://ciatph.github.io/ph-municipalities/ExcelFile.html) for more information about its available methods.
 
 </details>
 
@@ -107,21 +107,19 @@ The following dependencies are used for this project. Feel free to use other dep
 
 <br>
 
-<p>Yes, several OpenSource libraries and projects similar to ph-municipalities exist, which you can use in its place to list Philippine provinces and municipalities.</p>
+Yes, several OpenSource libraries and projects similar to ph-municipalities exist, which you can use in its place to list Philippine provinces and municipalities.
 
-<p>Here is a list of several of these libraries and code repositories.
-Note, however, these items use old and new data sources. These may not be for you if you require using provinces and municipalities names data from the <a href="https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast" target="_blank">PAGASA 10-day weather forecast Excel files</a>.</p>
+Here is a list of several of these libraries and code repositories.
+Note, however, these items use old and new data sources. These may not be for you if you require using provinces and municipalities names data from the [PAGASA 10-day weather forecast Excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast).
 
-<ul>
-  <li><a href="https://www.npmjs.com/package/psgc2" target="_blank">psgc2</li>
-  <li><a href="https://www.npmjs.com/package/use-postal-ph" target="_blank">use-postal-ph</li>
-  <li><a href="https://github.com/wilfredpine/philippine-address-selector" target="_blank">philippine-address-selector</a></li>
-  <li><a href="https://www.npmjs.com/package/philippines" target="_blank">philippines</a></li>
-  <li><a href="https://github.com/hubertursua/ph-locations" target="_blank">ph-locations</a></li>
-  <li><a href="https://www.npmjs.com/package/select-philippines-address" target="_blank">select-philippines-address</a></li>
-  <li><a href="https://github.com/OSSPhilippines/psgc-api" target="_blank">psgc-api</a></li>
-  <li><a href="https://github.com/benhur07b/phl-admin-psgc" target="_blank">phl-admin-psgc</a></li>
-</ul>
+- [psgc2](https://www.npmjs.com/package/psgc2)
+- [use-postal-ph](https://www.npmjs.com/package/use-postal-ph)
+- [philippine-address-selector](https://github.com/wilfredpine/philippine-address-selector)
+- [philippines](https://www.npmjs.com/package/philippines)
+- [ph-locations](https://github.com/hubertursua/ph-locations)
+- [select-philippines-address](https://www.npmjs.com/package/select-philippines-address)
+- [psgc-api](https://github.com/OSSPhilippines/psgc-api)
+- [phl-admin-psgc](https://github.com/benhur07b/phl-admin-psgc)
 
 </details>
 
@@ -134,11 +132,11 @@ Note, however, these items use old and new data sources. These may not be for yo
 
 <br>
 
-<p>While ph-municipalites do not support parsing and extracting PAGASA 10-day weather forecast data, <i>you can extend the <b>ExcelFile</b> or <b>ExcelAdapter</b> classes with custom logic and codes to enable parsing and extracting PAGASA 10-day weather forecast data</i>.</p>
+While ph-municipalites do not support parsing and extracting PAGASA 10-day weather forecast data, _you can extend the `ExcelFile` or `ExcelAdapter` classes with custom logic and codes to enable parsing and extracting PAGASA 10-day weather forecast data_.
 
-<p>Since the <b>ExcelFile</b> or <b>ExcelAdapter</b> are <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes" target="_blank">classes</a> (functions in disguise, not true OOP, but inheritance still works), you can extend them with class inheritance, overriding or creating new class methods to accommodate processing the PAGASA 10-day weather forecast data. Refer to the <a href="https://ciatph.github.io/ph-municipalities" target="_blank">ph-municipalities class documentation</a> to know more about the available classes, member variables, and methods.</p>
+Since the `ExcelFile` or `ExcelAdapter` are [classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) (functions in disguise, not true OOP, but inheritance still works), you can extend them with class inheritance, overriding or creating new class methods to accommodate processing the PAGASA 10-day weather forecast data. Refer to the [ph-municipalities class documentation](https://ciatph.github.io/ph-municipalities) to know more about the available classes, member variables, and methods.
 
-<p>An example of extending the classes to parse PAGASA 10-day weather forecast data may go along the lines of:</p>
+An example of extending the classes to parse PAGASA 10-day weather forecast data may go along the lines of:
 
 ```javascript
 const { ExcelFile } = require('ph-municipalities')
@@ -203,7 +201,7 @@ This file contains region/province names mapping encoded manually with reference
 
 <br>
 
-<p>NO. By default, ph-municipalities use an outdated PAGASA 10-day Excel file by default for its local data source, downloaded on August 8, 2022. However, it also provides several ways for using updated PAGASA 10-day Excel files as data sources by:</p>
+NO. By default, ph-municipalities use an outdated PAGASA 10-day Excel file by default for its local data source, downloaded on August 8, 2022. However, it also provides several ways for using updated PAGASA 10-day Excel files as data sources by:
 
 - Prompting to download an updated PAGASA 10-day Excel file using the [Interactive CLI Scripts](#interactive-cli-scripts)
 - Providing [class methods](https://ciatph.github.io/ph-municipalities/ExcelFile.html#download) to programmatically download and use a remote PAGASA 10-day Excel file
