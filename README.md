@@ -37,6 +37,7 @@ Extracted municipalities are written in JSON files following the format:
 
 Pre-compiled windows binaries are available for download in the latest [Releases](https://github.com/ciatph/ph-municipalities/releases) download page.
 
+<span id="class-documentation"></span>
 ## Class Documentation
 
 - Class and methods documentation are available at [https://ciatph.github.io/ph-municipalities](https://ciatph.github.io/ph-municipalities).
@@ -44,6 +45,7 @@ Pre-compiled windows binaries are available for download in the latest [Releases
 - The documentation website's HTML files are available in the [`gh-pages`](https://github.com/ciatph/ph-municipalities/tree/gh-pages) branch of the GitHub repository.
 - Refer to the [Building the Class Documentation](#building-the-class-documentation) section for more information about updating and building the class documentation.
 
+<span id="requirements"></span>
 ## Requirements
 
 The following dependencies are used for this project. Feel free to use other dependency versions as needed.
@@ -66,6 +68,7 @@ The following dependencies are used for this project. Feel free to use other dep
 
 </details>
 
+<span id="faqs"></span>
 ## FAQs
 
 <details>
@@ -214,6 +217,7 @@ NO. By default, ph-municipalities use an outdated PAGASA 10-day Excel file by de
 
 <br>
 
+<span id="table-of-contents"></span>
 ## Table of Contents
 
 <details>
@@ -264,6 +268,7 @@ Click to expand the table of contents
 
 </details>
 
+<span id="installation"></span>
 ## Installation
 
 1. Clone this repository.<br>
@@ -292,6 +297,7 @@ Click to expand the table of contents
 
    </details>
 
+<span id="installation-using-docker"></span>
 ## Installation Using Docker
 
 We can use Docker to run dockerized Node app for local development mode. The following methods require Docker and Docker compose correctly installed and set up on your development machine.
@@ -314,6 +320,7 @@ The following dependencies are used to build and run the image. Please feel feel
 
 </details>
 
+<span id="docker-for-localhost-development"></span>
 ### Docker for Localhost Development
 
 <details>
@@ -345,6 +352,7 @@ The following dependencies are used to build and run the image. Please feel feel
 
 </details>
 
+<span id="available-scripts"></span>
 ## Available Scripts
 
 > _**Note:** These NPM scripts run relative within the `/app` directory, when working on a git-cloned repository of the app. To run using only NodeJS, navigate first to the `/app` directory and execute a target script, for example:_
@@ -510,6 +518,7 @@ Run tests defined in the `/app/__tests__` directory.
 
 <br>
 
+<span id="class-usage"></span>
 ## Class Usage
 
 Below are example usages of the `ExcelFile` class, run from the **/app/src/examples** directory. Check out the `/app/src/examples/sample_usage.js` file for more examples.
@@ -603,6 +612,7 @@ console.log(`---municipalities`, municipalitiesFromProvince)
 
 </details>
 
+<span id="download-and-parse-a-remote-excel-file"></span>
 ### Download and Parse a Remote Excel File
 
 Adding a `url` field in the constructor parameter prepares the class to download a remote Excel file for the data source.
@@ -643,6 +653,7 @@ main()
 
 </details>
 
+<span id="alternate-usage---events"></span>
 ### Alternate Usage - Events
 
 <details>
@@ -684,6 +695,7 @@ main()
 
 </details>
 
+<span id="using-a-custom-configuration-file"></span>
 ### Using a Custom Configuration File
 
 The **ph-municipalities** `ExcelFile` and `ExcelFactory` classes use a default configuration file to define their regions and provinces in the `/app/config/regions.json` file. The regions and provinces data in this file syncs with the PAGASA Seasonal and 10-Day Weather Forecast Excel files provinces and municipalities naming convention, encoded by hand as of August 24, 2024.
@@ -768,6 +780,7 @@ console.log('---municipalities', municipalities)
 
 </details>
 
+<span id="building-standalone-windows-executables"></span>
 ## Building Standalone Windows Executables
 
 <details>
@@ -785,6 +798,7 @@ The main npm scripts can be packaged into standalone windows executables. Pre-co
 
 </details>
 
+<span id="compiling-into-single-minified-files"></span>
 ## Compiling into Single, Minified Files
 
 <details>
@@ -806,6 +820,7 @@ The main npm scripts can be compiled into standalone JavaScript files together w
 
 </details>
 
+<span id="building-the-class-documentation"></span>
 ## Building the Class Documentation
 
 The class documentation uses [JSDoc](https://jsdoc.app/) annotations where applicable in the JavaScript source codes inside the **/src** directory. There are two (2) options for building the class documentation.
@@ -859,6 +874,7 @@ The class documentation uses [JSDoc](https://jsdoc.app/) annotations where appli
 
 </details>
 
+<span id="troubleshooting"></span>
 ## Troubleshooting
 
 This section describes several common errors and related fixes.
