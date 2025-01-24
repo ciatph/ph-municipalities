@@ -5,9 +5,6 @@ name: Package Windows Binaries
 on:
   release:
     types: [published]
-  push:
-    branches-ignore:
-      - 'master'
 
 jobs:
   test-app:
