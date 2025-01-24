@@ -715,7 +715,7 @@ Follow the codes to define a custom regions config file, following the format of
 
 #### Availability
 
-This method is available from ph-municipalities from v1.3.3 and higher.
+This method is available from ph-municipalities version [1.3.3](https://github.com/ciatph/ph-municipalities/releases/tag/v1.3.3) and higher.
 
 <details>
 <summary>
