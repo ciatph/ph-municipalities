@@ -1,6 +1,6 @@
 ## ph-municipalities
 
-The **ph-municipalities** NPM package provides **NPM scripts** that allow interactive querying of Philippine municipalities included in one or more provinces or from a whole region, with an option of writing them to JSON files from the command line through a CLI-like application and **classes** for parsing Excel file data sources.
+The **ph-municipalities** NPM package provides **NPM scripts** that allow interactive querying of Philippine municipalities included in one or more provinces or from a whole region, with an option of writing them to JSON files from the command line through a CLI-like application and **classes** for only parsing and listing municipality names and provinces from Excel file data sources.
 
 It uses a **PAGASA 10-day weather forecast Excel** file in `/app/data/day1.xlsx` (downloaded and stored as of this 20220808) from PAGASA's [10-Day Climate Forecast web page](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the default data source.
 
@@ -40,9 +40,9 @@ Pre-compiled windows binaries are available for download in the latest [Releases
 <span id="class-documentation"></span>
 ## Class Documentation
 
-- Class and methods documentation are available at [https://ciatph.github.io/ph-municipalities](https://ciatph.github.io/ph-municipalities).
+- Class and methods documentation is available at [https://ciatph.github.io/ph-municipalities](https://ciatph.github.io/ph-municipalities).
 - Class source codes are available at the [ph-municipalities](https://github.com/ciatph/ph-municipalities) GitHub repository.
-- The documentation website's HTML files are available in the [`gh-pages`](https://github.com/ciatph/ph-municipalities/tree/gh-pages) branch of the GitHub repository.
+- The NPM package is available at https://www.npmjs.com/package/ph-municipalities
 - Refer to the [Building the Class Documentation](#building-the-class-documentation) section for more information about updating and building the class documentation.
 
 <span id="requirements"></span>
@@ -59,7 +59,7 @@ The following dependencies are used for this project. Feel free to use other dep
    - node v16.14.2
    - npm v8.5.0
 4. Excel file
-   - ph-municipalities uses Excel files in the `/app/data` directory as data source.
+   - ph-municipalities uses a PAGASA 10-Day Forecast Excel file in the `/app/data` directory as data source.
    - At minimum, the Excel file should have a **column** that contains municipality and province names following the pattern `"municipalityName (provinceName)"`
    - (Optional) The Excel file should have a row on the same **column** as above containing the text `"Project Areas"` plus two (2) blank rows before rows containing municipality and province names to enable strict testing and validation of the number of parsed data rows
    - Checkout the excel file format on the `/app/data/day1.xlsx` sample file for more information
@@ -81,11 +81,13 @@ The following dependencies are used for this project. Feel free to use other dep
 
 <br>
 
-ph-municipalities aims to provide a simple, organized, and flexible interface for viewing, querying, and listing Philippine provinces and municipalities using the [PAGASA 10-day weather forecast Excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the data source.
+ph-municipalities aims to provide a simple, organized, and flexible interface for viewing, querying, and listing Philippine provinces and municipalities using the [PAGASA 10-day weather forecast Excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the data source. It aims to enable easy extension of Philippine regions/provinces/municipalities listing for parsing the PAGASA 10-day weather forecast data.
 
 Its early stages were written as procedural functions within a _private backend project_ for extracting 10-day weather forecast data from the PAGASA 10-day weather forecast Excel files. When the private project started gaining complexity, a need to separate the logic and management for listing the Philippine province and municipalities per region rose. Creating an independent, public OpenSource version listing the provinces and municipalities per region was decided after experiencing drawbacks and difficulties testing using similar OpenSource libraries (some of which are [listed below](#similar-libraries)) for that project.
 
 > **_ph-municipalities aim to contribute to the OpenSource community by listing ONLY Philippine provinces and municipalities' names, using [PAGASA's 10-day weather forecast Excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast), which are publicly accessible to everyone._**
+
+**ph-municipalities** is entirely public and open-source, and it has no linkage to private and proprietary source codes and resources.
 
 </details>
 
@@ -191,8 +193,12 @@ The PAGASA 10-day Excel files only contain province and municipality names linke
 
 This file contains region/province names mapping encoded manually with reference from the region and province names listed in the [PAGASA Seasonal Forecast website's](https://www.pagasa.dost.gov.ph/climate/climate-prediction/seasonal-forecast) Forecast Analysis Rainfall table.
 
+
+**ph-municipalities** expect similar region naming conventions from the **PAGASA Seasonal Forecast** and the **PAGASA 10-Day Forecast** since both are data products produced by PAGASA.
+
+
 > **NOTE:**<br>
-> The region/province mapping defined in this file may become outdated as time passes. ph-municipalities users are encouraged to [Use a Custom Configuration File](#using-a-custom-configuration-file), defining new region/province name mappings following the file's current format if they will notice region to province inconsistencies in the generated municipality lists.
+> The region/province mapping defined in this file may become outdated as time passes. ph-municipalities users are encouraged to [Use a Custom Configuration File](#using-a-custom-configuration-file), defining new region/province name mappings following the file's current format if they notice region-to-province inconsistencies in the generated municipality lists.
 
 </details>
 
@@ -211,7 +217,7 @@ NO. By default, ph-municipalities use an outdated PAGASA 10-day Excel file for i
 
 - Prompting to download an updated PAGASA 10-day Excel file using the [Interactive CLI Scripts](#interactive-cli-scripts)
 - Providing [class methods](https://ciatph.github.io/ph-municipalities/ExcelFile.html#download) for programmatically downloading and using a remote PAGASA 10-day Excel file
-- Allowing to override the default region - province list settings during class initialization (See [Class Usage - Using a Custom Configuration File](#using-a-custom-configuration-file))
+- Allowing to override the default region - province mapping settings during class initialization (See [Class Usage - Using a Custom Configuration File](#using-a-custom-configuration-file))
 
 > **NOTE:**<br>
 > Overall, the provinces and municipality list rely on the latest contents of a [PAGASA 10-day Excel file](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) and manual configuration of region/province names mapping in the `/app/config/regions.json` file (See [Class Usage - Using a Custom Configuration File](#using-a-custom-configuration-file)). It is not yet known and tested if these are in sync with the latest regions, provinces, and municipalities in the more standard and canon [Philippine Standard Geographic Code (PSGC)](https://psa.gov.ph/classification/psgc) data.
@@ -701,11 +707,15 @@ main()
 <span id="using-a-custom-configuration-file"></span>
 ### Using a Custom Configuration File
 
-The **ph-municipalities** `ExcelFile` and `ExcelFactory` classes use a default configuration file to define their regions and provinces in the `/app/config/regions.json` file. The regions and provinces data in this file syncs with the PAGASA Seasonal and 10-Day Weather Forecast Excel files provinces and municipalities naming convention, encoded by hand as of August 24, 2024.
+The **ph-municipalities** `ExcelFile` and `ExcelFactory` classes use a default configuration file to define their regions and provinces in the `/app/config/regions.json` file. The data in this file syncs with the PAGASA Seasonal and 10-Day Weather Forecast Excel files provinces and municipalities naming convention, encoded by hand as of August 24, 2024.
 
 Follow the codes to define a custom regions config file, following the format of the `/app/config/regions.json` file to customize region definitions.
 
 > _**Note:** The custom config file's province/municipality names should match those in the 10-day Excel file._
+
+#### Availability
+
+This method is available from ph-municipalities version [1.3.3](https://github.com/ciatph/ph-municipalities/releases/tag/v1.3.3) and higher.
 
 <details>
 <summary>
