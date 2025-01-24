@@ -23,6 +23,7 @@ module.exports = {
     // 'no-console': ['error', { 'allow': ['error'] }]
     'no-trailing-spaces': 'error',
     'no-unused-vars': 'error',
-    'no-undef': 'error'
+    'no-undef': 'error',
+    'eol-last': ['error', 'always']
   }
 }

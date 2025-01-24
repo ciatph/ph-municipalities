@@ -42,8 +42,12 @@ Pre-compiled windows binaries are available for download in the latest [Releases
 
 - Class and methods documentation is available at [https://ciatph.github.io/ph-municipalities](https://ciatph.github.io/ph-municipalities).
 - Class source codes are available at the [ph-municipalities](https://github.com/ciatph/ph-municipalities) GitHub repository.
-- The NPM package is available at https://www.npmjs.com/package/ph-municipalities
+- The NPM package is available at [https://www.npmjs.com/package/ph-municipalities](https://www.npmjs.com/package/ph-municipalities)
 - Refer to the [Building the Class Documentation](#building-the-class-documentation) section for more information about updating and building the class documentation.
+
+## Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](https://github.com/ciatph/ph-municipalities/blob/dev/CONTRIBUTING.md) for guidelines.
 
 <span id="requirements"></span>
 ## Requirements
