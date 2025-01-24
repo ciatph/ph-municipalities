@@ -513,7 +513,6 @@ class ExcelFile {
 
   /**
    * Lists the province names of a region defined in the settings (PAGASA seasonal config) file or from the parsed Excel file
-   * @param {string} region - Region name that matches with the `/app/config/regions.json` file's `data[N].name`
    * @param {boolean} fromExcel - Flag to return the province names from the parsed 10-day Excel file. Defaults to `false`.
    *    - Note: Province names from a "remote" Excel file may change without notice.
    *    - It may differ from the contents of the "default" settings (PAGASA seasonal config) file.
