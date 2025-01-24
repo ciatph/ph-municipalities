@@ -4,6 +4,7 @@ docs/
 diagrams/
 README.md
 README.tmp
+LICENSE
 .env
 .vscode
 *.xlsx
