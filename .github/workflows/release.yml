@@ -5,10 +5,14 @@ name: Package Windows Binaries
 on:
   release:
     types: [published]
+  push:
+    branches-ignore:
+      - 'master'
 
 jobs:
   test-app:
     name: Lint and Test App
+    if: github.event.release.target_commitish == 'master'
     runs-on: ubuntu-latest
     env:
       EXCEL_FILE_URL: ${{ secrets.EXCEL_FILE_URL }}
@@ -39,6 +43,7 @@ jobs:
 
   build-on-win:
     name: Build and Package App
+    if: github.event.release.target_commitish == 'master'
     runs-on: windows-latest
     needs: test-app
     steps:
@@ -87,6 +92,7 @@ jobs:
 
   release:
     name: Release Built Binary
+    if: github.event.release.target_commitish == 'master'
     needs: build-on-win
     runs-on: ubuntu-latest
     steps:
@@ -115,6 +121,7 @@ jobs:
 
   publish-npm:
     name: Publish to NPM registry
+    # if: github.event.release.target_commitish == 'master'
     runs-on: ubuntu-latest
     needs: build-on-win
     permissions:
@@ -129,9 +136,9 @@ jobs:
           ref: ${{ github.event.release.tag_name }}
 
       - name: Use NodeJS v16.14.2
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 16.14.2
           registry-url: https://registry.npmjs.org/
 
       - name: Publish package
