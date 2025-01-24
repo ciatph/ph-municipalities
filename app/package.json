@@ -1,11 +1,11 @@
 {
   "name": "ph-municipalities",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "List and write the `municipalities` of Philippines provinces or regions into JSON files",
   "main": "index.js",
   "engines": {
-    "node": "16.14.2",
-    "npm": "8.5.0"
+    "node": ">=16.14.2",
+    "npm": ">=8.5.0"
   },
   "scripts": {
     "start": "npm run list:region",
@@ -29,8 +29,20 @@
     "type": "git",
     "url": "git+https://github.com/ciatph/ph-municipalities.git"
   },
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "philippines",
+    "philippines json",
+    "philippines regions",
+    "philippines provinces",
+    "philippines municipalities",
+    "pagasa",
+    "pagasa 10-day forecast",
+    "pagasa-parser",
+    "xlsx",
+    "sheetjs"
+  ],
+  "author": "ciatph",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/ciatph/ph-municipalities/issues"
   },
