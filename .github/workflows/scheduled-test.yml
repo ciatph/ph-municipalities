@@ -7,7 +7,7 @@ on:
     - cron: '5 4 * * 0'
 
 jobs:
-  pull-images:
+  test:
     name: Scheduled Test
     runs-on: ubuntu-latest
     env:
