@@ -1,0 +1,33 @@
+# Runs tests on the app by schedule
+name: Test App on Schedule
+
+on:
+  schedule:
+    # Runs "At 04:05 on Sunday."
+    - cron: '5 4 * * 0'
+
+jobs:
+  test:
+    name: Scheduled Test
+    runs-on: ubuntu-latest
+    env:
+      EXCEL_FILE_URL: ${{ secrets.EXCEL_FILE_URL }}
+      SHEETJS_COLUMN: ${{ secrets.SHEETJS_COLUMN }}
+      SORT_ALPHABETICAL: ${{ secrets.SORT_ALPHABETICAL }}
+      SPECIAL_CHARACTERS: ${{ secrets.SPECIAL_CHARACTERS }}
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Use NodeJS v16.14.2
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.14.2
+
+      - name: Install Dependencies and Test
+        run: |
+          cd app
+          npm install
+          npm test
