@@ -18,8 +18,14 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.release.tag_name }}
+
+      - name: Fetch and check out latest tag
+        run: |
+          git fetch --tags
+          LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+          echo "Checking out latest tag: $LATEST_TAG"
+          git checkout $LATEST_TAG
+          echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
 
       - name: Use NodeJS v16.14.2
         uses: actions/setup-node@v3
