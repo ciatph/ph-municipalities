@@ -59,9 +59,12 @@ The following dependencies are used for this project. Feel free to use other dep
 
 1. Windows 10 OS
 2. nvm for Windows v1.1.9
-3. NodeJS, installed using nvm
-   - node v16.14.2
-   - npm v8.5.0
+3. NodeJS LTS v16 or higher, installed using nvm
+   ```
+   Recommended:
+   node v16.14.2
+   npm v8.5.0
+   ```
 4. Excel file
    - ph-municipalities uses a PAGASA 10-Day Forecast Excel file in the `/app/data` directory as data source.
    - At minimum, the Excel file should have a **column** that contains municipality and province names following the pattern `"municipalityName (provinceName)"`
