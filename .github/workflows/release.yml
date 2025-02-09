@@ -79,12 +79,10 @@ jobs:
           dir
 
       - name: Archive Development Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dist
-          path: |
-            app/dist/ph-regions-win.exe
-            app/dist/ph-provinces-win.exe
+          path: app/dist/
           retention-days: 1
 
   release:
@@ -94,7 +92,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist
 
