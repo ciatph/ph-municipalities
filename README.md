@@ -288,7 +288,7 @@ Click to expand the table of contents
 ## Installation
 
 1. Clone this repository.<br>
-`git clone https://github.com/ciatph/municipalities-by-province.git`
+`git clone https://github.com/ciatph/ph-municipalities.git`
 
 2. Install dependencies.<br>
    ```bash
