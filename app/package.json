@@ -47,9 +47,9 @@
   },
   "homepage": "https://github.com/ciatph/ph-municipalities#readme",
   "devDependencies": {
-    "@vercel/ncc": "^0.34.0",
+    "@vercel/ncc": "^0.38.3",
     "eslint": "^8.21.0",
-    "eslint-config-standard": "^17.0.0",
+    "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
@@ -57,9 +57,9 @@
     "pkg": "^5.8.0"
   },
   "dependencies": {
-    "dotenv": "^16.0.1",
+    "dotenv": "^16.4.7",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz",
-    "zod": "^3.23.8"
+    "zod": "^3.24.1"
   },
   "pkg": {
     "assets": [
