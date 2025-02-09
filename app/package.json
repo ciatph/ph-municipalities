@@ -1,11 +1,10 @@
 {
   "name": "ph-municipalities",
-  "version": "1.4.3",
-  "description": "List and write the `municipalities` of Philippines provinces or regions into JSON files",
+  "version": "1.4.4",
+  "description": "Lists and writes Philippine municipalities by province or region into JSON files using PAGASA 10-Day weather forecast Excel files as a data source",
   "main": "index.js",
   "engines": {
-    "node": ">=16.14.2",
-    "npm": ">=8.5.0"
+    "node": ">=16"
   },
   "scripts": {
     "start": "npm run list:region",
@@ -48,9 +47,9 @@
   },
   "homepage": "https://github.com/ciatph/ph-municipalities#readme",
   "devDependencies": {
-    "@vercel/ncc": "^0.34.0",
+    "@vercel/ncc": "^0.38.3",
     "eslint": "^8.21.0",
-    "eslint-config-standard": "^17.0.0",
+    "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
@@ -58,9 +57,9 @@
     "pkg": "^5.8.0"
   },
   "dependencies": {
-    "dotenv": "^16.0.1",
-    "xlsx": "https://cdn.sheetjs.com/xlsx-0.18.10/xlsx-0.18.10.tgz",
-    "zod": "^3.23.8"
+    "dotenv": "^16.4.7",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz",
+    "zod": "^3.24.1"
   },
   "pkg": {
     "assets": [
