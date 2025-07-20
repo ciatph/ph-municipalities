@@ -55,7 +55,7 @@ jobs:
           node-version: 16.14.2
 
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: npm-${{ hashFiles('app/package-lock.json') }}
