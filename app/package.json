@@ -22,6 +22,7 @@
     "generate-docs": "jsdoc --configure .jsdoc.json --verbose",
     "lint": "eslint src __tests__ .",
     "lint:fix": "eslint src __tests__ . --fix",
+    "debug": "node --watch --inspect=0.0.0.0:9229 src/scripts/by_region.js",
     "test": "jest"
   },
   "repository": {

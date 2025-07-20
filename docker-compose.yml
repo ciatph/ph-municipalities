@@ -16,6 +16,8 @@ services:
       - ./docs/diagrams:/opt/app/diagrams
       - ./README.md:/opt/app/README.tmp
       - /opt/app/node_modules
+    ports:
+      - "9229:9229"
     stdin_open: true
     tty: true
 
