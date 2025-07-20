@@ -229,7 +229,7 @@ class ExcelFile {
         } else {
           // Find the SheetJS array index of rows containing data
           // Note: this relies on the structure of the default Excel file in /app/data/day1.xlsx or similar
-          if (row[this.#options.SHEETJS_COL] === 'Project Areas') {
+          if (row[this.#options.SHEETJS_COL] === 'Municipalities') {
             const OFFSET_FROM_FLAG = 2
             this.#options.dataRowStart = index + OFFSET_FROM_FLAG
           }
