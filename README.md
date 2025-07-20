@@ -354,11 +354,11 @@ The following dependencies are used to build and run the image. Please feel feel
 
 3. Build and run the app using Docker.
    - Build<br>
-     `docker compose -f docker-compose.dev.yml build`
+     `docker compose build`
    - Run<br>
-     `docker compose -f docker-compose.dev.yml up`
+     `docker compose up`
    - Stop<br>
-     `docker compose -f docker-compose.dev.yml down`
+     `docker compose down`
 
 4. Edit and execute scripts within the running docker container from **step #3**.
    - For running NPM scripts (see the [Available Scripts](#available-scripts) section for more information):<br>
@@ -529,6 +529,10 @@ Run tests defined in the `/app/__tests__` directory.
 
 - Downloads and parses a remote excel file.
 - Demonstrates sample usage with `await`
+
+### `npm run debug`
+
+- Runs the `npm run list:region` with `--inspect` mode for debugging in containers.
 
 </details>
 
@@ -917,6 +921,32 @@ This section describes several common errors and related fixes.
 2. Change the ownership of the `./app` directory using the ph-municipalities user host UID from **step #1**.<br>
    `sudo chown -R <APP_UID>:<APP_UID> ./app`
 3. Re-run the NPM script.
+
+</details>
+
+<details>
+<summary style="font-size: 18px;">
+  <b>Malformed text characters in the municipality names</b>
+</summary>
+
+#### Information
+
+- Sometimes, garbled or malformed text like `"├â┬▒"`, `"Ã±"`, and others are present in the PAGASA 10-Day Weather forecast Excel files.
+- This usually occurs when there is a character encoding mismatch when writing data in `UTF-8` format in Excel files, but the ph-municipalities scripts (or Microsoft Excel, Notepad or other programs) interpret it as `ANSI` (Windows-1252) or some other encoding.
+
+#### Fix
+
+Convert the malformed text to its original text counterparts.
+
+1. Add the malformed characters and their expected character conversions in the `SPECIAL_CHARACTERS` env variable as pipe-delimited key-value pairs.
+2. For example, the `"├â┬▒"` and `"Ã±"` actually translate to the `"ñ"` character. Write them in the `SPECIAL_CHARACTERS` variable as:<br>
+   ```
+   SPECIAL_CHARACTERS=├â┬▒:ñ,Ã±:ñ
+   ```
+3. Add a blank space after the `":"` character if the malformed text does not have any conversion.<br>
+   ```
+   SPECIAL_CHARACTERS=├â┬▒:ñ,Ã±:ñ,â:
+   ```
 
 </details>
 
