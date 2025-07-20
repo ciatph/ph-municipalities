@@ -95,6 +95,20 @@ class ExcelFile {
   #datalist = []
 
   /**
+   * string[] array of malformed (garbled) text characters to watch of for in the Excel file.
+   * Its value is set in the `process.env.SPECIAL_CHARACTERS` env variable.
+   * @type {String[]}
+   */
+  static malformedText = []
+
+  /**
+   * Object key-value pairs where keys are items in the `ExcelFile.malformedText[]` and values
+   * are their corrected character conversions.
+   * @type {Object}
+   */
+  static malformedTextCorrections = {}
+
+  /**
    * Node event emitter for listening to custom events.
    * @type {Function}
    */
@@ -156,7 +170,8 @@ class ExcelFile {
 
   /**
    * Loads an existing excel file contents to a JSON object.
-   * Downloads a remote excel file if a remote this.#url is provided on the constructor
+   * Downloads a remote excel file if a remote `this.#url` is provided on the constructor.
+   * Initializes the malformed characters and their normalized conversions.
    */
   async init () {
     if (this.#url !== null && this.#pathToFile !== null) {
@@ -182,11 +197,14 @@ class ExcelFile {
         throw new Error(err.message)
       }
     }
+
+    ExcelFile.initMalformedTextList()
   }
 
   /**
-   * Loads an excel file from a local directory using sheetjs.
-   * Store excel file data as JSON in this.#data
+   * Loads an Excel file from a local directory using sheetjs.
+   * Stores Excel file data as JSON in `this.#data`
+   * @throws {Error} Excel parsing and reading errors.
    */
   load () {
     try {
@@ -242,6 +260,8 @@ class ExcelFile {
   /**
    * Downloads a remote excel file to this.#pathToFile
    * and loads sheetjs parsed-content
+   * @returns {Promise<void>} Resolves when the Excel file is downloaded and loaded succesfully.
+   * @throws {Error} If the download or loading fails.
    */
   download () {
     try {
@@ -293,6 +313,34 @@ class ExcelFile {
   }
 
   /**
+   * Initializes the `ExcelFile.malformedText[]` string array with malformed text characters from the `process.env.SPECIAL_CHARACTERS` env variable.
+   * - It also builds the `ExcelFile.malformedTextCorrections` Object containing corrections of the malformed texts.
+   */
+  static initMalformedTextList () {
+    // Initialize malformed text definitions only once
+    if (ExcelFile.malformedText.length > 0) return
+
+    // Known garbled special text
+    const defaultTextValue = '├â┬▒:ñ,â:'
+    const textValue = (process.env.SPECIAL_CHARACTERS ?? defaultTextValue)
+    const textEntries = textValue.split(',')
+
+    // List of malformed text
+    ExcelFile.malformedText = [...textValue.matchAll(/([^:,]+):/g)]
+      .map(m => m[1])
+      .filter(Boolean)
+
+    // Malformed text and their corrections
+    for (const entry of textEntries) {
+      const [key, value = ''] = entry.split(':')
+
+      if (key) {
+        ExcelFile.malformedTextCorrections[key] = value
+      }
+    }
+  }
+
+  /**
    * Checks if a string contains special characters
    * @param {string} str - String to check
    * @returns {boolean}
@@ -304,38 +352,31 @@ class ExcelFile {
   }
 
   /**
+   * Checks if a string contains malformed characters defined in the `ExcelFile.malformedText[]` list.
+   * @param {string} str - String to check for garbled or malformed characters
+   * @returns {boolean} Flag indicating if the input `str` contains malformed characters
+   */
+  static hasMalformedText (str = '') {
+    const inputStr = String(str || '')
+    ExcelFile.initMalformedTextList()
+
+    return ExcelFile.malformedText.some(item => inputStr.includes(item))
+  }
+
+  /**
    * Cleans/removes default-known special characters and garbled text defined in config from string.
    * @param {string} str - String to clean
    * @returns {string} - Clean string
    */
-  static removeGarbledText (str) {
-    // Known garbled special text
-    let charMap = {
-      '├â┬▒': 'ñ', // Replace "├â┬▒" with "ñ"
-      â: '' // Remove "â"
+  static removeGarbledText (str = '') {
+    let formattedStr = String(str || '')
+    ExcelFile.initMalformedTextList()
+
+    for (const [key, value] of Object.entries(ExcelFile.malformedTextCorrections)) {
+      formattedStr = formattedStr.replace(new RegExp(key, 'g'), value)
     }
 
-    // Other special characters from config
-    const specialChars = (process.env.SPECIAL_CHARACTERS?.split(',') ?? [])
-      .reduce((list, item) => {
-        const [key, value] = item.split(':')
-
-        return {
-          ...list,
-          ...((key || value) && { [key]: value ?? '' })
-        }
-      }, {})
-
-    charMap = {
-      ...charMap,
-      ...specialChars
-    }
-
-    for (const [key, value] of Object.entries(charMap)) {
-      str = str.replace(new RegExp(key, 'g'), value)
-    }
-
-    return str
+    return formattedStr
   }
 
   /**
