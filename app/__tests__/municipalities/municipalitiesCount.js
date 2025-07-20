@@ -73,8 +73,9 @@ describe('Municipalities total count match', () => {
 
       let passMsg = '[20240826]: Allow the test to succeed here since there is little information about updated\n'
       passMsg += 'PAGASA seasonal & 10-day province/municipalities naming conventions for the other regions, and they\n'
-      passMsg += 'may change anytime without prior notice. Take note of the INFOS/WARNINGS and\n'
-      passMsg += 'extend/override the class methods on custom scripts to accommodate custom settings as necessary'
+      passMsg += 'may change anytime without prior notice. Take note of the INFOS/WARNINGS and to accommodate CUSTOM SETTINGS as necessary:\n'
+      passMsg += '- Extend/override the class methods on custom scripts or\n'
+      passMsg += '- Eass custom (updated) regions.json config to the class constructors'
       expect(logger.log(passMsg, { color: ColorLog.COLORS.TEXT.YELLOW })).toBe(undefined)
     } else {
       logger.log('[MUNICIPALITIES]: Municipalities counts match in config and Excel', {
