@@ -8,7 +8,7 @@ const ExcelFactory = require('../classes/excelfactory')
 
 /**
  * Prompts user to download a new excel file or use the static local excel file as data source
- * @returns {ExcelHandler}
+ * @returns {ExcelFactory}
  */
 const selectDataSource = async () => {
   let exit = false
