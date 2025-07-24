@@ -532,7 +532,7 @@ Run tests defined in the `/app/__tests__` directory.
 
 ### `npm run debug`
 
-- Runs the `npm run list:region` with `--inspect` mode for debugging in containers.
+- Runs the `npm run list:region` with `--inspect` flag for debugging in containers.
 
 </details>
 
