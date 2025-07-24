@@ -54,7 +54,8 @@ class ExcelFile {
   #options = {
     /**
      * SheetJS array index number translated from the Excel headers row count
-     * before elements containing "municipalityName (provinceName)" data
+     * before elements containing "municipalityName (provinceName)" data.
+     * - This is also the number of Excel header rows before the actual rows with uniform forecast data
      * @type {number}
      */
     dataRowStart: 0,
@@ -95,7 +96,7 @@ class ExcelFile {
   #datalist = []
 
   /**
-   * string[] array of malformed (garbled) text characters to watch of for in the Excel file.
+   * string[] array of malformed (garbled) text characters to watch for in the Excel file.
    * Its value is set in the `process.env.SPECIAL_CHARACTERS` env variable.
    * @type {String[]}
    */
@@ -107,6 +108,13 @@ class ExcelFile {
    * @type {Object}
    */
   static malformedTextCorrections = {}
+
+  /**
+   * Invalid data rows that do not follow the expected uniform formats
+   * e.g., having a **province** that's not included in the **PAGASA Rainfall Analysis Table** in
+   * `"City of Isabela (City of Isabela (Not a Province))"`
+   */
+  #invalidRows = []
 
   /**
    * Node event emitter for listening to custom events.
@@ -232,6 +240,15 @@ class ExcelFile {
           if (row[this.#options.SHEETJS_COL] === 'Municipalities') {
             const OFFSET_FROM_FLAG = 2
             this.#options.dataRowStart = index + OFFSET_FROM_FLAG
+          } else {
+            // Check if row index corresponds to province-municipality and weather forecast data row
+            const isDataRow = this.#options.dataRowStart > 0 &&
+              index >= this.#options.dataRowStart
+
+            // Store data row to `this.#invalidRows[]` since it does not follow the "municipalityName (provinceName)" pattern
+            if (isDataRow) {
+              this.#invalidRows.push(row[this.#options.SHEETJS_COL])
+            }
           }
 
           if (this.#metadata.forecastDate === null) {
@@ -424,6 +441,10 @@ class ExcelFile {
   // Returns the raw Excel JSON data
   get data () {
     return this.#data
+  }
+
+  get invalidRows () {
+    return this.#invalidRows
   }
 
   // Returns the region data settings object

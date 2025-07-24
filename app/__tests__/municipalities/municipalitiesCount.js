@@ -25,6 +25,9 @@ describe('Municipalities total count match', () => {
   it('municipalities from provinces config should match with original Excel municipalities count', async () => {
     jest.setTimeout(20000)
 
+    // Number of invalid Excel rows (rows with malformed "municipality-province" string patterns)
+    const countInvalidDataRows = excelFile.invalidRows.length
+
     // Create local/remote ExcelFile classes using the default PAGASA region settings
     const {
       excel,
@@ -64,6 +67,13 @@ describe('Municipalities total count match', () => {
         })
     }
 
+    if (countInvalidDataRows > 0) {
+      logger.log(
+        `[WARNING]: ${countInvalidDataRows} INVALID EXCEL DATA ROWS(S) found:\n` +
+        `${arrayToString(excelFile.invalidRows)}`, { color: ColorLog.COLORS.TEXT.RED }
+      )
+    }
+
     if (hasMissingInConfig || hasMissingInExcel) {
       logger.log(
         '[INFO]: If you believe these RED warning(s) are incorrect, feel free to reach out\n' +
@@ -75,7 +85,7 @@ describe('Municipalities total count match', () => {
       passMsg += 'PAGASA seasonal & 10-day province/municipalities naming conventions for the other regions, and they\n'
       passMsg += 'may change anytime without prior notice. Take note of the INFOS/WARNINGS and to accommodate CUSTOM SETTINGS as necessary:\n'
       passMsg += '- Extend/override the class methods on custom scripts or\n'
-      passMsg += '- Eass custom (updated) regions.json config to the class constructors'
+      passMsg += '- Pass custom (updated) regions.json config to the class constructors'
       expect(logger.log(passMsg, { color: ColorLog.COLORS.TEXT.YELLOW })).toBe(undefined)
     } else {
       logger.log('[MUNICIPALITIES]: Municipalities counts match in config and Excel', {
@@ -95,9 +105,12 @@ describe('Municipalities total count match', () => {
     */
 
     if (excelFile.options.dataRowStart > 0) {
-    // Parsed/loaded municipalities in the Excel file using the (manual-encoded) PAGASA seasonal config
-    // including provinces missing in the config should be equal to the raw loaded data count
-      expect(totalMunicipalitiesConfig + excelFile.options.dataRowStart).toBe(excelFile.data.length)
+      // Subtract the invalid Excel rows count to the original Excel data rows count
+      const totalValidDataCount = excelFile.data.length - countInvalidDataRows
+
+      // Parsed/loaded municipalities in the Excel file using the (manual-encoded) PAGASA seasonal config
+      // including provinces missing in the config should be equal to the raw loaded data count
+      expect(totalMunicipalitiesConfig + excelFile.options.dataRowStart).toBe(totalValidDataCount)
     } else {
       throw new Error('Invalid 10-day Excel file format: Missing "Project Areas" text')
     }

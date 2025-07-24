@@ -48,7 +48,8 @@ const createMunicipalityInstance = (excelFile) => {
     logger.log(
       `[INFO]: Parsed municipalities from config: ${config.countMunicipalities}\n` +
       `[INFO]: Parsed municipalities from Excel file: ${excel.countMunicipalities}\n` +
-      `[INFO]: Total data rows from Excel file: ${excelFile.data.length}, SheetJS (Excel) header rows count: ${excelFile.options.dataRowStart}\n`, {
+      `[INFO]: Parsed invalid-format municipalities (excluded from ${excel.countMunicipalities}): ${excelFile.invalidRows.length}\n` +
+      `[INFO]: Total data rows from Excel file: ${excelFile.data.length}, ${excelFile.invalidRows.length} invalid row(s), SheetJS (Excel) header rows count: ${excelFile.options.dataRowStart}\n`, {
         color: ColorLog.COLORS.TEXT.CYAN
       })
 
