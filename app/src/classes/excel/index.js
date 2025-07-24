@@ -53,9 +53,9 @@ class ExcelFile {
    */
   #options = {
     /**
-     * SheetJS array index number translated from the Excel headers row count
-     * before elements containing "municipalityName (provinceName)" data.
-     * - This is also the number of Excel header rows before the actual rows with uniform Excel data
+     * SheetJS-parsed (`this.#data[]`) array index number indicating the first row containing
+     * "municipalityName (provinceName)" municipality data.
+     * - This is also the number of `this.#data[]` rows before the actual rows with uniform Excel data
      * @type {number}
      */
     dataRowStart: 0,
@@ -113,8 +113,16 @@ class ExcelFile {
    * Invalid data rows that do not follow the expected "municipalityName (provinceName)" uniform
    * e.g., also having a **province** that's not included in the **PAGASA Rainfall Analysis Table** in
    * `"City of Isabela (City of Isabela (Not a Province))"`
+   * @type {string[]}
    */
   #invalidRows = []
+
+  /**
+   * A marker text found in the Excel file and the sheetjs-parsed `this.#data[]` array that indicates
+   * the start of actual municipality data in the next array element (i.e., the next Excel row).
+   * @type {string}
+   */
+  DATA_ROW_START_MARKER = 'Municipalities'
 
   /**
    * Node event emitter for listening to custom events.
@@ -237,7 +245,7 @@ class ExcelFile {
         } else {
           // Find the SheetJS array index of rows containing data
           // Note: this relies on the structure of the default Excel file in /app/data/day1.xlsx or similar
-          if (row[this.#options.SHEETJS_COL] === 'Municipalities') {
+          if (row[this.#options.SHEETJS_COL] === this.DATA_ROW_START_MARKER) {
             const OFFSET_FROM_FLAG = 2
             this.#options.dataRowStart = index + OFFSET_FROM_FLAG
           } else {

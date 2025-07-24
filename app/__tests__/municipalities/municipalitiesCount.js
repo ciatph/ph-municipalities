@@ -112,7 +112,7 @@ describe('Municipalities total count match', () => {
       // including provinces missing in the config should be equal to the raw loaded data count
       expect(totalMunicipalitiesConfig + excelFile.options.dataRowStart).toBe(totalValidDataCount)
     } else {
-      throw new Error('Invalid 10-day Excel file format: Missing "Project Areas" text')
+      throw new Error(`Invalid 10-day Excel file format: Missing "${excelFile.DATA_ROW_START_MARKER}" text`)
     }
   })
 })
