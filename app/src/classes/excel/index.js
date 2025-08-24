@@ -110,7 +110,7 @@ class ExcelFile {
   static malformedTextCorrections = {}
 
   /**
-   * Invalid data rows that do not follow the expected "municipalityName (provinceName)" uniform
+   * Invalid data rows that do not follow the expected "municipalityName (provinceName)" uniform string pattern
    * e.g., also having a **province** that's not included in the **PAGASA Rainfall Analysis Table** in
    * `"City of Isabela (City of Isabela (Not a Province))"`
    * @type {string[]}
@@ -491,7 +491,7 @@ class ExcelFile {
       metadata: {
         source: url || '',
         title: 'List of PH Municipalities By Province and Region',
-        description: 'This dataset generated with reference to the excel file contents from the source URL.',
+        description: 'This dataset was generated with reference to the Excel file contents from the source URL.',
         date_created: new Date().toDateString()
       },
       data: this.listMunicipalities({ provinces })

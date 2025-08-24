@@ -1,7 +1,7 @@
 const path = require('path')
 const ExcelFile = require('../classes/excel')
 
-// Use the the following if installed via npm
+// Use the following if installed via npm
 // const { ExcelFile } = require('ph-municipalities')
 
 // Reads an existing excel file on /app/data/day1.xlsx

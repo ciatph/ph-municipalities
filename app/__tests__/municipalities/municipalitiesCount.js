@@ -25,7 +25,7 @@ describe('Municipalities total count match', () => {
   it('municipalities from provinces config should match with original Excel municipalities count', async () => {
     jest.setTimeout(20000)
 
-    // Number of invalid Excel rows (rows with malformed "municipality-province" string patterns)
+    // Number of invalid Excel rows (rows with non-uniform "municipality-province" string patterns)
     const countInvalidDataRows = excelFile.invalidRows.length
 
     // Create local/remote ExcelFile classes using the default PAGASA region settings
@@ -77,7 +77,8 @@ describe('Municipalities total count match', () => {
     if (hasMissingInConfig || hasMissingInExcel) {
       logger.log(
         '[INFO]: If you believe these RED warning(s) are incorrect, feel free to reach out\n' +
-        'or you may extend and override the ExcelFile or ExcelFactory classes in your scripts.', {
+        'or you may extend and override the ExcelFile / ExcelFactory classes in your scripts,\n' +
+        'or pass a custom "regions.json" config with an updated regions-to-province mapping in their class constructor.', {
           color: ColorLog.COLORS.TEXT.RED
         })
 
