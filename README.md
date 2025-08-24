@@ -1,5 +1,26 @@
 ## ph-municipalities
 
+### ⚠️ Warning
+
+> Starting on **August 31, 2025**, PAGASA will permanently discontinue its downloadable 10-Day Weather Forecast Excel files.
+>
+> After this date, **ph-municipalities classes, scripts, and CLI** will no longer fetch **new forecast or location data** from PAGASA. The tool will only work with:
+> - Its [default archived Excel file](https://github.com/ciatph/ph-municipalities/blob/dev/app/data/day1.xlsx), or
+> - Archived Excel files stored in the [`/archives`](https://github.com/ciatph/ph-municipalities/tree/archives) branch (via GitHub raw URLs, and **no new files will be added**).
+>
+> 🟠 _From then on, results will reflect only static archived Excel files (no longer updated), suitable for reference or testing._<br>
+> ➡️ _**This limitation comes directly from PAGASA discontinuing Excel downloads**, not from a removal of functionality in ph-municipalities._
+>
+> > _**NOTE:** ph-municipalities is **not designed to sync with the [PAGASA TenDay API](https://tenday.pagasa.dost.gov.ph/docs)**, and it has no immediate plans for fetching live data from that service._
+>
+> For details and discussion, see [Issue #156](https://github.com/ciatph/ph-municipalities/issues/156) or jump to the [Discontinuation of PAGASA Excel Files FAQs](#discontinuation-of-pagasa-excel-files).
+
+<br>
+
+---
+
+<br>
+
 The **ph-municipalities** NPM package provides **NPM scripts** that allow interactive querying of Philippine municipalities included in one or more provinces or from a whole region, with an option of writing them to JSON files from the command line through a CLI-like application and **classes** for only parsing and listing municipality names and provinces from Excel file data sources.
 
 It uses a **PAGASA 10-day weather forecast Excel** file in `/app/data/day1.xlsx` (downloaded and stored as of this 20220808) from PAGASA's [10-Day Climate Forecast web page](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the default data source.
@@ -7,6 +28,7 @@ It uses a **PAGASA 10-day weather forecast Excel** file in `/app/data/day1.xlsx`
 > Since the **PAGASA 10-day weather forecast Excel** files do not have region names, the parser scripts sync it with the **PAGASA Seasonal weather forecast** regions and province names defined in the manually-encoded `/app/config/regions.json` file to determine the region names. The **classes** also provide an option to specify a new region name configuration file on initialization.
 
 It also asks users to key in the file download URL of a remote PAGASA 10-Day weather forecast Excel file should they want to use another Excel file for a new and updated data source.
+
 
 > _**INFO:** When installing the package using `npm i ph-municipalities`, the default data source is inside `/data/day1.xlsx`. All source codes and files are also inside the **ph-municipalities** root directory._
 
@@ -67,7 +89,7 @@ The following dependencies are used for this project. Feel free to use other dep
    ```
 4. Excel file
    - ph-municipalities uses a PAGASA 10-Day Forecast Excel file in the `/app/data` directory as data source.
-   - At minimum, the Excel file should have a **column** that contains municipality and province names following the pattern `"municipalityName (provinceName)"`
+   - At minimum, the Excel file should have a **column** that contains municipality and province names following the uniform pattern: `"municipalityName (provinceName)"`
    - (Optional) The Excel file should have a row on the same **column** as above containing the text `"Project Areas"` plus two (2) blank rows before rows containing municipality and province names to enable strict testing and validation of the number of parsed data rows
    - Checkout the excel file format on the `/app/data/day1.xlsx` sample file for more information
 5. (Optional) Download URL for a remote excel file.
@@ -88,11 +110,13 @@ The following dependencies are used for this project. Feel free to use other dep
 
 <br>
 
-ph-municipalities aims to provide a simple, organized, and flexible interface for viewing, querying, and listing Philippine provinces and municipalities using the [PAGASA 10-day weather forecast Excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the data source. It aims to enable easy extension of Philippine regions/provinces/municipalities listing for parsing the PAGASA 10-day weather forecast data.
+ph-municipalities aims to provide a simple, organized, and flexible interface for viewing, querying, and listing Philippine provinces and municipalities using the [PAGASA 10-day weather forecast Excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) as the data source. It aims to enable easy extension of listing Philippine regions/provinces/municipalities for parsing PAGASA 10-day weather forecast data.
 
-Its early stages were written as procedural functions within a _private backend project_ for extracting 10-day weather forecast data from the PAGASA 10-day weather forecast Excel files. When the private project started gaining complexity, a need to separate the logic and management for listing the Philippine province and municipalities per region rose. Creating an independent, public OpenSource version listing the provinces and municipalities per region was decided after experiencing drawbacks and difficulties testing using similar OpenSource libraries (some of which are [listed below](#similar-libraries)) for that project.
+**ph-municipalities** evolved from basic procedural functions within a _private backend project_ into a well-tested, documented, and modular open-source library, enabling broader community access and better code quality.
 
-> **_ph-municipalities aim to contribute to the OpenSource community by listing ONLY Philippine provinces and municipalities' names, using [PAGASA's 10-day weather forecast Excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast), which are publicly accessible to everyone._**
+Its early stages were written as procedural functions for extracting 10-day weather forecast data from the PAGASA 10-day weather forecast Excel files. When the private project started gaining complexity, a need to separate the logic, management, and testing for listing the Philippine provinces and municipalities per region arose. Creating an independent, public, and open source version listing the provinces and municipalities per region was decided after experiencing drawbacks and difficulties testing using similar open source libraries (some of which are [listed below](#similar-libraries)) for that project.
+
+> **_ph-municipalities aim to contribute to the open source community by listing ONLY Philippine provinces and municipality names, using [PAGASA's 10-day weather forecast Excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast), which are publicly accessible to everyone._**
 
 **ph-municipalities** is entirely public and open-source, and it has no linkage to private and proprietary source codes and resources.
 
@@ -122,7 +146,7 @@ ph-municipalities only have class methods for parsing, extracting, listing and q
 
 <br>
 
-Yes, several OpenSource libraries and projects similar to ph-municipalities exist, which you can use in its place to list Philippine provinces and municipalities.
+Yes, several open source libraries and projects similar to ph-municipalities exist, which you can use in its place to list Philippine provinces and municipalities.
 
 Here is a list of several of these libraries and code repositories.
 Note, however, that these items use old and new data sources. These may not be for you if you require using provinces and municipalities' names data from the [PAGASA 10-day weather forecast Excel files](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast).
@@ -228,6 +252,140 @@ NO. By default, ph-municipalities use an outdated PAGASA 10-day Excel file for i
 
 > **NOTE:**<br>
 > Overall, the provinces and municipality list rely on the latest contents of a [PAGASA 10-day Excel file](https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast) and manual configuration of region/province names mapping in the `/app/config/regions.json` file (See [Class Usage - Using a Custom Configuration File](#using-a-custom-configuration-file)). It is not yet known and tested if these are in sync with the latest regions, provinces, and municipalities in the more standard and canon [Philippine Standard Geographic Code (PSGC)](https://psa.gov.ph/classification/psgc) data.
+
+</details>
+
+<br>
+
+<span id="discontinuation-of-pagasa-excel-files"></span>
+### 📉 Discontinuation of PAGASA Excel Files
+
+As of **August 31, 2025**, PAGASA has discontinued its **10-Day Weather Forecast Excel** files. From now on, **ph-municipalities** only works with static archived data.
+
+For common questions (e.g., whether the tool will continue to access new data or why it can't use the API automatically), please refer to the **FAQs** below.
+
+<details>
+<summary style="color: #808080; font-size: 22px;">
+  <span style="color: #808080; font-size: 22px;">
+    <b>Will ph-municipalities get new data after August 31, 2025?</b>
+  </span>
+</summary>
+
+<br>
+
+No. It only works with archived Excel files (see [Discontinuation](#discontinuation-of-pagasa-excel-files)).
+
+It applies to all **classes, scripts, and CLI commands**. None of them will fetch new forecasts or updated municipality lists.
+
+</details>
+
+<br>
+
+<details>
+<summary style="color: #808080; font-size: 22px;">
+  <span style="color: #808080; font-size: 22px;">
+    <b>Why can't ph-municipalities switch to the new PAGASA TenDay API automatically?</b>
+  </span>
+</summary>
+
+<br>
+
+The [PAGASA TenDay API](https://tenday.pagasa.dost.gov.ph/docs) requires an officially approved request token. This open-source project is not linked to an official PAGASA initiative, so token requests may not be granted.
+
+> 💡 ph-municipalities will remain archived-only, unless integrated manually with the API by developers.
+
+</details>
+
+<br>
+
+<details>
+<summary style="color: #808080; font-size: 22px;">
+  <span style="color: #808080; font-size: 22px;">
+    <b>What should I use ph-municipalities for after August 31, 2025?</b>
+  </span>
+</summary>
+
+<br>
+
+It can still be used as a **reference** or for **testing** with the [archived Excel files](https://github.com/ciatph/ph-municipalities/tree/archives).
+
+For **live weather and location updates**, consider migrating to the official [PAGASA TenDay API](https://tenday.pagasa.dost.gov.ph/docs) with an approved token.
+
+</details>
+
+<br>
+
+<details>
+<summary style="color: #808080; font-size: 22px;">
+  <span style="color: #808080; font-size: 22px;">
+    <b>My project depends on ph-municipalities. Will it break?</b>
+  </span>
+</summary>
+
+<br>
+
+> **NOTE:** The open-source version of ph-municipalities provides better testing, documentation, and modularity compared to its original form as basic procedural functions in a private project.
+> Even in an official project, developers would still need an <b>approved API token</b> and would need to shift from <b>handling Excel files</b> to <b>handling PAGASA REST API responses</b>.
+
+In short - yes, it will break when using its remote Excel file download URL that points to the `DEFAULT_EXCEL_FILE_URL` (see `.env.example`). It will also risk using outdated data when using the default archived Excel data sources.
+
+> Like mentioned, syncing with the **PAGASA TenDay APIs** is currently **out of scope of ph-municipalities** due to the reasons mentioned in the FAQs above. Projects depending on ph-municipalities should consider alternate options in accordance with the **discontinuation of the PAGASA 10-Day Weather Forecast Excel files** and the availability of the newly-released [**PAGASA TenDay APIs**](https://tenday.pagasa.dost.gov.ph/docs).
+
+#### Recommended Migration Steps
+
+<ol>
+<li>Request an official API token from PAGASA to use the TenDay APIs.</li>
+<li>Stop using ph-municipalities (built only for the public <b>PAGASA 10-Day Excel</b> files) and <b>implement your own TenDay API solution.</b></li>
+<li>(Optional) Extend ph-municipalities' <b>classes</b> by overriding fetch/receive logic to work with the new TenDay APIs, if you <b>wish to continue using its location data utilities with updated data</b>.
+
+```javascript
+const { ExcelFile } = require('ph-municipalities')
+
+class PAGASATendayAPI extends ExcelFile {
+  /* Override constructor if neccessary */
+  constructor (params) {
+    super(params)
+
+    // - Custom class initialization logic here
+  }
+
+  async init () {
+    // - Update class initialization logic
+  }
+
+  download () {
+    // - Fetch from PAGASA TenDay APIs instead of Excel files
+  }
+
+  listRegions () { /* Fetch from API */ }
+  listAllProvinces () { /* Fetch from API */ }
+  listMunicipalities () { /* Fetch from API */ }
+
+  ...
+}
+
+const pagasaAPI = new PAGASATendayAPI()
+weatherForecast = pagasaAPI.getWeatherData()
+
+```
+
+</li>
+</ol>
+
+</details>
+
+<br>
+
+<details>
+<summary style="color: #808080; font-size: 22px;">
+  <span style="color: #808080; font-size: 22px;">
+    <b>Where can I learn more about these changes?</b>
+  </span>
+</summary>
+
+<br>
+
+See [Issue #156](https://github.com/ciatph/ph-municipalities/issues/156) for details and discussion.
 
 </details>
 
@@ -866,6 +1024,8 @@ The class documentation uses [JSDoc](https://jsdoc.app/) annotations where appli
    docker exec -u root -it ph-municipalities npm run docs:build
    ```
 
+4. View the generated documentation in the `/app/docs` directory. Click the `/app/docs/index.html` file to launch the documentation website.
+
 </details>
 
 <br>
@@ -895,6 +1055,8 @@ The class documentation uses [JSDoc](https://jsdoc.app/) annotations where appli
    ./scripts/docs-install.sh
    ./scripts/docs-build.sh
    ```
+
+6. View the generated documentation in the `/app/docs` directory. Click the `/app/docs/index.html` file to launch the documentation website.
 
 </details>
 
