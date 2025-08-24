@@ -48,7 +48,7 @@ const updateInstances = ({
     }
 
     if (invalidRowsCount > 0) {
-      let msg = `[WARNING]: Parsed ${invalidRowsCount} invalid rows\n`
+      const msg = `[WARNING]: Parsed ${invalidRowsCount} invalid rows\n`
       logger.log(msg)
     }
 
