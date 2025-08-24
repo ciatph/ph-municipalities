@@ -1,6 +1,6 @@
 {
   "name": "ph-municipalities",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "description": "Lists and writes Philippine municipalities by province or region into JSON files using PAGASA 10-Day weather forecast Excel files as a data source",
   "main": "index.js",
   "engines": {

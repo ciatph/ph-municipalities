@@ -38,8 +38,12 @@ const createInstances = (excelFile) => {
     // Log other info
     const dataSource = excelFile?.url ?? 'default local 10-Day Excel file'
 
+    // Number of invalid rows (contains malformed province-municipality string pattern)
+    const invalidRowsCount = excelFile.invalidRows.length
+
     let message = `[INFO]: Loaded ${excelFile.data.length} Excel rows\n`
     message += `[INFO]: Parsed ${excelFile.datalist.length} data rows\n`
+    message += `[INFO]: Parsed ${invalidRowsCount} invalid rows\n`
     message += `[INFO]: from ${dataSource}\n`
     message += `[INFO]: ${excelFile.metadata.forecastDate}`
     logger.log(message, { color: ColorLog.COLORS.TEXT.GREEN })

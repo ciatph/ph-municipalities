@@ -2,7 +2,7 @@ require('dotenv').config()
 const path = require('path')
 const ExcelFile = require('../classes/excel')
 
-// Use the the following if installed via npm
+// Use the following if installed via npm
 // const { ExcelFile } = require('ph-municipalities')
 
 const main = async () => {
