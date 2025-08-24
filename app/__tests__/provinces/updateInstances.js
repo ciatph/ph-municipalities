@@ -6,7 +6,7 @@ const logger = new ColorLog({ color: ColorLog.COLORS.TEXT.YELLOW, isBold: true }
 const { arrayToString } = require('../../src/lib/utils')
 
 /**
- * Updates the initial province names data read by an `ExcelFile` or ExcelFactory` class from `createInstances()` for log-viewing purposes only.
+ * Updates the initial province names data read by an `ExcelFile` or `ExcelFactory` class from `createInstances()` for log-viewing purposes only.
  * Displays diagnostic information and error logs.
  * @param {Object} params - Input parameters
  * @param {String[]} params.allExcelProvinces - all provinces from the 10-day Excel file
@@ -25,7 +25,8 @@ const updateInstances = ({
   uniqueExcelProvinces,
   uniqueProvinces,
   fromConfig,
-  fromExcel
+  fromExcel,
+  invalidRowsCount = 0
 }) => {
   try {
     // Provinces present in the config (PAGASA seasonal) but missing in the 10-Day Excel file
@@ -46,17 +47,28 @@ const updateInstances = ({
       logger.log(msg)
     }
 
+    if (invalidRowsCount > 0) {
+      let msg = `[WARNING]: Parsed ${invalidRowsCount} invalid rows\n`
+      logger.log(msg)
+    }
+
     // Provinces names do not match in 10-Day Excel file and the (PAGASA seasonal) config file
     if (fromExcel.length > 0 || fromConfig.length > 0) {
       let msg = `[INFO]: Original provinces count are: ${allProvinces.length} (PAGASA seasonal config) vs. ${allExcelProvinces.length} (10-Day Excel file)\n`
       msg += '[INFO]: Removed incosistent provinces in the config and Excel file only during checking/testing (see yellow WARNINGs)\n'
       msg += `[INFO]: Modified provinces count are: ${uniqueProvinces.size} (PAGASA seasonal config) vs. ${uniqueExcelProvinces.size} (10-Day Excel file)\n\n`
-      msg += '[NOTE]: If you believe these INFOs are incorrect, feel free to reach out or you may extend and override\n'
-      msg += 'the ExcelFile or ExcelFactory class methods or pass them custom regions.json config in your scripts to\n'
-      msg += 'customize this behaviour and other logic.'
+      msg += '[💡 NOTE]: If you believe these INFOs are incorrect, feel free to reach out or you may extend and override\n'
+      msg += 'the ExcelFile or ExcelFactory class methods to customize this behaviour and other logic.\n'
+
+      let msgConfig = '[💡 TIP]: You may also pass a custom "regions.json" config in the ExcelFile / ExcelFactory class constructor\n'
+      msgConfig += 'to reflect an updated regions-to-provinces mapping.\n'
 
       logger.log(msg, {
         color: ColorLog.COLORS.TEXT.CYAN
+      })
+
+      logger.log(msgConfig, {
+        color: ColorLog.COLORS.TEXT.MAGENTA
       })
     } else {
       logger.log('[PROVINCES]: Province counts match in config and Excel', {

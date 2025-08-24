@@ -110,7 +110,7 @@ class ExcelFile {
   static malformedTextCorrections = {}
 
   /**
-   * Invalid data rows that do not follow the expected "municipalityName (provinceName)" uniform
+   * Invalid data rows that do not follow the expected "municipalityName (provinceName)" uniform string pattern
    * e.g., also having a **province** that's not included in the **PAGASA Rainfall Analysis Table** in
    * `"City of Isabela (City of Isabela (Not a Province))"`
    * @type {string[]}

@@ -25,7 +25,7 @@ describe('Municipalities total count match', () => {
   it('municipalities from provinces config should match with original Excel municipalities count', async () => {
     jest.setTimeout(20000)
 
-    // Number of invalid Excel rows (rows with malformed "municipality-province" string patterns)
+    // Number of invalid Excel rows (rows with non-uniform "municipality-province" string patterns)
     const countInvalidDataRows = excelFile.invalidRows.length
 
     // Create local/remote ExcelFile classes using the default PAGASA region settings
