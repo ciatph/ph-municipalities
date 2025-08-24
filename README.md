@@ -46,7 +46,7 @@ Extracted municipalities are written in JSON files following the format:
   "metadata": {
     "source": "https://pubfiles.pagasa.dost.gov.ph/pagasaweb/files/climate/tendayweatheroutlook/day1.xlsx",
     "title": "List of PH Municipalities By Province and Region",
-    "description": "This dataset generated with reference to the excel file contents from the source URL on 20220808.",
+    "description": "This dataset generated with reference to the Excel file contents from the source URL on 20220808.",
     "date_created": "Mon Aug 08 2022"
   },
   "data": {
@@ -92,8 +92,8 @@ The following dependencies are used for this project. Feel free to use other dep
    - ph-municipalities uses a PAGASA 10-Day Forecast Excel file in the `/app/data` directory as data source.
    - At minimum, the Excel file should have a **column** that contains municipality and province names following the uniform pattern: `"municipalityName (provinceName)"`
    - (Optional) The Excel file should have a row on the same **column** as above containing the text `"Municipalities"` plus two (2) blank rows before rows containing municipality and province names to enable strict testing and validation of the number of parsed data rows
-   - Checkout the excel file format on the `/app/data/day1.xlsx` sample file for more information
-5. (Optional) Download URL for a remote excel file.
+   - Checkout the Excel file format on the `/app/data/day1.xlsx` sample file for more information
+5. (Optional) Download URL for a remote Excel file.
    - See the `EXCEL_FILE_URL` variable on the [Installation](#installation) section.
 6. (Optional) Docker
    - Use Docker for localhost development
@@ -464,8 +464,10 @@ Click to expand the table of contents
 
    | Variable Name | Description |
    | --- | --- |
-   | EXCEL_FILE_URL    | (Optional) Remote excel file's download URL.<br>If provided, the excel file will be downloaded and saved on the specified `pathToFile` local filesystem location during the `ExcelFile` class initialization.<br>Read on [Usage](#usage) for more information. |
-   | SHEETJS_COLUMN    | Column name read by [sheetjs](https://sheetjs.com/) in an excel file.<br>This column contains the municipality and province names following the string pattern<br>`"municipalityName (provinceName)"`<br>Default value is `__EMPTY`|
+   | EXCEL_FILE_URL    | (Optional) Remote Excel file's download URL.<br>If provided, the Excel file will be downloaded and saved on the specified `pathToFile` local filesystem location during the `ExcelFile` class initialization.<br>Read on [Usage](#usage) for more information. |
+   | DEFAULT_EXCEL_FILE_URL | The default remote Excel file's download URL. |
+   | ARCHIVED_EXCEL_FILE_URL | Download URL of an archived remote Excel file to serve as fixtures with the discontinuation of the PAGASA 10-Day Excel files.<br><br><blockquote>⚠️ Replace the value of `EXCEL_FILE_URL` and `DEFAULT_EXCEL_FILE_URL` with its value starting on **August 31, 2025** to avoid processing and test errors.</blockquote>See [Issue #156](https://github.com/ciatph/ph-municipalities/issues/156) for more information. |
+   | SHEETJS_COLUMN    | Column name read by [sheetjs](https://sheetjs.com/) in an Excel file.<br>This column contains the municipality and province names following the string pattern<br>`"municipalityName (provinceName)"`<br>Default value is `__EMPTY`|
    | SORT_ALPHABETICAL | Arranges the municipality names in alphabetical order.<br>Default value is `1`. Set to `0` to use the ordering as read from the Excel file. |
    | SPECIAL_CHARACTERS | Key-value pairs of special characters or garbled text and their normalized text conversions, delimited by the `":"` character.<br>Multiple key-value pairs are delimited by the `","` character.<br>If a special character key's value is a an empty string, write it as i.e.,: `"some-garbled-text:"` |
    | IMAGE_URL | Raw URL of the README image file from this GitHub repository.<br> <blockquote>**NOTE:** Only add this variable in the GitHub Secrets for publishing to the NPM registry since NPM does not allow displaying images by relative path.</blockquote> |
@@ -544,9 +546,9 @@ npm run list:region
 
 ### `npm start` / `npm run list:region`
 
-- Asks users to enter the download URL of a remote excel file or use the default local excel file
-  - Loads and parses the local excel file in `/app/data/day1.xlsx` by default.
-  - Loads and parses the downloaded excel file to `/app/data/datasource.xlsx` if download URL in the class constructor is provided.
+- Asks users to enter the download URL of a remote Excel file or use the default local Excel file
+  - Loads and parses the local Excel file in `/app/data/day1.xlsx` by default.
+  - Loads and parses the downloaded Excel file to `/app/data/datasource.xlsx` if download URL in the class constructor is provided.
 - Displays a list of available PH **region** names.
 - Lists all provinces and municipalities of a specified region via commandline input.
 - Asks for an option to write results to a JSON file.
@@ -555,9 +557,9 @@ npm run list:region
 
 ### `npm run list:province`
 
-- Asks users to enter the download URL of a remote excel file or use the default local excel file
-  - Loads and parses the local excel file in `/app/data/day1.xlsx` by default.
-  - Loads and parses the downloaded excel file to `/app/data/datasource.xlsx` if download URL in the class constructor is provided.
+- Asks users to enter the download URL of a remote Excel file or use the default local Excel file
+  - Loads and parses the local Excel file in `/app/data/day1.xlsx` by default.
+  - Loads and parses the downloaded Excel file to `/app/data/datasource.xlsx` if download URL in the class constructor is provided.
 - Lists all municipalities under specified province(s) via commandline input.
 - Asks for an option to write results to a JSON file.
 - Run the script as follows if installed using `npm i ph-municipalities`:
@@ -686,7 +688,7 @@ Run tests defined in the `/app/__tests__` directory.
 
 ### `npm run example`
 
-- Downloads and parses a remote excel file.
+- Downloads and parses a remote Excel file.
 - Demonstrates sample usage with `await`
 
 ### `npm run debug`
@@ -716,7 +718,7 @@ const ExcelFile = require('../classes/excel')
 // Use the the following if installed via npm
 // const { ExcelFile } = require('ph-municipalities')
 
-// Reads an existing excel file on /app/data/day1.xlsx
+// Reads an existing Excel file on /app/data/day1.xlsx
 file = new ExcelFile({
    pathToFile: path.join(__dirname, '..', '..', 'data', 'day1.xlsx'),
    // fastload: false
@@ -742,7 +744,7 @@ const json = file.writeMunicipalities({
 // without writing to a JSON file
 const json2 = file.shapeJsonData(provinces)
 
-// JSON data of the parsed excel file will is accessible on
+// JSON data of the parsed Excel file will is accessible on
 // file.datalist
 console.log(file.datalist)
 
@@ -766,7 +768,7 @@ const ExcelFile = require('../classes/excel')
 // Use the the following if installed via npm
 // const { ExcelFile } = require('ph-municipalities')
 
-// Reads an existing excel file on /app/data/day1.xlsx
+// Reads an existing Excel file on /app/data/day1.xlsx
 const file = new ExcelFile({
   pathToFile: path.join(__dirname, '..', '..', 'data', 'day1.xlsx'),
   fastload: true
