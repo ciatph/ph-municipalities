@@ -8,10 +8,11 @@
 > - Its [default archived Excel file](https://github.com/ciatph/ph-municipalities/blob/dev/app/data/day1.xlsx), or
 > - Archived Excel files stored in the [`/archives`](https://github.com/ciatph/ph-municipalities/tree/archives) branch (via GitHub raw URLs, and **no new files will be added**).
 >
-> 🟠 _From then on, results will reflect only static archived Excel files (no longer updated), suitable for reference or testing._<br>
+> 🟠 _From then on, results will reflect only static archived Excel files (no longer updated), suitable for reference or testing._
+>
 > ➡️ _**This limitation comes directly from PAGASA discontinuing Excel downloads**, not from a removal of functionality in ph-municipalities._
 >
-> > _**NOTE:** ph-municipalities is **not designed to sync with the [PAGASA TenDay API](https://tenday.pagasa.dost.gov.ph/docs)**, and it has no immediate plans for fetching live data from that service._
+> 💡 _**NOTE:** ph-municipalities is **not designed to sync with the [PAGASA TenDay API](https://tenday.pagasa.dost.gov.ph/docs)**, and it has no immediate plans for fetching live data from that service._
 >
 > For details and discussion, see [Issue #156](https://github.com/ciatph/ph-municipalities/issues/156) or jump to the [Discontinuation of PAGASA Excel Files FAQs](#discontinuation-of-pagasa-excel-files).
 
@@ -90,7 +91,7 @@ The following dependencies are used for this project. Feel free to use other dep
 4. Excel file
    - ph-municipalities uses a PAGASA 10-Day Forecast Excel file in the `/app/data` directory as data source.
    - At minimum, the Excel file should have a **column** that contains municipality and province names following the uniform pattern: `"municipalityName (provinceName)"`
-   - (Optional) The Excel file should have a row on the same **column** as above containing the text `"Project Areas"` plus two (2) blank rows before rows containing municipality and province names to enable strict testing and validation of the number of parsed data rows
+   - (Optional) The Excel file should have a row on the same **column** as above containing the text `"Municipalities"` plus two (2) blank rows before rows containing municipality and province names to enable strict testing and validation of the number of parsed data rows
    - Checkout the excel file format on the `/app/data/day1.xlsx` sample file for more information
 5. (Optional) Download URL for a remote excel file.
    - See the `EXCEL_FILE_URL` variable on the [Installation](#installation) section.
@@ -324,19 +325,19 @@ For **live weather and location updates**, consider migrating to the official [
 
 <br>
 
-> **NOTE:** The open-source version of ph-municipalities provides better testing, documentation, and modularity compared to its original form as basic procedural functions in a private project.
-> Even in an official project, developers would still need an <b>approved API token</b> and would need to shift from <b>handling Excel files</b> to <b>handling PAGASA REST API responses</b>.
-
 In short - yes, it will break when using its remote Excel file download URL that points to the `DEFAULT_EXCEL_FILE_URL` (see `.env.example`). It will also risk using outdated data when using the default archived Excel data sources.
 
 > Like mentioned, syncing with the **PAGASA TenDay APIs** is currently **out of scope of ph-municipalities** due to the reasons mentioned in the FAQs above. Projects depending on ph-municipalities should consider alternate options in accordance with the **discontinuation of the PAGASA 10-Day Weather Forecast Excel files** and the availability of the newly-released [**PAGASA TenDay APIs**](https://tenday.pagasa.dost.gov.ph/docs).
+
+>💡 **NOTE:** The open-source version of ph-municipalities provides better testing, documentation, and modularity compared to its original form as basic procedural functions in a private project.
+> Even in an official project, developers would still need an <b>approved API token</b> and would need to shift from <b>handling Excel files</b> to <b>handling PAGASA REST API responses</b>.
 
 #### Recommended Migration Steps
 
 <ol>
 <li>Request an official API token from PAGASA to use the TenDay APIs.</li>
 <li>Stop using ph-municipalities (built only for the public <b>PAGASA 10-Day Excel</b> files) and <b>implement your own TenDay API solution.</b></li>
-<li>(Optional) Extend ph-municipalities' <b>classes</b> by overriding fetch/receive logic to work with the new TenDay APIs, if you <b>wish to continue using its location data utilities with updated data</b>.
+<li>(Optional) Extend ph-municipalities' <b>classes</b> by overriding fetch/receive logic to work with the new TenDay APIs, if you <b>wish to continue using its location data utilities with updated data</b>.<br><br>
 
 ```javascript
 const { ExcelFile } = require('ph-municipalities')
@@ -365,7 +366,7 @@ class PAGASATendayAPI extends ExcelFile {
 }
 
 const pagasaAPI = new PAGASATendayAPI()
-weatherForecast = pagasaAPI.getWeatherData()
+weatherForecast = pagasaAPI.listMunicipalities()
 
 ```
 
@@ -457,7 +458,7 @@ Click to expand the table of contents
 3. Create a `.env` file from the `.env.example` file inside the `/app` directory. Use the default values for the following environment variables.
 
    <details>
-   <summary>List of .env variables and their description.</summary>
+   <summary>👉 Click to view the list of <b>.env</b> variables and their description.</summary>
 
    > **INFO:** If installed as an NPM package with `npm i ph-municipalities`, create the `.env` file inside the NPM project's root directory.
 
