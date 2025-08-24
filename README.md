@@ -1,6 +1,6 @@
 ## ph-municipalities / archives
 
-This branch contains a **static snapshot** of the PAGASA 10-Day Weather Forecast Excel files (`day1.xlsx` – `day10.xlsx`), downloaded on **August 22, 2025** before PAGASA discontinued public access.
+This branch contains a **static snapshot** of the PAGASA 10-Day Weather Forecast Excel files (`day1.xlsx` – `day10.xlsx`), downloaded on **August 22, 2025** before PAGASA discontinued public access, [Issue #156](https://github.com/ciatph/ph-municipalities/issues/156).
 
 ### Purpose
 
