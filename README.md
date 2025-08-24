@@ -464,7 +464,7 @@ Click to expand the table of contents
 
    | Variable Name | Description |
    | --- | --- |
-   | EXCEL_FILE_URL    | (Optional) Remote Excel file's download URL.<br>If provided, the Excel file will be downloaded and saved on the specified `pathToFile` local filesystem location during the `ExcelFile` class initialization.<br>Read on [Usage](#usage) for more information. |
+   | EXCEL_FILE_URL    | (Optional) Remote Excel file's download URL.<br>If provided, the Excel file will be downloaded and saved on the specified `pathToFile` local filesystem location during the `ExcelFile` class initialization.<br>Read on [Class Usage](#class-usage) for more information. |
    | DEFAULT_EXCEL_FILE_URL | The default remote Excel file's download URL. |
    | ARCHIVED_EXCEL_FILE_URL | Download URL of an archived remote Excel file to serve as fixtures with the discontinuation of the PAGASA 10-Day Excel files.<br><br><blockquote>⚠️ Replace the value of `EXCEL_FILE_URL` and `DEFAULT_EXCEL_FILE_URL` with its value starting on **August 31, 2025** to avoid processing and test errors.</blockquote>See [Issue #156](https://github.com/ciatph/ph-municipalities/issues/156) for more information. |
    | SHEETJS_COLUMN    | Column name read by [sheetjs](https://sheetjs.com/) in an Excel file.<br>This column contains the municipality and province names following the string pattern<br>`"municipalityName (provinceName)"`<br>Default value is `__EMPTY`|
