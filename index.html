@@ -49,6 +49,22 @@
 
     <section class="readme">
         <article><h2>ph-municipalities</h2>
+<h3>⚠️ Warning</h3>
+<blockquote>
+<p>Starting on <strong>August 31, 2025</strong>, PAGASA will permanently discontinue its downloadable 10-Day Weather Forecast Excel files.</p>
+<p>After this date, <strong>ph-municipalities classes, scripts, and CLI</strong> will no longer fetch <strong>new forecast or location data</strong> from PAGASA. The tool will only work with:</p>
+<ul>
+<li>Its <a href="https://github.com/ciatph/ph-municipalities/blob/dev/app/data/day1.xlsx">default archived Excel file</a>, or</li>
+<li>Archived Excel files stored in the <a href="https://github.com/ciatph/ph-municipalities/tree/archives"><code>/archives</code></a> branch (via GitHub raw URLs, and <strong>no new files will be added</strong>).</li>
+</ul>
+<p>🟠 <em>From then on, results will reflect only static archived Excel files (no longer updated), suitable for reference or testing.</em></p>
+<p>➡️ <em><strong>This limitation comes directly from PAGASA discontinuing Excel downloads</strong>, not from a removal of functionality in ph-municipalities.</em></p>
+<p>💡 <em><strong>NOTE:</strong> ph-municipalities is <strong>not designed to sync with the <a href="https://tenday.pagasa.dost.gov.ph/docs">PAGASA TenDay API</a></strong>, and it has no immediate plans for fetching live data from that service.</em></p>
+<p>For details and discussion, see <a href="https://github.com/ciatph/ph-municipalities/issues/156">Issue #156</a> or jump to the <a href="#discontinuation-of-pagasa-excel-files">Discontinuation of PAGASA Excel Files FAQs</a>.</p>
+</blockquote>
+<br>
+<hr>
+<br>
 <p>The <strong>ph-municipalities</strong> NPM package provides <strong>NPM scripts</strong> that allow interactive querying of Philippine municipalities included in one or more provinces or from a whole region, with an option of writing them to JSON files from the command line through a CLI-like application and <strong>classes</strong> for only parsing and listing municipality names and provinces from Excel file data sources.</p>
 <p>It uses a <strong>PAGASA 10-day weather forecast Excel</strong> file in <code>/app/data/day1.xlsx</code> (downloaded and stored as of this 20220808) from PAGASA's <a href="https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast">10-Day Climate Forecast web page</a> as the default data source.</p>
 <blockquote>
@@ -66,7 +82,7 @@
   &quot;metadata&quot;: {
     &quot;source&quot;: &quot;https://pubfiles.pagasa.dost.gov.ph/pagasaweb/files/climate/tendayweatheroutlook/day1.xlsx&quot;,
     &quot;title&quot;: &quot;List of PH Municipalities By Province and Region&quot;,
-    &quot;description&quot;: &quot;This dataset generated with reference to the excel file contents from the source URL on 20220808.&quot;,
+    &quot;description&quot;: &quot;This dataset was generated with reference to the Excel file contents from the source URL on 20220808.&quot;,
     &quot;date_created&quot;: &quot;Mon Aug 08 2022&quot;
   },
   &quot;data&quot;: {
@@ -104,12 +120,12 @@ npm v8.5.0
 <li>Excel file
 <ul>
 <li>ph-municipalities uses a PAGASA 10-Day Forecast Excel file in the <code>/app/data</code> directory as data source.</li>
-<li>At minimum, the Excel file should have a <strong>column</strong> that contains municipality and province names following the pattern <code>&quot;municipalityName (provinceName)&quot;</code></li>
-<li>(Optional) The Excel file should have a row on the same <strong>column</strong> as above containing the text <code>&quot;Project Areas&quot;</code> plus two (2) blank rows before rows containing municipality and province names to enable strict testing and validation of the number of parsed data rows</li>
-<li>Checkout the excel file format on the <code>/app/data/day1.xlsx</code> sample file for more information</li>
+<li>At minimum, the Excel file should have a <strong>column</strong> that contains municipality and province names following the uniform pattern: <code>&quot;municipalityName (provinceName)&quot;</code></li>
+<li>(Optional) The Excel file should have a row on the same <strong>column</strong> as above containing the text <code>&quot;Municipalities&quot;</code> plus two (2) blank rows before rows containing municipality and province names to enable strict testing and validation of the number of parsed data rows</li>
+<li>Checkout the Excel file format on the <code>/app/data/day1.xlsx</code> sample file for more information</li>
 </ul>
 </li>
-<li>(Optional) Download URL for a remote excel file.
+<li>(Optional) Download URL for a remote Excel file.
 <ul>
 <li>See the <code>EXCEL_FILE_URL</code> variable on the <a href="#installation">Installation</a> section.</li>
 </ul>
@@ -129,10 +145,11 @@ npm v8.5.0
 <b>What is the purpose or goal of ph-municipalities?</b>
 </summary>
 <br>
-<p>ph-municipalities aims to provide a simple, organized, and flexible interface for viewing, querying, and listing Philippine provinces and municipalities using the <a href="https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast">PAGASA 10-day weather forecast Excel files</a> as the data source. It aims to enable easy extension of Philippine regions/provinces/municipalities listing for parsing the PAGASA 10-day weather forecast data.</p>
-<p>Its early stages were written as procedural functions within a <em>private backend project</em> for extracting 10-day weather forecast data from the PAGASA 10-day weather forecast Excel files. When the private project started gaining complexity, a need to separate the logic and management for listing the Philippine province and municipalities per region rose. Creating an independent, public OpenSource version listing the provinces and municipalities per region was decided after experiencing drawbacks and difficulties testing using similar OpenSource libraries (some of which are <a href="#similar-libraries">listed below</a>) for that project.</p>
+<p>ph-municipalities aims to provide a simple, organized, and flexible interface for viewing, querying, and listing Philippine provinces and municipalities using the <a href="https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast">PAGASA 10-day weather forecast Excel files</a> as the data source. It aims to enable easy extension of listing Philippine regions/provinces/municipalities for parsing PAGASA 10-day weather forecast data.</p>
+<p><strong>ph-municipalities</strong> evolved from basic procedural functions within a <em>private backend project</em> into a well-tested, documented, and modular open-source library, enabling broader community access and better code quality.</p>
+<p>Its early stages were written as procedural functions for extracting 10-day weather forecast data from the PAGASA 10-day weather forecast Excel files. When the private project started gaining complexity, a need to separate the logic, management, and testing for listing the Philippine provinces and municipalities per region arose. Creating an independent, public, and open source version listing the provinces and municipalities per region was decided after experiencing drawbacks and difficulties testing using similar open source libraries (some of which are <a href="#similar-libraries">listed below</a>) for that project.</p>
 <blockquote>
-<p><strong><em>ph-municipalities aim to contribute to the OpenSource community by listing ONLY Philippine provinces and municipalities' names, using <a href="https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast">PAGASA's 10-day weather forecast Excel files</a>, which are publicly accessible to everyone.</em></strong></p>
+<p><strong><em>ph-municipalities aim to contribute to the open source community by listing ONLY Philippine provinces and municipality names, using <a href="https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast">PAGASA's 10-day weather forecast Excel files</a>, which are publicly accessible to everyone.</em></strong></p>
 </blockquote>
 <p><strong>ph-municipalities</strong> is entirely public and open-source, and it has no linkage to private and proprietary source codes and resources.</p>
 </details>
@@ -151,7 +168,7 @@ npm v8.5.0
 <b>Are there alternative libraries to ph-municipalities for listing Philippine provinces and municipalities?</b>
 </summary>
 <br>
-<p>Yes, several OpenSource libraries and projects similar to ph-municipalities exist, which you can use in its place to list Philippine provinces and municipalities.</p>
+<p>Yes, several open source libraries and projects similar to ph-municipalities exist, which you can use in its place to list Philippine provinces and municipalities.</p>
 <p>Here is a list of several of these libraries and code repositories.
 Note, however, that these items use old and new data sources. These may not be for you if you require using provinces and municipalities' names data from the <a href="https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast">PAGASA 10-day weather forecast Excel files</a>.</p>
 <ul>
@@ -171,13 +188,13 @@ Note, however, that these items use old and new data sources. These may not be f
 <b>Is it possible to make ph-municipalities parse and extract PAGASA 10-day weather forecast data?</b>
 </summary>
 <br>
-<p>While ph-municipalites do not support parsing and extracting PAGASA 10-day weather forecast data, <em>you can extend the <code>ExcelFile</code> or <code>ExcelFactory</code> classes with custom logic and codes to enable parsing and extracting PAGASA 10-day weather forecast data</em>.</p>
+<p>While ph-municipalities do not support parsing and extracting PAGASA 10-day weather forecast data, <em>you can extend the <code>ExcelFile</code> or <code>ExcelFactory</code> classes with custom logic and codes to enable parsing and extracting PAGASA 10-day weather forecast data</em>.</p>
 <p>Since the <code>ExcelFile</code> or <code>ExcelFactory</code> are JavaScript <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes">Classes</a> (Functions in disguise, not true OOP, but inheritance still works), you can extend them with class inheritance, overriding or creating new class methods to accommodate processing the PAGASA 10-day weather forecast data. Refer to the <a href="https://ciatph.github.io/ph-municipalities">ph-municipalities class documentation</a> to know more about the available classes, member variables, and methods.</p>
 <p>An example of extending the classes to parse PAGASA 10-day weather forecast data may go along the lines of:</p>
 <pre class="prettyprint source lang-javascript"><code>const { ExcelFile } = require('ph-municipalities')
 
 class PAGASATendayParser extends ExcelFile {
-  /* Override constructor if neccessary
+  /* Override constructor if necessary
   constructor (params) {
     super(params)
 
@@ -236,6 +253,108 @@ The region/province mapping defined in this file may become outdated as time pas
 <p><strong>NOTE:</strong><br>
 Overall, the provinces and municipality list rely on the latest contents of a <a href="https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast">PAGASA 10-day Excel file</a> and manual configuration of region/province names mapping in the <code>/app/config/regions.json</code> file (See <a href="#using-a-custom-configuration-file">Class Usage - Using a Custom Configuration File</a>). It is not yet known and tested if these are in sync with the latest regions, provinces, and municipalities in the more standard and canon <a href="https://psa.gov.ph/classification/psgc">Philippine Standard Geographic Code (PSGC)</a> data.</p>
 </blockquote>
+</details>
+<br>
+<p><span id="discontinuation-of-pagasa-excel-files"></span></p>
+<h3>📉 Discontinuation of PAGASA Excel Files</h3>
+<p>As of <strong>August 31, 2025</strong>, PAGASA has discontinued its <strong>10-Day Weather Forecast Excel</strong> files. From now on, <strong>ph-municipalities</strong> only works with static archived data.</p>
+<p>For common questions (e.g., whether the tool will continue to access new data or why it can't use the API automatically), please refer to the <strong>FAQs</strong> below.</p>
+<details>
+<summary style="color: #808080; font-size: 22px;">
+  <span style="color: #808080; font-size: 22px;">
+    <b>Will ph-municipalities get new data after August 31, 2025?</b>
+  </span>
+</summary>
+<br>
+<p>No. It only works with archived Excel files (see <a href="#discontinuation-of-pagasa-excel-files">Discontinuation</a>).</p>
+<p>It applies to all <strong>classes, scripts, and CLI commands</strong>. None of them will fetch new forecasts or updated municipality lists.</p>
+</details>
+<br>
+<details>
+<summary style="color: #808080; font-size: 22px;">
+  <span style="color: #808080; font-size: 22px;">
+    <b>Why can't ph-municipalities switch to the new PAGASA TenDay API automatically?</b>
+  </span>
+</summary>
+<br>
+<p>The <a href="https://tenday.pagasa.dost.gov.ph/docs">PAGASA TenDay API</a> requires an officially approved request token. This open-source project is not linked to an official PAGASA initiative, so token requests may not be granted.</p>
+<blockquote>
+<p>💡 ph-municipalities will remain archived-only, unless integrated manually with the API by developers.</p>
+</blockquote>
+</details>
+<br>
+<details>
+<summary style="color: #808080; font-size: 22px;">
+  <span style="color: #808080; font-size: 22px;">
+    <b>What should I use ph-municipalities for after August 31, 2025?</b>
+  </span>
+</summary>
+<br>
+<p>It can still be used as a <strong>reference</strong> or for <strong>testing</strong> with the <a href="https://github.com/ciatph/ph-municipalities/tree/archives">archived Excel files</a>.</p>
+<p>For <strong>live weather and location updates</strong>, consider migrating to the official <a href="https://tenday.pagasa.dost.gov.ph/docs">PAGASA TenDay API</a> with an approved token.</p>
+</details>
+<br>
+<details>
+<summary style="color: #808080; font-size: 22px;">
+  <span style="color: #808080; font-size: 22px;">
+    <b>My project depends on ph-municipalities. Will it break?</b>
+  </span>
+</summary>
+<br>
+<p>In short - yes, it will break when using its remote Excel file download URL that points to the <code>DEFAULT_EXCEL_FILE_URL</code> (see <code>.env.example</code>). It will also risk using outdated data when using the default archived Excel data sources.</p>
+<blockquote>
+<p>Like mentioned, syncing with the <strong>PAGASA TenDay APIs</strong> is currently <strong>out of scope of ph-municipalities</strong> due to the reasons mentioned in the FAQs above. Projects depending on ph-municipalities should consider alternate options in accordance with the <strong>discontinuation of the PAGASA 10-Day Weather Forecast Excel files</strong> and the availability of the newly-released <a href="https://tenday.pagasa.dost.gov.ph/docs"><strong>PAGASA TenDay APIs</strong></a>.</p>
+</blockquote>
+<blockquote>
+<p>💡 <strong>NOTE:</strong> The open-source version of ph-municipalities provides better testing, documentation, and modularity compared to its original form as basic procedural functions in a private project.
+Even in an official project, developers would still need an <b>approved API token</b> and would need to shift from <b>handling Excel files</b> to <b>handling PAGASA REST API responses</b>.</p>
+</blockquote>
+<h4>Recommended Migration Steps</h4>
+<ol>
+<li>Request an official API token from PAGASA to use the TenDay APIs.</li>
+<li>Stop using ph-municipalities (built only for the public <b>PAGASA 10-Day Excel</b> files) and <b>implement your own TenDay API solution.</b></li>
+<li>(Optional) Extend ph-municipalities' <b>classes</b> by overriding fetch/receive logic to work with the new TenDay APIs, if you <b>wish to continue using its location data utilities with updated data</b>.<br><br>
+<pre class="prettyprint source lang-javascript"><code>const { ExcelFile } = require('ph-municipalities')
+
+class PAGASATendayAPI extends ExcelFile {
+  /* Override constructor if necessary */
+  constructor (params) {
+    super(params)
+
+    // - Custom class initialization logic here
+  }
+
+  async init () {
+    // - Update class initialization logic
+  }
+
+  download () {
+    // - Fetch from PAGASA TenDay APIs instead of Excel files
+  }
+
+  listRegions () { /* Fetch from API */ }
+  listAllProvinces () { /* Fetch from API */ }
+  listMunicipalities () { /* Fetch from API */ }
+
+  ...
+}
+
+const pagasaAPI = new PAGASATendayAPI()
+weatherForecast = pagasaAPI.listMunicipalities()
+
+</code></pre>
+</li>
+</ol>
+</details>
+<br>
+<details>
+<summary style="color: #808080; font-size: 22px;">
+  <span style="color: #808080; font-size: 22px;">
+    <b>Where can I learn more about these changes?</b>
+  </span>
+</summary>
+<br>
+<p>See <a href="https://github.com/ciatph/ph-municipalities/issues/156">Issue #156</a> for details and discussion.</p>
 </details>
 <br>
 <p><span id="table-of-contents"></span></p>
@@ -326,7 +445,7 @@ npm install
 <li>
 <p>Create a <code>.env</code> file from the <code>.env.example</code> file inside the <code>/app</code> directory. Use the default values for the following environment variables.</p>
 <details>
-<summary>List of .env variables and their description.</summary>
+<summary>👉 Click to view the list of <b>.env</b> variables and their description.</summary>
 <blockquote>
 <p><strong>INFO:</strong> If installed as an NPM package with <code>npm i ph-municipalities</code>, create the <code>.env</code> file inside the NPM project's root directory.</p>
 </blockquote>
@@ -340,11 +459,19 @@ npm install
 <tbody>
 <tr>
 <td>EXCEL_FILE_URL</td>
-<td>(Optional) Remote excel file's download URL.<br>If provided, the excel file will be downloaded and saved on the specified <code>pathToFile</code> local filesystem location during the <code>ExcelFile</code> class initialization.<br>Read on <a href="#usage">Usage</a> for more information.</td>
+<td>(Optional) Remote Excel file's download URL.<br>If provided, the Excel file will be downloaded and saved on the specified <code>pathToFile</code> local filesystem location during the <code>ExcelFile</code> class initialization.<br>Read on <a href="#class-usage">Class Usage</a> for more information.</td>
+</tr>
+<tr>
+<td>DEFAULT_EXCEL_FILE_URL</td>
+<td>The default remote Excel file's download URL.</td>
+</tr>
+<tr>
+<td>ARCHIVED_EXCEL_FILE_URL</td>
+<td>Download URL of an archived remote Excel file to serve as fixtures with the discontinuation of the PAGASA 10-Day Excel files.<br><br><blockquote>⚠️ Replace the value of <code>EXCEL_FILE_URL</code> and <code>DEFAULT_EXCEL_FILE_URL</code> with its value starting on <strong>August 31, 2025</strong> to avoid processing and test errors.</blockquote>See <a href="https://github.com/ciatph/ph-municipalities/issues/156">Issue #156</a> for more information.</td>
 </tr>
 <tr>
 <td>SHEETJS_COLUMN</td>
-<td>Column name read by <a href="https://sheetjs.com/">sheetjs</a> in an excel file.<br>This column contains the municipality and province names following the string pattern<br><code>&quot;municipalityName (provinceName)&quot;</code><br>Default value is <code>__EMPTY</code></td>
+<td>Column name read by <a href="https://sheetjs.com/">sheetjs</a> in an Excel file.<br>This column contains the municipality and province names following the string pattern<br><code>&quot;municipalityName (provinceName)&quot;</code><br>Default value is <code>__EMPTY</code></td>
 </tr>
 <tr>
 <td>SORT_ALPHABETICAL</td>
@@ -451,10 +578,10 @@ npm run list:region
 </summary>
 <h3><code>npm start</code> / <code>npm run list:region</code></h3>
 <ul>
-<li>Asks users to enter the download URL of a remote excel file or use the default local excel file
+<li>Asks users to enter the download URL of a remote Excel file or use the default local Excel file
 <ul>
-<li>Loads and parses the local excel file in <code>/app/data/day1.xlsx</code> by default.</li>
-<li>Loads and parses the downloaded excel file to <code>/app/data/datasource.xlsx</code> if download URL in the class constructor is provided.</li>
+<li>Loads and parses the local Excel file in <code>/app/data/day1.xlsx</code> by default.</li>
+<li>Loads and parses the downloaded Excel file to <code>/app/data/datasource.xlsx</code> if download URL in the class constructor is provided.</li>
 </ul>
 </li>
 <li>Displays a list of available PH <strong>region</strong> names.</li>
@@ -468,10 +595,10 @@ npm run list:region
 </ul>
 <h3><code>npm run list:province</code></h3>
 <ul>
-<li>Asks users to enter the download URL of a remote excel file or use the default local excel file
+<li>Asks users to enter the download URL of a remote Excel file or use the default local Excel file
 <ul>
-<li>Loads and parses the local excel file in <code>/app/data/day1.xlsx</code> by default.</li>
-<li>Loads and parses the downloaded excel file to <code>/app/data/datasource.xlsx</code> if download URL in the class constructor is provided.</li>
+<li>Loads and parses the local Excel file in <code>/app/data/day1.xlsx</code> by default.</li>
+<li>Loads and parses the downloaded Excel file to <code>/app/data/datasource.xlsx</code> if download URL in the class constructor is provided.</li>
 </ul>
 </li>
 <li>Lists all municipalities under specified province(s) via commandline input.</li>
@@ -576,7 +703,7 @@ docker exec -u root -it ph-municipalities npm run docs:build
 <p>Run tests defined in the <code>/app/__tests__</code> directory.</p>
 <h3><code>npm run example</code></h3>
 <ul>
-<li>Downloads and parses a remote excel file.</li>
+<li>Downloads and parses a remote Excel file defined in the <code>EXCEL_FILE_URL</code> <code>.env</code> variable.</li>
 <li>Demonstrates sample usage with <code>await</code></li>
 </ul>
 <h3><code>npm run debug</code></h3>
@@ -595,10 +722,10 @@ docker exec -u root -it ph-municipalities npm run docs:build
 <pre class="prettyprint source lang-javascript"><code>const path = require('path')
 const ExcelFile = require('../classes/excel')
 
-// Use the the following if installed via npm
+// Use the following if installed via npm
 // const { ExcelFile } = require('ph-municipalities')
 
-// Reads an existing excel file on /app/data/day1.xlsx
+// Reads an existing Excel file on /app/data/day1.xlsx
 file = new ExcelFile({
    pathToFile: path.join(__dirname, '..', '..', 'data', 'day1.xlsx'),
    // fastload: false
@@ -624,7 +751,7 @@ const json = file.writeMunicipalities({
 // without writing to a JSON file
 const json2 = file.shapeJsonData(provinces)
 
-// JSON data of the parsed excel file will is accessible on
+// JSON data of the parsed Excel file will is accessible on
 // file.datalist
 console.log(file.datalist)
 
@@ -641,10 +768,10 @@ Reading regions, provinces and municipalities
 <pre class="prettyprint source lang-javascript"><code>const path = require('path')
 const ExcelFile = require('../classes/excel')
 
-// Use the the following if installed via npm
+// Use the following if installed via npm
 // const { ExcelFile } = require('ph-municipalities')
 
-// Reads an existing excel file on /app/data/day1.xlsx
+// Reads an existing Excel file on /app/data/day1.xlsx
 const file = new ExcelFile({
   pathToFile: path.join(__dirname, '..', '..', 'data', 'day1.xlsx'),
   fastload: true
@@ -681,7 +808,7 @@ Remote Excel file download example
 const path = require('path')
 const ExcelFile = require('../classes/excel')
 
-// Use the the following if installed via npm
+// Use the following if installed via npm
 // const { ExcelFile } = require('ph-municipalities')
 
 const main = async () => {
@@ -714,7 +841,7 @@ const path = require('path')
 
 const ExcelFile = require('../classes/excel')
 
-// Use the the following if installed via npm
+// Use the following if installed via npm
 // const { ExcelFile } = require('ph-municipalities')
 
 const main = () => {
@@ -791,7 +918,7 @@ const path = require('path')
 
 const ExcelFile = require('../classes/excel')
 
-// Use the the following if installed via npm
+// Use the following if installed via npm
 // const { ExcelFile } = require('ph-municipalities')
 
 const config = require('./config.json')
@@ -871,6 +998,9 @@ node dist/province
 <pre class="prettyprint source lang-bash"><code>docker exec -u root -it ph-municipalities npm run docs:build
 </code></pre>
 </li>
+<li>
+<p>View the generated documentation in the <code>/app/docs</code> directory. Click the <code>/app/docs/index.html</code> file to launch the documentation website.</p>
+</li>
 </ol>
 </details>
 <br>
@@ -910,6 +1040,9 @@ chmod u+x scripts/docs-build.sh
 <pre class="prettyprint source lang-bash"><code>./scripts/docs-install.sh
 ./scripts/docs-build.sh
 </code></pre>
+</li>
+<li>
+<p>View the generated documentation in the <code>/app/docs</code> directory. Click the <code>/app/docs/index.html</code> file to launch the documentation website.</p>
 </li>
 </ol>
 </details>
@@ -974,7 +1107,7 @@ chmod u+x scripts/docs-build.sh
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.3</a> on Thu Jul 24 2025 20:17:57 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.3</a> on Sun Aug 24 2025 16:00:48 GMT+0000 (Coordinated Universal Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
