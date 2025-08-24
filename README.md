@@ -715,7 +715,7 @@ This is a simple usage example of the `ExcelFile` class.
 const path = require('path')
 const ExcelFile = require('../classes/excel')
 
-// Use the the following if installed via npm
+// Use the following if installed via npm
 // const { ExcelFile } = require('ph-municipalities')
 
 // Reads an existing Excel file on /app/data/day1.xlsx
@@ -765,7 +765,7 @@ Reading regions, provinces and municipalities
 const path = require('path')
 const ExcelFile = require('../classes/excel')
 
-// Use the the following if installed via npm
+// Use the following if installed via npm
 // const { ExcelFile } = require('ph-municipalities')
 
 // Reads an existing Excel file on /app/data/day1.xlsx
@@ -810,7 +810,7 @@ require('dotenv').config()
 const path = require('path')
 const ExcelFile = require('../classes/excel')
 
-// Use the the following if installed via npm
+// Use the following if installed via npm
 // const { ExcelFile } = require('ph-municipalities')
 
 const main = async () => {
@@ -848,7 +848,7 @@ const path = require('path')
 
 const ExcelFile = require('../classes/excel')
 
-// Use the the following if installed via npm
+// Use the following if installed via npm
 // const { ExcelFile } = require('ph-municipalities')
 
 const main = () => {
@@ -937,7 +937,7 @@ const path = require('path')
 
 const ExcelFile = require('../classes/excel')
 
-// Use the the following if installed via npm
+// Use the following if installed via npm
 // const { ExcelFile } = require('ph-municipalities')
 
 const config = require('./config.json')
