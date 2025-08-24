@@ -491,7 +491,7 @@ class ExcelFile {
       metadata: {
         source: url || '',
         title: 'List of PH Municipalities By Province and Region',
-        description: 'This dataset generated with reference to the excel file contents from the source URL.',
+        description: 'This dataset was generated with reference to the Excel file contents from the source URL.',
         date_created: new Date().toDateString()
       },
       data: this.listMunicipalities({ provinces })

@@ -15,6 +15,7 @@ const { arrayToString } = require('../../src/lib/utils')
  * @param {Set} params.uniqueProvinces - `Set` version of `allProvinces` to ensure unique province names,
  * @param {String[]} params.fromConfig - Provinces present in the config (PAGASA seasonal) but missing in the 10-Day Excel file
  * @param {String[]} params.fromExcel - Provinces present in the 10-Day Excel file but missing in the config (PAGASA seasonal)
+ * @param {number} [params.invalidRowsCount=0] - Count of invalid rows parsed from the Excel source
  * @returns {Object} Object containing Arrays of processed province names
  *    - `uniqueExcelProvinces` {Set} - updated version of the `uniqueExcelProvinces` input parameter
  *    - `uniqueProvinces` {Set} - updated version of the `uniqueProvinces` input parameter

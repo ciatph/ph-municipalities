@@ -46,7 +46,7 @@ Extracted municipalities are written in JSON files following the format:
   "metadata": {
     "source": "https://pubfiles.pagasa.dost.gov.ph/pagasaweb/files/climate/tendayweatheroutlook/day1.xlsx",
     "title": "List of PH Municipalities By Province and Region",
-    "description": "This dataset generated with reference to the Excel file contents from the source URL on 20220808.",
+    "description": "This dataset was generated with reference to the Excel file contents from the source URL on 20220808.",
     "date_created": "Mon Aug 08 2022"
   },
   "data": {
@@ -172,7 +172,7 @@ Note, however, that these items use old and new data sources. These may not be f
 
 <br>
 
-While ph-municipalites do not support parsing and extracting PAGASA 10-day weather forecast data, _you can extend the `ExcelFile` or `ExcelFactory` classes with custom logic and codes to enable parsing and extracting PAGASA 10-day weather forecast data_.
+While ph-municipalities do not support parsing and extracting PAGASA 10-day weather forecast data, _you can extend the `ExcelFile` or `ExcelFactory` classes with custom logic and codes to enable parsing and extracting PAGASA 10-day weather forecast data_.
 
 Since the `ExcelFile` or `ExcelFactory` are JavaScript [Classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) (Functions in disguise, not true OOP, but inheritance still works), you can extend them with class inheritance, overriding or creating new class methods to accommodate processing the PAGASA 10-day weather forecast data. Refer to the [ph-municipalities class documentation](https://ciatph.github.io/ph-municipalities) to know more about the available classes, member variables, and methods.
 
@@ -182,7 +182,7 @@ An example of extending the classes to parse PAGASA 10-day weather forecast data
 const { ExcelFile } = require('ph-municipalities')
 
 class PAGASATendayParser extends ExcelFile {
-  /* Override constructor if neccessary
+  /* Override constructor if necessary
   constructor (params) {
     super(params)
 
@@ -343,7 +343,7 @@ In short - yes, it will break when using its remote Excel file download URL that
 const { ExcelFile } = require('ph-municipalities')
 
 class PAGASATendayAPI extends ExcelFile {
-  /* Override constructor if neccessary */
+  /* Override constructor if necessary */
   constructor (params) {
     super(params)
 
@@ -688,7 +688,7 @@ Run tests defined in the `/app/__tests__` directory.
 
 ### `npm run example`
 
-- Downloads and parses a remote Excel file.
+- Downloads and parses a remote Excel file defined in the `EXCEL_FILE_URL` `.env` variable.
 - Demonstrates sample usage with `await`
 
 ### `npm run debug`
