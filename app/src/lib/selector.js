@@ -22,7 +22,7 @@ const selectDataSource = async () => {
   const archivedUrl = process.env.ARCHIVED_EXCEL_FILE_URL ||
     'https://raw.githubusercontent.com/ciatph/ph-municipalities/refs/heads/archives/day1.xlsx'
 
-  let msgRemote = `[⚠️  WARNING]: Should you still want to use a remote Excel file, you can use the archived remote Excel file as data source at:\n${archivedUrl}\n`
+  const msgRemote = `[⚠️  WARNING]: Should you still want to use a remote Excel file, you can use the archived remote Excel file as data source at:\n${archivedUrl}\n`
   const msgUseDefault = '[⚠️  WARNING]: Please use the default local Excel file as data source.\n'
   let msgWarn = '[⚠️  WARNING]: PAGASA 10-Day Excel files are no longer available.\n'
   msgWarn += 'https://github.com/ciatph/ph-municipalities/issues/156\n'
